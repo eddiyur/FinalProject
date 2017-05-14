@@ -13,15 +13,16 @@ namespace FinalProject.Data_Structures
         public enum OrderTypeEnum
         {
             CustomerOrder,
-            SupplierOrder
+            SupplierOrder,
         };
 
         public enum OrderStatusEnum
         {
-            open,
-            approved,
-            canceled,
-            delivered
+            Open,
+            Approved,
+            InProgress,
+            Canceled,
+            Delivered
         }
 
         public Person person { get; set; }
@@ -36,5 +37,19 @@ namespace FinalProject.Data_Structures
         {
 
         }
-    }
+
+        /// <summary>
+        /// /not ready
+        /// </summary>
+        /// <returns></returns>
+        public List<ProductionOrder> generateProductionOrdersFromCustomerOrder()
+        {
+            List<ProductionOrder> productionOrderList = new List<ProductionOrder>();
+
+
+            return productionOrderList;
+        }
+
+
+    }//end orderClass
 }

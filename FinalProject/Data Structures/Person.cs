@@ -9,7 +9,7 @@ namespace FinalProject.Data_Structures
     public enum PersonTypeEnum
     {
         Customer,
-        Supplier
+        Supplier,
     }
 
     public class Person

@@ -11,8 +11,8 @@ namespace FinalProject.Data_Structures
     {
         public struct SetupTimeStructure
         {
-            Product SourceProduct;
-            Product TargetProduct;
+            ProductClass SourceProduct;
+            ProductClass TargetProduct;
             double SetupTipe;
         }
 
@@ -35,8 +35,8 @@ namespace FinalProject.Data_Structures
         public int ToolID { get; set; }
         public ToolStatuses ToolStatus { get; set; }
         public ProductionMethods ProductionMethod { get; set; }
-        List<SetupTimeStructure> setupTime { get; set; }
-
+        public List<SetupTimeStructure> setupTime { get; set; }
+        public Dictionary<ProductClass, int> ProductionTime { get; set; }
 
     }
 }

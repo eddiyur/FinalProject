@@ -14,7 +14,10 @@ namespace FinalProject.Data_Structures
         public double ProductCapacity { get; set; }
         public Dictionary<Product,int> ProductTree { get; set; }
 
-        //public List<Process> ProductProcessList{get;set;}
+        public Dictionary<Tool, int> ProductProcess { get; set; } // רשימת פעולות עיבוד ומשכן: מכונה-משך עיבוד במכונה
+        public Dictionary<Tool, int> ProductSetup { get; set; } //רשימת פעולות כוונון למוצר: מכונה-משך כוונון של מכונה למוצר
+
+
 
 
 

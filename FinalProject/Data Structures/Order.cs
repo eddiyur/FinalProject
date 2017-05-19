@@ -31,6 +31,7 @@ namespace FinalProject.Data_Structures
         public DateTime OrderDate { get; set; }
         public DateTime OrderDeliveryDate { get; set; }
         public List<PriceTable> ProductsList { get; set; }
+
         public OrderStatusEnum OrderStatus;
 
         public Order()
@@ -44,8 +45,22 @@ namespace FinalProject.Data_Structures
         /// <returns></returns>
         public List<ProductionOrder> generateProductionOrdersFromCustomerOrder()
         {
+            ///to develop//
+            string productOrderId = "";
+            ////    
+
             List<ProductionOrder> productionOrderList = new List<ProductionOrder>();
 
+            foreach (PriceTable priceTable in ProductsList)
+            {
+                int amount = priceTable.Amount;
+                for (int i = 0; i < amount; i++)
+                {
+                    ProductionOrder productionOrder = new ProductionOrder(productOrderId, OrderDate, OrderDeliveryDate, priceTable.Product);
+                    productionOrderList.Add(productionOrder);
+                }
+
+            }
 
             return productionOrderList;
         }

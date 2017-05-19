@@ -16,7 +16,7 @@ namespace FinalProject.Data_Structures
     {
         public string Name { get; set; }
         public string ID { get; set; }
-        PersonTypeEnum PersonType { get; set; }
+        public PersonTypeEnum PersonType { get; set; }
 
         public Person(string name, string id, PersonTypeEnum personType)
         {
@@ -25,12 +25,21 @@ namespace FinalProject.Data_Structures
             PersonType = personType;
         }
 
+        public Person(string name, string id)
+        {
+            Name = name;
+            ID = id;
+        }
+
     }//end class Person
 
     public class Customer : Person
     {
-        public Customer(string name, string id, PersonTypeEnum personType) : base(name, id, personType)
+        public Customer(string name, string id) : base(name, id)
         {
+            Name = name;
+            ID = id;
+            PersonType = PersonTypeEnum.Customer ;
         }
 
     }
@@ -43,10 +52,13 @@ namespace FinalProject.Data_Structures
             int DeliveryTime;
         }
 
-        public Supplier(string name, string id, PersonTypeEnum personType) : base(name, id, personType)
+        public Supplier(string name, string id) : base(name, id)
         {
-
+            Name = name;
+            ID = id;
+            PersonType = PersonTypeEnum.Supplier;
         }
+
         public List<PriceMatrixStruct> PriceMatrix { get; set; }
         public double Reliability { get; set; }
     }

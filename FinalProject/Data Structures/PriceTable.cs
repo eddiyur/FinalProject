@@ -9,10 +9,10 @@ namespace FinalProject.Data_Structures
     public class PriceTable
     {
         public ProductClass Product { get; set; }
-        public double Amount { get; set; }
+        public int Amount { get; set; }
         public double Cost { get; set; }
 
-        public PriceTable(ProductClass product, double amount, double cost)
+        public PriceTable(ProductClass product, int amount, double cost)
         {
             this.Product = product;
             Amount = amount;

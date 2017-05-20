@@ -8,6 +8,15 @@ namespace FinalProject.Data_Structures
 {
     public class ProductClass
     {
+        public ProductClass(string productID,string productName, double productCapacity)
+        {
+            ProductID = productID;
+            PruductName = productName;
+            ProductCapacity = productCapacity;
+            ProductTree = new Dictionary<ProductClass, int>();
+            ProductionToolList = new List<Tool>();
+            ProductionProgress = new Dictionary<Tool, ProductionStatusEnum>();
+        }
         public enum ProductionStatusEnum
         {
             NotStarted,

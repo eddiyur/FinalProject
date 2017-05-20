@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FinalProject.Data_Structures;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +16,12 @@ namespace FinalProject
         public Form1()
         {
             InitializeComponent();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            LoadData loadData = new LoadData();
+            loadData.loadProducts();
         }
     }
 }

@@ -31,6 +31,8 @@ namespace FinalProject.Data_Structures
             ID = id;
         }
 
+        
+
     }//end class Person
 
     public class Customer : Person
@@ -42,6 +44,7 @@ namespace FinalProject.Data_Structures
             PersonType = PersonTypeEnum.Customer ;
         }
 
+     
     }
 
     public class Supplier : Person
@@ -58,7 +61,13 @@ namespace FinalProject.Data_Structures
             ID = id;
             PersonType = PersonTypeEnum.Supplier;
         }
-
+        public Supplier(string name, string id ,double reliability) : base(name, id)
+        {
+            Name = name;
+            ID = id;
+            Reliability = reliability;
+            PersonType = PersonTypeEnum.Supplier;
+        }
         public List<PriceMatrixStruct> PriceMatrix { get; set; }
         public double Reliability { get; set; }
     }

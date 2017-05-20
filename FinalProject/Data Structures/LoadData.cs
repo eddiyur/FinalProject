@@ -63,7 +63,7 @@ namespace FinalProject.Data_Structures
             int a=0;
             //  ProductClass producttest = productList.Select;
 
-           var query2 = productList.Select(product => product.PruductName="ProductA");
+           var query2 = productList.Select(product => product.PrudoctName== "Product_A");
 
             return productList;
         }

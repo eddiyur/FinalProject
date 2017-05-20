@@ -61,9 +61,9 @@ namespace FinalProject.Data_Structures
                 productList.Add(product);
             }
             int a=0;
-          //  ProductClass producttest = productList.Select;
+            //  ProductClass producttest = productList.Select;
 
-
+           var query2 = productList.Select(product => product.PruductName="ProductA");
 
             return productList;
         }

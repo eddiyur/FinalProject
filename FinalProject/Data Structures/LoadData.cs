@@ -16,9 +16,6 @@ namespace FinalProject.Data_Structures
             UtilitiesFileManager.FileManager fileManager = new UtilitiesFileManager.FileManager();
             string folderPath = fileManager.ExePath() + "dataSets\\";
 
-            //  DataTable customersTable = fileManager.GetCSV(folderPath + "CustomersTable.csv");
-          //  DataTable suppliersTable = fileManager.GetCSV(folderPath + "SuppliersTable.csv");
-
             List<Customer> customerList = getCustumerList(folderPath);
             List<Supplier> supplierList = getSuppliersList(folderPath);
             List<ProductClass> productList = getProductList(folderPath);
@@ -63,6 +60,11 @@ namespace FinalProject.Data_Structures
                 ProductClass product = new ProductClass(row[0].ToString(), row[1].ToString(), Double.Parse(row[2].ToString()));
                 productList.Add(product);
             }
+            int a=0;
+          //  ProductClass producttest = productList.Select;
+
+
+
             return productList;
         }
 

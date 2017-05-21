@@ -15,7 +15,8 @@ namespace FinalProject.Data_Structures
             ProductCapacity = productCapacity;
             ProductTree = new Dictionary<ProductClass, int>();
             ProductionToolList = new List<Tool>();
-            ProductionProgress = new Dictionary<Tool, ProductionStatusEnum>();
+            setInitProductionProgress();
+            //ProductionProgress = new Dictionary<Tool, ProductionStatusEnum>();
         }
         public enum ProductionStatusEnum
         {

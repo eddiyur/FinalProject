@@ -11,7 +11,7 @@ namespace FinalProject.Data_Structures
         public ProductClass(string productID,string productName, double productCapacity)
         {
             ProductID = productID;
-            PrudoctName = productName;
+            ProductName = productName;
             ProductCapacity = productCapacity;
             ProductTree = new Dictionary<ProductClass, int>();
             ProductionToolList = new List<Tool>();
@@ -25,7 +25,7 @@ namespace FinalProject.Data_Structures
         }
 
         public string ProductID { get; set; }
-        public string PrudoctName { get; set; }
+        public string ProductName { get; set; }
         public double ProductCapacity { get; set; }
         public Dictionary<ProductClass, int> ProductTree { get; set; }
         public List<Tool> ProductionToolList { get; set; }

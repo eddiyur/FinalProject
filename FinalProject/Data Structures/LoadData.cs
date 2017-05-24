@@ -16,12 +16,12 @@ namespace FinalProject.Data_Structures
             UtilitiesFileManager.FileManager fileManager = new UtilitiesFileManager.FileManager();
             string folderPath = fileManager.ExePath() + "dataSets\\";
 
-            List<Customer> customerList = getCustumerList(folderPath);
+            List<Customer> customerList = getCustomerList(folderPath);
             List<Supplier> supplierList = getSuppliersList(folderPath);
             List<ProductClass> productList = getProductList(folderPath);
         }
 
-        public List<Customer> getCustumerList(string folderPath)
+        public List<Customer> getCustomerList(string folderPath)
         {
             UtilitiesFileManager.FileManager fileManager = new UtilitiesFileManager.FileManager();
             DataTable customersTable = fileManager.GetCSV(folderPath + "CustomersTable.csv");

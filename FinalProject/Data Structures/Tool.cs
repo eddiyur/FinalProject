@@ -13,7 +13,7 @@ namespace FinalProject.Data_Structures
         {
             ProductClass SourceProduct;
             ProductClass TargetProduct;
-            double SetupTipe;
+            double SetupTime;
         }
 
         public enum ToolStatuses

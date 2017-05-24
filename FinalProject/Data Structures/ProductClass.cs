@@ -8,6 +8,9 @@ namespace FinalProject.Data_Structures
 {
     public class ProductClass
     {
+        //struct production progress
+
+
         public ProductClass(string productID,string productName, double productCapacity)
         {
             ProductID = productID;

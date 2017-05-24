@@ -33,6 +33,7 @@ namespace FinalProject.Data_Structures
         }
         public string ToolName { get; set; }
         public int ToolID { get; set; }
+        public ProductClass CorrectSetupProduct { get; set; }
         public ToolStatuses ToolStatus { get; set; }
         public ProductionMethods ProductionMethod { get; set; }
         public List<SetupTimeStructure> setupTime { get; set; }

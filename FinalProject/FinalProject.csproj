@@ -49,7 +49,7 @@
   <ItemGroup>
     <Compile Include="Data Structures\LoadData.cs" />
     <Compile Include="Data Structures\Order.cs" />
-    <Compile Include="Data Structures\Person.cs" />
+    <Compile Include="Data Structures\PersonClass.cs" />
     <Compile Include="Data Structures\PriceTable.cs" />
     <Compile Include="Data Structures\ProductClass.cs" />
     <Compile Include="Data Structures\ProductionOrder.cs" />
@@ -61,6 +61,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Logic\Prediction\PredictionManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">

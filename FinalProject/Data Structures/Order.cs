@@ -25,7 +25,7 @@ namespace FinalProject.Data_Structures
             Delivered
         }
 
-        public Person person { get; set; }
+        public PersonClass Person { get; set; }
         public OrderTypeEnum OrderType { get; set; }
         public string OrderID { get; set; }
         public DateTime OrderDate { get; set; }
@@ -35,8 +35,17 @@ namespace FinalProject.Data_Structures
         public OrderStatusEnum OrderStatus;
 
         public Order()
-        {
+        {        }
 
+
+        public Order(PersonClass person, OrderTypeEnum orderType, string orderID, DateTime orderDate, DateTime orderDeliveryDate, List<PriceTable> productsList)
+        {
+            Person = person;
+            OrderType = orderType;
+            OrderID = orderID;
+            OrderDate = orderDate;
+            OrderDeliveryDate = orderDeliveryDate;
+            ProductsList = productsList;
         }
 
         /// <summary>

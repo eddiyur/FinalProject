@@ -12,20 +12,20 @@ namespace FinalProject.Data_Structures
         Supplier,
     }
 
-    public class Person
+    public class PersonClass
     {
         public string Name { get; set; }
         public string ID { get; set; }
         public PersonTypeEnum PersonType { get; set; }
 
-        public Person(string name, string id, PersonTypeEnum personType)
+        public PersonClass(string name, string id, PersonTypeEnum personType)
         {
             Name = name;
             ID = id;
             PersonType = personType;
         }
 
-        public Person(string name, string id)
+        public PersonClass(string name, string id)
         {
             Name = name;
             ID = id;
@@ -35,7 +35,7 @@ namespace FinalProject.Data_Structures
 
     }//end class Person
 
-    public class Customer : Person
+    public class Customer : PersonClass
     {
         public Customer(string name, string id) : base(name, id)
         {
@@ -47,7 +47,7 @@ namespace FinalProject.Data_Structures
      
     }
 
-    public class Supplier : Person
+    public class Supplier : PersonClass
     {
         public struct PriceMatrixStruct
         {

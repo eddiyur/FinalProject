@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FinalProject.Logic.Prediction;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -19,9 +20,13 @@ namespace FinalProject.Data_Structures
             List<Customer> customerList = getCustomerList(folderPath);
             List<Supplier> supplierList = getSuppliersList(folderPath);
             List<ProductClass> productList = getProductList(folderPath);
+            List<Order> orderList = getOrderList(folderPath);
+
+            PredictionManager predictionManager = new PredictionManager();
+            predictionManager.predict(orderList);
         }
 
-        public List<Customer> getCustomerList(string folderPath)
+        private List<Customer> getCustomerList(string folderPath)
         {
             UtilitiesFileManager.FileManager fileManager = new UtilitiesFileManager.FileManager();
             DataTable customersTable = fileManager.GetCSV(folderPath + "CustomersTable.csv");
@@ -35,7 +40,7 @@ namespace FinalProject.Data_Structures
             return customerList;
         }
 
-        public List<Supplier> getSuppliersList(string folderPath)
+        private List<Supplier> getSuppliersList(string folderPath)
         {
             UtilitiesFileManager.FileManager fileManager = new UtilitiesFileManager.FileManager();
             DataTable suppliersTable = fileManager.GetCSV(folderPath + "SuppliersTable.csv");
@@ -49,7 +54,7 @@ namespace FinalProject.Data_Structures
             return suppliersList;
         }
 
-        public List<ProductClass> getProductList(string folderPath)
+        private List<ProductClass> getProductList(string folderPath)
         {
             UtilitiesFileManager.FileManager fileManager = new UtilitiesFileManager.FileManager();
             DataTable productTable = fileManager.GetCSV(folderPath + "ProductTable.csv");
@@ -60,12 +65,50 @@ namespace FinalProject.Data_Structures
                 ProductClass product = new ProductClass(row[0].ToString(), row[1].ToString(), Double.Parse(row[2].ToString()));
                 productList.Add(product);
             }
-            int a=0;
+            int a = 0;
             //  ProductClass producttest = productList.Select;
 
             //List<ProductClass> query2 = productList.Where(product => product.ProductName== "Product_A").ToList();
 
             return productList;
+        }
+
+        enum OrderListHeders
+        {
+            OrderID,
+            OrderDate,
+            OrderDeliveryDate,
+            Product,
+            Amount,
+            Cost
+        };
+
+        private List<Order> getOrderList(string folderPath)
+        {
+
+            PersonClass person = new PersonClass("CostumerTest", "ID1", PersonTypeEnum.Customer);
+
+            UtilitiesFileManager.FileManager fileManager = new UtilitiesFileManager.FileManager();
+            DataTable orderTable = fileManager.GetCSV(folderPath + "OrderList.csv");
+            List<Order> orderList = new List<Order>();
+            ProductClass product = new ProductClass("prosuct1", "product", 10);
+
+
+            foreach (DataRow row in orderTable.Rows)
+            {
+                List<PriceTable> priceTableList = new List<PriceTable>();
+                PriceTable priceTable = new PriceTable(product, int.Parse(row[OrderListHeders.Amount.ToString()].ToString()), double.Parse(row[OrderListHeders.Cost.ToString()].ToString()));
+                priceTableList.Add(priceTable);
+                Order order = new Order(person, 
+                    Order.OrderTypeEnum.CustomerOrder, 
+                    row[OrderListHeders.OrderID.ToString()].ToString(),
+                   DateTime.Parse( row[OrderListHeders.OrderDate.ToString()].ToString()),
+                   DateTime.Parse(row[OrderListHeders.OrderDeliveryDate.ToString()].ToString()),
+                   priceTableList);
+
+                orderList.Add(order);
+            }
+            return orderList;
         }
 
     }//end class loadData

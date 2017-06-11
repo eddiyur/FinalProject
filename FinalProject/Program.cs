@@ -19,4 +19,9 @@ namespace FinalProject
             Application.Run(new Form1());
         }
     }
+
+    //manager to deside what product will go to what machin
+    //managment of products by name (same name- same machin type- soft codedd)
+    //
+
 }

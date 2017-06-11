@@ -22,8 +22,8 @@ namespace FinalProject.Data_Structures
             List<ProductClass> productList = getProductList(folderPath);
             List<Order> orderList = getOrderList(folderPath);
 
-            PredictionManager predictionManager = new PredictionManager();
-            predictionManager.predict(orderList);
+            Prediction predictionManager = new Prediction();
+            predictionManager.PredictionManager(orderList);
         }
 
         private List<Customer> getCustomerList(string folderPath)

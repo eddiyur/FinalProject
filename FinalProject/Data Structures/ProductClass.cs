@@ -47,7 +47,12 @@ namespace FinalProject.Data_Structures
             ProductClass product = (ProductClass)obj;
             return ProductID.Equals( product.ProductID);
         }
-      
+
+
+        public override int GetHashCode()
+        {
+            return ProductID.GetHashCode();
+        }
 
     }//end Product class
 }

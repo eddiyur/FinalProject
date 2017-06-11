@@ -42,6 +42,12 @@ namespace FinalProject.Data_Structures
                 ProductionProgress.Add(tool, ProductionStatusEnum.NotStarted);
         }
 
+        public override bool Equals(object obj)
+        {
+            ProductClass product = (ProductClass)obj;
+            return ProductID.Equals( product.ProductID);
+        }
+      
 
     }//end Product class
 }

@@ -65,7 +65,8 @@ namespace FinalProject.Data_Structures
                 ProductClass product = new ProductClass(row[0].ToString(), row[1].ToString(), Double.Parse(row[2].ToString()));
                 productList.Add(product);
             }
-            int a = 0;
+
+           // int a = 0;
             //  ProductClass producttest = productList.Select;
 
             //List<ProductClass> query2 = productList.Where(product => product.ProductName== "Product_A").ToList();
@@ -91,11 +92,11 @@ namespace FinalProject.Data_Structures
             UtilitiesFileManager.FileManager fileManager = new UtilitiesFileManager.FileManager();
             DataTable orderTable = fileManager.GetCSV(folderPath + "OrderList.csv");
             List<Order> orderList = new List<Order>();
-            ProductClass product = new ProductClass("prosuct1", "product", 10);
-
+         
 
             foreach (DataRow row in orderTable.Rows)
             {
+                ProductClass product = new ProductClass(row[OrderListHeders.Product.ToString()].ToString(), row[OrderListHeders.Product.ToString()].ToString(), 1);
                 List<PriceTable> priceTableList = new List<PriceTable>();
                 PriceTable priceTable = new PriceTable(product, int.Parse(row[OrderListHeders.Amount.ToString()].ToString()), double.Parse(row[OrderListHeders.Cost.ToString()].ToString()));
                 priceTableList.Add(priceTable);

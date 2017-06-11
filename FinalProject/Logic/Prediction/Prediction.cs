@@ -19,40 +19,85 @@ namespace FinalProject.Logic.Prediction
 
         public void PredictionManager(List<Order> orderList)
         {
-            SortedDictionary<DateTime, int> monthsSummary = calculatemonthsummary(orderList);
-            string result = printResult(monthsSummary);
+            //     SortedDictionary<DateTime, int> monthsSummary = new SortedDictionary<DateTime, int>();//= calculatemonthsummary(orderList);
+            //   Dictionary<ProductClass, SortedDictionary<DateTime, int>> productMonthsSummary = new Dictionary<ProductClass, SortedDictionary<DateTime, int>>();
+            Dictionary<ProductClass, SortedDictionary<DateTime, int>> productsMonthsSummary = calculatemonthsummary(orderList);
+
+            Dictionary<ProductClass, int> result = SimpleAveragePrediction(productsMonthsSummary);
+
+            //    string result = printResult(monthsSummary);
         }
 
-        private SortedDictionary<DateTime, int> calculatemonthsummary(List<Order> orderList)
+        private Dictionary<ProductClass, SortedDictionary<DateTime, int>> calculatemonthsummary(List<Order> orderList)
         {
-            /////////////////
-            // ignore product
-            /////////////////////////////
-            SortedDictionary<DateTime, int> monthsSummary = new SortedDictionary<DateTime, int>();
+            Dictionary<ProductClass, SortedDictionary<DateTime, int>> productsMonthsSummary = new Dictionary<ProductClass, SortedDictionary<DateTime, int>>();
+
 
             foreach (Order order in orderList)
             {
                 DateTime monthNumber = getMonthNumber(order.OrderDeliveryDate);
-                int temp;
-                bool monthExist = monthsSummary.TryGetValue(monthNumber, out temp);
 
-                if (!monthExist)
-                    monthsSummary.Add(monthNumber, 0);
-
-                List<PriceTable> productsList = order.ProductsList;
-                foreach (PriceTable priceTableRow in productsList)
+                foreach (PriceTable priceTableRow in order.ProductsList)
                 {
                     ProductClass product = priceTableRow.Product;
-                    int amount = priceTableRow.Amount;
-                    monthsSummary[monthNumber] += amount;
+                    SortedDictionary<DateTime, int> monthsSummary;
+
+                    bool productExist = productsMonthsSummary.TryGetValue(priceTableRow.Product, out monthsSummary);
+
+                    if (!productExist)
+                        productsMonthsSummary.Add(product, monthsSummary = new SortedDictionary<DateTime, int>());
+
+                    monthsSummary = updateMonthsSummry(monthsSummary, monthNumber, priceTableRow.Amount);
+                    productsMonthsSummary[product] = monthsSummary;
                 }
             }
-
-            return monthsSummary;
-            //string Result = printResult(monthsSummary);
-
-            //int simpleAveragePrediction = SimpleAveragePrediction();
+            return productsMonthsSummary;
         }
+
+
+
+        private SortedDictionary<DateTime, int> updateMonthsSummry(SortedDictionary<DateTime, int> monthsSummary, DateTime monthNumber, int amount)
+        {
+            if (monthsSummary == null)
+                monthsSummary = new SortedDictionary<DateTime, int>();
+
+            int temp;
+            bool monthExist = monthsSummary.TryGetValue(monthNumber, out temp);
+
+            if (!monthExist)
+                monthsSummary.Add(monthNumber, 0);
+
+            monthsSummary[monthNumber] += amount;
+            return monthsSummary;
+        }
+
+        //private SortedDictionary<DateTime, int> calculatemonthsummary(List<Order> orderList)
+        //{
+        //    SortedDictionary<DateTime, int> monthsSummary = new SortedDictionary<DateTime, int>();
+
+        //    foreach (Order order in orderList)
+        //    {
+        //        DateTime monthNumber = getMonthNumber(order.OrderDeliveryDate);
+        //        int temp;
+        //        bool monthExist = monthsSummary.TryGetValue(monthNumber, out temp);
+
+        //        if (!monthExist)
+        //            monthsSummary.Add(monthNumber, 0);
+
+        //        List<PriceTable> productsList = order.ProductsList;
+        //        foreach (PriceTable priceTableRow in productsList)
+        //        {
+        //            ProductClass product = priceTableRow.Product;
+        //            int amount = priceTableRow.Amount;
+        //            monthsSummary[monthNumber] += amount;
+        //        }
+        //    }
+
+        //    return monthsSummary;
+        //    //string Result = printResult(monthsSummary);
+
+        //    //int simpleAveragePrediction = SimpleAveragePrediction();
+        //}
 
         private DateTime getMonthNumber(DateTime date)
         {
@@ -76,6 +121,14 @@ namespace FinalProject.Logic.Prediction
             return result;
         }
 
+        private Dictionary<ProductClass, int> SimpleAveragePrediction(Dictionary<ProductClass, SortedDictionary<DateTime, int>> productsMonthsSummary)
+        {
+            Dictionary<ProductClass, int> SimpleAverageSummary = new Dictionary<ProductClass, int>();
+            foreach (KeyValuePair<ProductClass, SortedDictionary<DateTime, int>> productMonthsSummary in productsMonthsSummary)
+                SimpleAverageSummary.Add(productMonthsSummary.Key, SimpleAveragePrediction(productMonthsSummary.Value));
+
+            return SimpleAverageSummary;
+        }
 
         private string printResult(SortedDictionary<DateTime, int> monthsSummary)
         {

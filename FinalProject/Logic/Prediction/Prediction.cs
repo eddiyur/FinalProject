@@ -12,7 +12,8 @@ namespace FinalProject.Logic.Prediction
     {
         public enum PredictionTypes
         {
-            SimpleAverage
+            SimpleAverage,
+            WeightedAverage
         }
 
         public PredictionTypes PredictionType { get; set; }
@@ -24,7 +25,9 @@ namespace FinalProject.Logic.Prediction
 
         private void init()
         {
-            PredictionType = PredictionTypes.SimpleAverage;
+            //   PredictionType = PredictionTypes.SimpleAverage;
+            PredictionType = PredictionTypes.WeightedAverage;
+
         }
         public void PredictionManager(List<Order> orderList)
         {
@@ -36,9 +39,15 @@ namespace FinalProject.Logic.Prediction
             switch (PredictionType)
             {
                 case PredictionTypes.SimpleAverage:
-                    SimpleAveragePrediction simpleAveragePrediction = new SimpleAveragePrediction(2);
+                    SimpleAveragePrediction simpleAveragePrediction = new SimpleAveragePrediction(6);
                     predictionResult = simpleAveragePrediction.Predict(productsMonthsSummary);
                     break;
+                case PredictionTypes.WeightedAverage:
+                    List<double> Weighte = new List<double> { 0.5, 0.3, 0.2 };
+                    WeightedAveragePrediction weightedAveragePrediction = new WeightedAveragePrediction(Weighte);
+                    predictionResult = weightedAveragePrediction.Predict(productsMonthsSummary);
+                    break;
+
                 default:
                     predictionResult = new Dictionary<ProductClass, int>();
                     break;

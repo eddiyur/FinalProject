@@ -16,43 +16,33 @@ namespace FinalProject.Logic.Prediction
             Months = months;
         }
 
-       
+
         public Dictionary<ProductClass, int> Predict(Dictionary<ProductClass, SortedDictionary<DateTime, int>> productsMonthsSummary)
         {
             Dictionary<ProductClass, int> SimpleAverageSummary = new Dictionary<ProductClass, int>();
             foreach (KeyValuePair<ProductClass, SortedDictionary<DateTime, int>> productMonthsSummary in productsMonthsSummary)
-                SimpleAverageSummary.Add(productMonthsSummary.Key, calculateSimpleAverag(productMonthsSummary.Value));
-
+            {
+                List<KeyValuePair<DateTime, int>> productMonthsSummaryList = productMonthsSummary.Value.Reverse().ToList();
+                SimpleAverageSummary.Add(productMonthsSummary.Key, calculateSimpleAverage(productMonthsSummaryList));
+            }
             return SimpleAverageSummary;
         }
 
-        private int calculateSimpleAverag(SortedDictionary<DateTime, int> monthsSummary)
+        // private int calculateSimpleAverag(SortedDictionary<DateTime, int> monthsSummary)
+        private int calculateSimpleAverage(List<KeyValuePair<DateTime, int>> monthsSummary)
         {
-            int sum = 0;
 
             int numberOfMonths = Months;
             if (monthsSummary.Count < numberOfMonths)
                 numberOfMonths = monthsSummary.Count;
 
-            //  Dictionary < DateTime, int> temp = monthsSummary
-           
-               
-
-            //for (int i = 0; i < numberOfMonths; i++)
-            //{
-            //    sum = sum + monthsSummary.ElementAt(i).Value;
-            //}
-
-            //    DateTime monthSummary1   = monthsSummary.Keys.ElementAt(monthsSummary.Count - 1);
-
-            //foreach (KeyValuePair<DateTime, int> monthSummary in monthsSummary)
-            //{
-            //    sum = sum + monthSummary.Value;
-            //}
-
+            int sum = 0;
+            for (int i = 0; i < numberOfMonths; i++)
+                         sum = sum + monthsSummary[i].Value;
+         
             int result = 0;
             if (sum > 0)
-                result = sum / monthsSummary.Count;
+                result = sum / numberOfMonths;
 
             return result;
         }

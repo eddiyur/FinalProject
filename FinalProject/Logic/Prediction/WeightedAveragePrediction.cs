@@ -17,30 +17,37 @@ namespace FinalProject.Logic.Prediction
             WeightedFactor = weightedFactor;
         }
 
-        public Dictionary<ProductClass, int> Predict(Dictionary<ProductClass, SortedDictionary<DateTime, int>> productsMonthsSummary)
+        public Dictionary<ProductClass, PredictionClass> Predict(Dictionary<ProductClass, SortedDictionary<DateTime, int>> productsMonthsSummary)
         {
-            Dictionary<ProductClass, int> WeightedAverageSummary = new Dictionary<ProductClass, int>();
+            Dictionary<ProductClass, PredictionClass> WeightedAverageResult = new Dictionary<ProductClass, PredictionClass>();
+
             foreach (KeyValuePair<ProductClass, SortedDictionary<DateTime, int>> productMonthsSummary in productsMonthsSummary)
             {
-                List<KeyValuePair<DateTime, int>> productMonthsSummaryList = productMonthsSummary.Value.Reverse().ToList();
-                WeightedAverageSummary.Add(productMonthsSummary.Key, calculateWeightedAverage(productMonthsSummaryList));
+                List<KeyValuePair<DateTime, int>> productMonthsSummaryList = productMonthsSummary.Value.ToList();
+                PredictionClass predictuinClass = calculateWeightedAverage(productMonthsSummaryList);
+                WeightedAverageResult.Add(productMonthsSummary.Key, predictuinClass);
             }
-            return WeightedAverageSummary;
+            return WeightedAverageResult;
         }
 
-        private int calculateWeightedAverage(List<KeyValuePair<DateTime, int>> productMonthsSummaryList)
+        private PredictionClass calculateWeightedAverage(List<KeyValuePair<DateTime, int>> monthsSummary)
         {
-            int numberOfMonths = WeightedFactor.Count;
-            if (productMonthsSummaryList.Count < numberOfMonths)
-                numberOfMonths = productMonthsSummaryList.Count;
+            if (monthsSummary.Count < WeightedFactor.Count)
+                return null;
 
-            double sum=0;
-            for (int i = 0; i < numberOfMonths; i++)
+            PredictionClass predictionClass = new PredictionClass();
+
+            for (int i = WeightedFactor.Count; i <= monthsSummary.Count; i++)
             {
-                sum = sum + productMonthsSummaryList[i].Value * WeightedFactor[i];
+                double sum = 0;
+
+                for (int j = 0; j < WeightedFactor.Count; j++)
+                    sum = sum + monthsSummary[i - j - 1].Value * WeightedFactor[j];
+
+                predictionClass.PredictionResults.Add(monthsSummary[i - 1].Key.AddMonths(1), (double)sum);
             }
 
-            return (int)sum;
+            return predictionClass;
         }
     }//end class
 }

@@ -61,7 +61,9 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Logic\Prediction\ExponentialSmootingPrediction.cs" />
     <Compile Include="Logic\Prediction\Prediction.cs" />
+    <Compile Include="Logic\Prediction\PredictionClass.cs" />
     <Compile Include="Logic\Prediction\SimpleAveragePrediction.cs" />
     <Compile Include="Logic\Prediction\WeightedAveragePrediction.cs" />
     <Compile Include="Program.cs" />

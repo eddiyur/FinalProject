@@ -9,42 +9,47 @@ namespace FinalProject.Logic.Prediction
 {
     public class SimpleAveragePrediction
     {
-        public int Months { get; set; }
+        public int NumberOfMonths { get; set; }
 
         public SimpleAveragePrediction(int months)
         {
-            Months = months;
+            NumberOfMonths = months;
         }
 
 
-        public Dictionary<ProductClass, int> Predict(Dictionary<ProductClass, SortedDictionary<DateTime, int>> productsMonthsSummary)
+        public Dictionary<ProductClass, PredictionClass> Predict(Dictionary<ProductClass, SortedDictionary<DateTime, int>> productsMonthsSummary)
         {
-            Dictionary<ProductClass, int> SimpleAverageSummary = new Dictionary<ProductClass, int>();
+            Dictionary<ProductClass, PredictionClass> SimpleAverageResult = new Dictionary<ProductClass, PredictionClass>();
+
             foreach (KeyValuePair<ProductClass, SortedDictionary<DateTime, int>> productMonthsSummary in productsMonthsSummary)
             {
-                List<KeyValuePair<DateTime, int>> productMonthsSummaryList = productMonthsSummary.Value.Reverse().ToList();
-                SimpleAverageSummary.Add(productMonthsSummary.Key, calculateSimpleAverage(productMonthsSummaryList));
+                List<KeyValuePair<DateTime, int>> productMonthsSummaryList = productMonthsSummary.Value.ToList();
+                PredictionClass predictuinClass = calculateSimpleAverage(productMonthsSummaryList);
+                SimpleAverageResult.Add(productMonthsSummary.Key, predictuinClass);
             }
-            return SimpleAverageSummary;
+
+            return null;
+            // return SimpleAverageSummary;
         }
 
         // private int calculateSimpleAverag(SortedDictionary<DateTime, int> monthsSummary)
-        private int calculateSimpleAverage(List<KeyValuePair<DateTime, int>> monthsSummary)
+        private PredictionClass calculateSimpleAverage(List<KeyValuePair<DateTime, int>> monthsSummary)
         {
+            if (monthsSummary.Count < NumberOfMonths)
+                return null;
 
-            int numberOfMonths = Months;
-            if (monthsSummary.Count < numberOfMonths)
-                numberOfMonths = monthsSummary.Count;
+            PredictionClass predictionClass = new PredictionClass();
 
-            int sum = 0;
-            for (int i = 0; i < numberOfMonths; i++)
-                         sum = sum + monthsSummary[i].Value;
-         
-            int result = 0;
-            if (sum > 0)
-                result = sum / numberOfMonths;
+            for (int i = NumberOfMonths; i <= monthsSummary.Count; i++)
+            {
+                double sum = 0;
+                for (int j = i - NumberOfMonths; j < i; j++)
+                    sum = sum + monthsSummary[j].Value;
+                predictionClass.PredictionResults.Add(monthsSummary[i - 1].Key.AddMonths(1), (double)sum / NumberOfMonths);
+            }
 
-            return result;
+            return predictionClass;
+
         }
 
 

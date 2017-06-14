@@ -16,6 +16,13 @@ namespace FinalProject.Logic.Prediction
             WeightedAverage
         }
 
+        struct predictionStructure
+        {
+            public DateTime Month;
+            public int ObservationValue;
+            public double PredictivValue;
+        }
+
         public PredictionTypes PredictionType { get; set; }
 
         public Prediction()
@@ -25,37 +32,46 @@ namespace FinalProject.Logic.Prediction
 
         private void init()
         {
-            //   PredictionType = PredictionTypes.SimpleAverage;
-            PredictionType = PredictionTypes.WeightedAverage;
+            PredictionType = PredictionTypes.SimpleAverage;
+            //PredictionType = PredictionTypes.WeightedAverage;
 
         }
         public void PredictionManager(List<Order> orderList)
         {
-            //     SortedDictionary<DateTime, int> monthsSummary = new SortedDictionary<DateTime, int>();//= calculatemonthsummary(orderList);
-            //   Dictionary<ProductClass, SortedDictionary<DateTime, int>> productMonthsSummary = new Dictionary<ProductClass, SortedDictionary<DateTime, int>>();
             Dictionary<ProductClass, SortedDictionary<DateTime, int>> productsMonthsSummary = calculateMonthsSummary(orderList);
-            Dictionary<ProductClass, int> predictionResult;
+            Dictionary<ProductClass, PredictionClass> predictionResult;
 
-            switch (PredictionType)
-            {
-                case PredictionTypes.SimpleAverage:
-                    SimpleAveragePrediction simpleAveragePrediction = new SimpleAveragePrediction(6);
-                    predictionResult = simpleAveragePrediction.Predict(productsMonthsSummary);
-                    break;
-                case PredictionTypes.WeightedAverage:
-                    List<double> Weighte = new List<double> { 0.5, 0.3, 0.2 };
-                    WeightedAveragePrediction weightedAveragePrediction = new WeightedAveragePrediction(Weighte);
-                    predictionResult = weightedAveragePrediction.Predict(productsMonthsSummary);
-                    break;
+            SimpleAveragePrediction simpleAveragePrediction = new SimpleAveragePrediction(3);
+            Dictionary<ProductClass, PredictionClass> simpleAverage = simpleAveragePrediction.Predict(productsMonthsSummary);
 
-                default:
-                    predictionResult = new Dictionary<ProductClass, int>();
-                    break;
-            }
+            List<double> weights = new List<double> { 0.5, 0.3, 0.2 };
+            WeightedAveragePrediction weightedAveragePrediction = new WeightedAveragePrediction(weights);
+            Dictionary<ProductClass, PredictionClass> weightedAverage = weightedAveragePrediction.Predict(productsMonthsSummary);
+
+            double smootingFactor = 0.8;
+            ExponentialSmootingPrediction exponentialSmootingPrediction = new ExponentialSmootingPrediction(smootingFactor);
+            Dictionary<ProductClass, PredictionClass> exponentialSmooting = exponentialSmootingPrediction.Predict(productsMonthsSummary);
+
+            //switch (PredictionType)
+            //{
+            //case PredictionTypes.SimpleAverage:
+            //    SimpleAveragePrediction simpleAveragePrediction = new SimpleAveragePrediction(6);
+            //    predictionResult = simpleAveragePrediction.Predict(productsMonthsSummary);
+            //    break;
+            //case PredictionTypes.WeightedAverage:
+            //    List<double> weights = new List<double> { 0.5, 0.3, 0.2 };
+            //    WeightedAveragePrediction weightedAveragePrediction = new WeightedAveragePrediction(weights);
+            //    predictionResult = weightedAveragePrediction.Predict(productsMonthsSummary);
+            //    break;
+
+            //default:
+            //    predictionResult = new Dictionary<ProductClass, int>();
+            //    break;
+            //}
 
 
-            string resultstr = printResult(predictionResult);
-            MessageBox.Show(resultstr);
+            //string resultstr = printResult(predictionResult);
+            //MessageBox.Show(resultstr);
         }
 
         private Dictionary<ProductClass, SortedDictionary<DateTime, int>> calculateMonthsSummary(List<Order> orderList)

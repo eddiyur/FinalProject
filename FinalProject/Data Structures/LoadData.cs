@@ -1,4 +1,5 @@
 ﻿using FinalProject.Logic.Prediction;
+using FinalProject.Logic.Warehouse;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -10,6 +11,8 @@ namespace FinalProject.Data_Structures
 {
     public class LoadData
     {
+        public object WarehouseCalss { get; private set; }
+
         public LoadData() { }
 
         public void loadProducts()
@@ -22,8 +25,10 @@ namespace FinalProject.Data_Structures
             List<ProductClass> productList = getProductList(folderPath);
             List<Order> orderList = getOrderList(folderPath);
 
-            Prediction predictionManager = new Prediction();
-            predictionManager.PredictionManager(orderList);
+           
+                      
+            //Prediction predictionManager = new Prediction();
+            //predictionManager.PredictionManager(orderList);
         }
 
         private List<Customer> getCustomerList(string folderPath)
@@ -66,7 +71,7 @@ namespace FinalProject.Data_Structures
                 productList.Add(product);
             }
 
-           // int a = 0;
+            // int a = 0;
             //  ProductClass producttest = productList.Select;
 
             //List<ProductClass> query2 = productList.Where(product => product.ProductName== "Product_A").ToList();
@@ -92,7 +97,7 @@ namespace FinalProject.Data_Structures
             UtilitiesFileManager.FileManager fileManager = new UtilitiesFileManager.FileManager();
             DataTable orderTable = fileManager.GetCSV(folderPath + "OrderList.csv");
             List<Order> orderList = new List<Order>();
-         
+
 
             foreach (DataRow row in orderTable.Rows)
             {
@@ -100,10 +105,10 @@ namespace FinalProject.Data_Structures
                 List<PriceTable> priceTableList = new List<PriceTable>();
                 PriceTable priceTable = new PriceTable(product, int.Parse(row[OrderListHeders.Amount.ToString()].ToString()), double.Parse(row[OrderListHeders.Cost.ToString()].ToString()));
                 priceTableList.Add(priceTable);
-                Order order = new Order(person, 
-                    Order.OrderTypeEnum.CustomerOrder, 
+                Order order = new Order(person,
+                    Order.OrderTypeEnum.CustomerOrder,
                     row[OrderListHeders.OrderID.ToString()].ToString(),
-                   DateTime.Parse( row[OrderListHeders.OrderDate.ToString()].ToString()),
+                   DateTime.Parse(row[OrderListHeders.OrderDate.ToString()].ToString()),
                    DateTime.Parse(row[OrderListHeders.OrderDeliveryDate.ToString()].ToString()),
                    priceTableList);
 

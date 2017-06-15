@@ -66,6 +66,7 @@
     <Compile Include="Logic\Prediction\PredictionClass.cs" />
     <Compile Include="Logic\Prediction\SimpleAveragePrediction.cs" />
     <Compile Include="Logic\Prediction\WeightedAveragePrediction.cs" />
+    <Compile Include="Logic\Warehouse\WarehouseClass.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">

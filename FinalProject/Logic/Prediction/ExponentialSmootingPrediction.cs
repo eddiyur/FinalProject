@@ -46,7 +46,6 @@ namespace FinalProject.Logic.Prediction
                 predictionClass.PredictionResults.Add(monthsSummary[i].Key.AddMonths(1), observation * SmootingFactor + previousPrediction * (1 - SmootingFactor));
             }
 
-
             return predictionClass;
         }
     }

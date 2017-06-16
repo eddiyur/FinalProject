@@ -117,11 +117,6 @@ namespace FinalProject.Data_Structures
                 productList.Add(product);
             }
 
-            // int a = 0;
-            //  ProductClass producttest = productList.Select;
-
-            //List<ProductClass> query2 = productList.Where(product => product.ProductName== "Product_A").ToList();
-
             return productList;
         }
 

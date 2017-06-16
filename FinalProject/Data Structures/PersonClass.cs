@@ -31,7 +31,22 @@ namespace FinalProject.Data_Structures
             ID = id;
         }
 
-        
+        public PersonClass(string id)
+        {
+            ID = id;
+        }
+
+        public override bool Equals(object obj)
+        {
+            PersonClass person = (PersonClass)obj;
+            return ID.Equals(person.ID);
+        }
+
+
+        public override int GetHashCode()
+        {
+            return ID.GetHashCode();
+        }
 
     }//end class Person
 
@@ -41,18 +56,28 @@ namespace FinalProject.Data_Structures
         {
             Name = name;
             ID = id;
-            PersonType = PersonTypeEnum.Customer ;
+            PersonType = PersonTypeEnum.Customer;
         }
 
-     
+
     }
 
     public class Supplier : PersonClass
     {
         public struct PriceMatrixStruct
         {
-            PriceTable priceTable;
-            int DeliveryTime;
+            public PriceTable priceTable;
+            public int DeliveryTime;
+        }
+
+        public List<PriceMatrixStruct> PriceMatrix { get; set; }
+        public double Reliability { get; }
+
+        public Supplier(string id) : base(id)
+        {
+            ID = id;
+            PersonType = PersonTypeEnum.Supplier;
+            PriceMatrix = new List<PriceMatrixStruct>();
         }
 
         public Supplier(string name, string id) : base(name, id)
@@ -60,16 +85,52 @@ namespace FinalProject.Data_Structures
             Name = name;
             ID = id;
             PersonType = PersonTypeEnum.Supplier;
+            PriceMatrix = new List<PriceMatrixStruct>();
         }
-        public Supplier(string name, string id ,double reliability) : base(name, id)
+        public Supplier(string name, string id, double reliability) : base(name, id)
         {
             Name = name;
             ID = id;
             Reliability = reliability;
             PersonType = PersonTypeEnum.Supplier;
+            PriceMatrix = new List<PriceMatrixStruct>();
         }
-        public List<PriceMatrixStruct> PriceMatrix { get; set; }
-        public double Reliability { get; set; }
-    }
+
+        public Supplier(string name, string id, double reliability, List<PriceMatrixStruct> priceMatrix) : base(name, id)
+        {
+            Name = name;
+            ID = id;
+            Reliability = reliability;
+            PersonType = PersonTypeEnum.Supplier;
+            PriceMatrix = priceMatrix;
+        }
+
+    }//end class Supplier : PersonClass
+
+    public class SuppliersList
+    {
+       public List<Supplier> SupplierList { get; set; }
+
+        public SuppliersList()
+        {
+            SupplierList = new List<Supplier>();
+        }
+
+        public void AddSupploer(Supplier supplier)
+        {
+            SupplierList.Add(supplier);
+        }
+
+        public Supplier GetSupploer(Supplier supplier)
+        {
+            return SupplierList[SupplierList.IndexOf(supplier)];
+        }
+
+        public Supplier GetSupploer(string supplierID)
+        {
+            Supplier supplier = new Supplier(supplierID);
+            return SupplierList[SupplierList.IndexOf(supplier)];
+        }
+    }// end supplierList Class
 
 }//end nameSpace

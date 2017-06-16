@@ -1,4 +1,5 @@
-﻿using FinalProject.Logic.Prediction;
+﻿using FinalProject.Data_Structures;
+using FinalProject.Logic.Prediction;
 using FinalProject.Logic.Warehouse;
 using System;
 using System.Collections.Generic;
@@ -20,15 +21,21 @@ namespace FinalProject.Data_Structures
             UtilitiesFileManager.FileManager fileManager = new UtilitiesFileManager.FileManager();
             string folderPath = fileManager.ExePath() + "dataSets\\";
 
+            ProductClassList productList = new ProductClassList();
+            productList.ProductList = getProductList(folderPath);
+
+            SuppliersList suppliersList = new SuppliersList();
+            suppliersList = getSuppliersList(folderPath, productList);
+
+
             List<Customer> customerList = getCustomerList(folderPath);
-            List<Supplier> supplierList = getSuppliersList(folderPath);
-            List<ProductClass> productList = getProductList(folderPath);
             List<Order> orderList = getOrderList(folderPath);
 
-           
-                      
-            //Prediction predictionManager = new Prediction();
-            //predictionManager.PredictionManager(orderList);
+            Customer p = customerList[0];
+            var a = customerList.IndexOf(p);
+
+            Prediction predictionManager = new Prediction();
+            predictionManager.PredictionManager(orderList);
         }
 
         private List<Customer> getCustomerList(string folderPath)
@@ -42,22 +49,61 @@ namespace FinalProject.Data_Structures
                 Customer customer = new Customer(row[0].ToString(), row[1].ToString());
                 customerList.Add(customer);
             }
+
             return customerList;
         }
 
-        private List<Supplier> getSuppliersList(string folderPath)
+        private SuppliersList getSuppliersList(string folderPath, ProductClassList productList)
         {
             UtilitiesFileManager.FileManager fileManager = new UtilitiesFileManager.FileManager();
             DataTable suppliersTable = fileManager.GetCSV(folderPath + "SuppliersTable.csv");
-            List<Supplier> suppliersList = new List<Supplier>();
+            SuppliersList suppliersList = new SuppliersList();
 
             foreach (DataRow row in suppliersTable.Rows)
             {
                 Supplier supplier = new Supplier(row[0].ToString(), row[1].ToString(), Double.Parse(row[2].ToString()));
-                suppliersList.Add(supplier);
+                suppliersList.AddSupploer(supplier);
             }
+
+            suppliersList = getSuppliersMatrix(suppliersList, productList, folderPath);
             return suppliersList;
         }
+
+        enum SuppliersPriceMatrixFileColumnsName
+        {
+            SupplierID,
+            ProductID,
+            Cost,
+            amount,
+            deliveryDate
+        };
+
+        private SuppliersList getSuppliersMatrix(SuppliersList suppliersList, ProductClassList productList, string folderPath)
+        {
+            UtilitiesFileManager.FileManager fileManager = new UtilitiesFileManager.FileManager();
+            DataTable SuppliersPriceMatrix = fileManager.GetCSV(folderPath + "SuppliersPriceMatrix.csv");
+
+            foreach (DataRow row in SuppliersPriceMatrix.Rows)
+            {
+                Supplier supplier = suppliersList.GetSupploer(row[SuppliersPriceMatrixFileColumnsName.SupplierID.ToString()].ToString());
+
+                List<Supplier.PriceMatrixStruct> priceMatrixStructList = new List<Supplier.PriceMatrixStruct>();
+
+                ProductClass product = productList.GetProduct(row[SuppliersPriceMatrixFileColumnsName.ProductID.ToString()].ToString());
+                PriceTable pricetable = new PriceTable(product,
+                   Int32.Parse( row[SuppliersPriceMatrixFileColumnsName.amount.ToString()].ToString()),
+                   Double.Parse(row[SuppliersPriceMatrixFileColumnsName.Cost.ToString()].ToString()));
+
+                Supplier.PriceMatrixStruct priceMatrixStruct = new Supplier.PriceMatrixStruct();
+                priceMatrixStruct.DeliveryTime = Int32.Parse(row[SuppliersPriceMatrixFileColumnsName.deliveryDate.ToString()].ToString());
+                priceMatrixStruct.priceTable = pricetable;
+
+                supplier.PriceMatrix.Add(priceMatrixStruct);
+            }
+            return suppliersList;
+
+
+        }//end getSuppliersMatrix
 
         private List<ProductClass> getProductList(string folderPath)
         {

@@ -13,6 +13,8 @@ namespace FinalProject.Logic.Warehouse
         public double MaxCapacity { get; }
         public double Capacity { get; set; }
 
+        //add transakzion
+
         public WarehouseClass(List<ProductClass> ProductsList, double maxCapacity)
         {
             Inventory = new Dictionary<ProductClass, double>();

@@ -23,5 +23,18 @@ namespace FinalProject.Data_Structures
             Product = product;
             OrderStatus = OrderStatusEnum.Approved;
         }
+
+
+        public override bool Equals(object obj)
+        {
+            ProductionOrder productionOrder = (ProductionOrder)obj;
+            return OrderID.Equals(productionOrder.OrderID);
+        }
+
+
+        public override int GetHashCode()
+        {
+            return OrderID.GetHashCode();
+        }
     }//end class ProductionOrder
 }

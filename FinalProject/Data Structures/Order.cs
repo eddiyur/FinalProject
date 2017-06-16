@@ -35,8 +35,19 @@ namespace FinalProject.Data_Structures
         public OrderStatusEnum OrderStatus;
 
         public Order()
-        {        }
+        { }
 
+        public override bool Equals(object obj)
+        {
+            Order order = (Order)obj;
+            return OrderID.Equals(order.OrderID);
+        }
+
+
+        public override int GetHashCode()
+        {
+            return OrderID.GetHashCode();
+        }
 
         public Order(PersonClass person, OrderTypeEnum orderType, string orderID, DateTime orderDate, DateTime orderDeliveryDate, List<PriceTable> productsList)
         {

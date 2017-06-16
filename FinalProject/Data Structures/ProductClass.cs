@@ -8,10 +8,13 @@ namespace FinalProject.Data_Structures
 {
     public class ProductClass
     {
-        //struct production progress
+        public ProductClass(string productID)
+        {
+            ProductID = productID;
+        }
 
 
-        public ProductClass(string productID,string productName, double productCapacity)
+        public ProductClass(string productID, string productName, double productCapacity)
         {
             ProductID = productID;
             ProductName = productName;
@@ -45,7 +48,7 @@ namespace FinalProject.Data_Structures
         public override bool Equals(object obj)
         {
             ProductClass product = (ProductClass)obj;
-            return ProductID.Equals( product.ProductID);
+            return ProductID.Equals(product.ProductID);
         }
 
 
@@ -55,4 +58,32 @@ namespace FinalProject.Data_Structures
         }
 
     }//end Product class
-}
+
+    public class ProductClassList
+    {
+        public List<ProductClass> ProductList { get; set; }
+        public ProductClassList()
+        {
+            ProductList = new List<ProductClass>();
+        }
+
+
+        public void AddProduct(ProductClass product)
+        {
+            ProductList.Add(product);
+        }
+
+        public ProductClass GetProduct(ProductClass product)
+        {
+            return ProductList[ProductList.IndexOf(product)];
+        }
+
+        public ProductClass GetProduct(string productID)
+        {
+            ProductClass product = new ProductClass(productID);
+            return ProductList[ProductList.IndexOf(product)];
+        }
+
+    }//end ProductClassList
+
+}//end namespace

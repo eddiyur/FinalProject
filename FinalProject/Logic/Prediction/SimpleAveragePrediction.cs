@@ -28,7 +28,7 @@ namespace FinalProject.Logic.Prediction
                 SimpleAverageResult.Add(productMonthsSummary.Key, predictuinClass);
             }
 
-            return null;
+            return SimpleAverageResult;
             // return SimpleAverageSummary;
         }
 

@@ -121,10 +121,8 @@ namespace FinalProject.Data_Structures
         {
             List<Order> result = new List<Order>();
             foreach (Order order in OrderList)
-            {
                 if (order.OrderStatus.Equals(orderStatus))
                     result.Add(order);
-            }
             return result;
         }
 

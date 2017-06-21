@@ -82,7 +82,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <None Include="dataSets\CustomersTable.csv" />
+    <None Include="dataSets\OrderList.csv" />
     <None Include="dataSets\ProductTable.csv" />
+    <None Include="dataSets\SuppliersPriceMatrix.csv" />
     <None Include="dataSets\SuppliersTable.csv" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -96,6 +98,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="dataSets\XMLTemplates\ProductList.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

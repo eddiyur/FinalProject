@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ProductTable>
+    <Product>
+     <ProductID>Product_A></ProductID>
+     <PruductName>Product_A</PruductName>
+    <ProductCapacity>1</ProductCapacity>
+  </Product>
+  <Product>
+    <ProductID>Product_B></ProductID>
+    <PruductName>Product_B</PruductName>
+    <ProductCapacity>1</ProductCapacity>
+  </Product>
+  <Product>
+   <ProductID>Product_C></ProductID>
+   <PruductName>Product_C</PruductName>
+   <ProductCapacity>1</ProductCapacity>
+  </Product>
+   <Product>
+   <ProductID>Product_D></ProductID>
+   <PruductName>Product_D</PruductName>
+   <ProductCapacity>1</ProductCapacity>
+  </Product>
+</ProductTable>
+           
+           

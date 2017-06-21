@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static FinalProject.Data_Structures.Order;
 
 namespace FinalProject.Data_Structures
 {
@@ -36,6 +37,9 @@ namespace FinalProject.Data_Structures
 
         public Order()
         { }
+
+        public Order(string orderID)
+        { OrderID = orderID; }
 
         public override bool Equals(object obj)
         {
@@ -86,4 +90,46 @@ namespace FinalProject.Data_Structures
 
 
     }//end orderClass
-}
+
+
+    public class OrdersList
+    {
+        public List<Order> OrderList;
+
+        public OrdersList()
+        {
+            OrderList = new List<Order>();
+        }
+
+        public void AddOrder(Order order)
+        {
+            OrderList.Add(order);
+        }
+
+        public Order GetOrder(Order order)
+        {
+            return OrderList[OrderList.IndexOf(order)];
+        }
+
+        public Order GetOrder(string orderID)
+        {
+            Order order = new Order(orderID);
+            return OrderList[OrderList.IndexOf(order)];
+        }
+
+        public List<Order> GetOrders(OrderStatusEnum orderStatus)
+        {
+            List<Order> result = new List<Order>();
+            foreach (Order order in OrderList)
+            {
+                if (order.OrderStatus.Equals(orderStatus))
+                    result.Add(order);
+            }
+            return result;
+        }
+
+
+
+    }//end OrdersList
+
+}// end nameSpace

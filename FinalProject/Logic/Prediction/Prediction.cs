@@ -48,6 +48,23 @@ namespace FinalProject.Logic.Prediction
 
         }
 
+        public void PredictionManager(OrdersList orderList)
+        {
+            Dictionary<ProductClass, SortedDictionary<DateTime, int>> productsMonthsSummary = calculateMonthsSummary(orderList.OrderList);
+
+            SimpleAveragePrediction simpleAveragePrediction = new SimpleAveragePrediction(3);
+            Dictionary<ProductClass, PredictionClass> simpleAverage = simpleAveragePrediction.Predict(productsMonthsSummary);
+
+            List<double> weights = new List<double> { 0.5, 0.3, 0.2 };
+            WeightedAveragePrediction weightedAveragePrediction = new WeightedAveragePrediction(weights);
+            Dictionary<ProductClass, PredictionClass> weightedAverage = weightedAveragePrediction.Predict(productsMonthsSummary);
+
+            double smootingFactor = 0.8;
+            ExponentialSmootingPrediction exponentialSmootingPrediction = new ExponentialSmootingPrediction(smootingFactor);
+            Dictionary<ProductClass, PredictionClass> exponentialSmooting = exponentialSmootingPrediction.Predict(productsMonthsSummary);
+
+        }
+
         private Dictionary<ProductClass, SortedDictionary<DateTime, int>> calculateMonthsSummary(List<Order> orderList)
         {
             Dictionary<ProductClass, SortedDictionary<DateTime, int>> productsMonthsSummary = new Dictionary<ProductClass, SortedDictionary<DateTime, int>>();

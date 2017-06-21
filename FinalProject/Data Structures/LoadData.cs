@@ -29,13 +29,17 @@ namespace FinalProject.Data_Structures
 
 
             List<Customer> customerList = getCustomerList(folderPath);
-            List<Order> orderList = getOrderList(folderPath);
-
-            Customer p = customerList[0];
-            var a = customerList.IndexOf(p);
+            OrdersList orderList = getOrderList(folderPath);
 
             Prediction predictionManager = new Prediction();
             predictionManager.PredictionManager(orderList);
+
+            ///
+            Order order = orderList.GetOrder("order4");
+            order.OrderStatus = Order.OrderStatusEnum.Canceled;
+            List<Order> or = orderList.GetOrders(Order.OrderStatusEnum.Canceled);
+
+            ////
         }
 
         private List<Customer> getCustomerList(string folderPath)
@@ -91,7 +95,7 @@ namespace FinalProject.Data_Structures
 
                 ProductClass product = productList.GetProduct(row[SuppliersPriceMatrixFileColumnsName.ProductID.ToString()].ToString());
                 PriceTable pricetable = new PriceTable(product,
-                   Int32.Parse( row[SuppliersPriceMatrixFileColumnsName.amount.ToString()].ToString()),
+                   Int32.Parse(row[SuppliersPriceMatrixFileColumnsName.amount.ToString()].ToString()),
                    Double.Parse(row[SuppliersPriceMatrixFileColumnsName.Cost.ToString()].ToString()));
 
                 Supplier.PriceMatrixStruct priceMatrixStruct = new Supplier.PriceMatrixStruct();
@@ -130,22 +134,26 @@ namespace FinalProject.Data_Structures
             Cost
         };
 
-        private List<Order> getOrderList(string folderPath)
+        private OrdersList getOrderList(string folderPath)
         {
 
             PersonClass person = new PersonClass("CostumerTest", "ID1", PersonTypeEnum.Customer);
 
             UtilitiesFileManager.FileManager fileManager = new UtilitiesFileManager.FileManager();
             DataTable orderTable = fileManager.GetCSV(folderPath + "OrderList.csv");
-            List<Order> orderList = new List<Order>();
-
+            // List<Order> orderList = new List<Order>();
+            OrdersList ordersList = new OrdersList();
 
             foreach (DataRow row in orderTable.Rows)
             {
                 ProductClass product = new ProductClass(row[OrderListHeders.Product.ToString()].ToString(), row[OrderListHeders.Product.ToString()].ToString(), 1);
                 List<PriceTable> priceTableList = new List<PriceTable>();
-                PriceTable priceTable = new PriceTable(product, int.Parse(row[OrderListHeders.Amount.ToString()].ToString()), double.Parse(row[OrderListHeders.Cost.ToString()].ToString()));
+                PriceTable priceTable = new PriceTable(product,
+                    int.Parse(row[OrderListHeders.Amount.ToString()].ToString()),
+                    double.Parse(row[OrderListHeders.Cost.ToString()].ToString()));
+
                 priceTableList.Add(priceTable);
+
                 Order order = new Order(person,
                     Order.OrderTypeEnum.CustomerOrder,
                     row[OrderListHeders.OrderID.ToString()].ToString(),
@@ -153,9 +161,9 @@ namespace FinalProject.Data_Structures
                    DateTime.Parse(row[OrderListHeders.OrderDeliveryDate.ToString()].ToString()),
                    priceTableList);
 
-                orderList.Add(order);
+                ordersList.AddOrder(order);
             }
-            return orderList;
+            return ordersList;
         }
 
     }//end class loadData

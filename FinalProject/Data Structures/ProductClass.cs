@@ -8,18 +8,27 @@ namespace FinalProject.Data_Structures
 {
     public class ProductClass
     {
+        public string ProductID { get; set; }
+        public string ProductName { get; set; }
+        public double ProductCapacity { get; set; }
+        public Dictionary<string, int> ProductTree { get; set; }
+        public List<Tool> ProductionToolList { get; set; }
+        public Dictionary<Tool, ProductionStatusEnum> ProductionProgress { get; set; }
+
         public ProductClass(string productID)
         {
             ProductID = productID;
         }
 
+        public ProductClass()
+        { }
 
         public ProductClass(string productID, string productName, double productCapacity)
         {
             ProductID = productID;
             ProductName = productName;
             ProductCapacity = productCapacity;
-            ProductTree = new Dictionary<ProductClass, int>();
+            ProductTree = new Dictionary<string, int>();
             ProductionToolList = new List<Tool>();
             setInitProductionProgress();
             //ProductionProgress = new Dictionary<Tool, ProductionStatusEnum>();
@@ -31,12 +40,7 @@ namespace FinalProject.Data_Structures
             Ready
         }
 
-        public string ProductID { get; set; }
-        public string ProductName { get; set; }
-        public double ProductCapacity { get; set; }
-        public Dictionary<ProductClass, int> ProductTree { get; set; }
-        public List<Tool> ProductionToolList { get; set; }
-        public Dictionary<Tool, ProductionStatusEnum> ProductionProgress { get; set; }
+
 
         private void setInitProductionProgress()
         {

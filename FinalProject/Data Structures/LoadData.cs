@@ -4,9 +4,11 @@ using FinalProject.Logic.Warehouse;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace FinalProject.Data_Structures
 {
@@ -15,6 +17,96 @@ namespace FinalProject.Data_Structures
         public object WarehouseCalss { get; private set; }
 
         public LoadData() { }
+
+
+        enum XMLProductFields
+        {
+            ProductsList,
+            ProductID,
+            PruductName,
+            ProductCapacity,
+            ProductTree,
+            ProductTree_ProdactID,
+            ProductTree_Amount
+
+        }
+
+        public void LoadLists()
+        {
+            ProductClassList productClassList = LoadProductClassList();
+        }
+
+        public ProductClassList LoadProductClassList()
+        {
+            ProductClassList productClassList = new ProductClassList();
+
+            UtilitiesFileManager.FileManager fileManager = new UtilitiesFileManager.FileManager();
+            string folderPath = fileManager.ExePath() + "dataSets\\";
+
+            string fileName = folderPath + "ProductList.xml";
+            XmlDocument xmldoc = new XmlDocument();
+            FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+            xmldoc.Load(fs);
+
+            XmlNodeList productsNodeList = xmldoc.GetElementsByTagName(XMLProductFields.ProductsList.ToString())[0].ChildNodes;
+
+            foreach (XmlNode productNode in productsNodeList)
+            {
+                ProductClass product = new ProductClass();
+
+                foreach (XmlNode productparameters in productNode)
+                {
+                    XMLProductFields XMLProductField = (XMLProductFields)Enum.Parse(typeof(XMLProductFields), productparameters.Name, true);
+
+                    switch (XMLProductField)
+                    {
+                        case XMLProductFields.ProductID:
+                            product.ProductID = productparameters.InnerText;
+                            break;
+                        case XMLProductFields.PruductName:
+                            product.ProductName = productparameters.InnerText;
+                            break;
+                        case XMLProductFields.ProductCapacity:
+                            product.ProductCapacity = int.Parse(productparameters.InnerText);
+                            break;
+                        case XMLProductFields.ProductTree:
+                            product.ProductTree = getProductTree(productparameters);
+                            break;
+                        default:
+                            break;
+                    }//end  switch (XMLProductField)
+
+                }//end oreach (XmlNode productparameters in productNode)
+                productClassList.AddProduct(product);
+            }//end     foreach (XmlNode productNode in productsNodeList)
+
+            return productClassList;
+
+
+        }//end void loadTest()
+
+        private Dictionary<string, int> getProductTree(XmlNode productTreeNode)
+        {
+            Dictionary<string, int> ProductTree = new Dictionary<string, int>();
+            try
+            {
+                XmlNodeList ProductTreeBranchList = productTreeNode.ChildNodes;
+
+                foreach (XmlNode productTreeBranch in ProductTreeBranchList)
+                {
+                    XmlNodeList productTreeBranchElements = productTreeBranch.ChildNodes;
+
+                    string bb = productTreeBranchElements[0].InnerText;
+                    ProductTree.Add(productTreeBranchElements[0].InnerText, int.Parse(productTreeBranchElements[1].InnerText));
+                }
+            }
+            catch (Exception)
+            {
+                ProductTree = null; ;
+            }
+
+            return ProductTree;
+        }
 
         public void loadProducts()
         {

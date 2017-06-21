@@ -21,7 +21,14 @@ namespace FinalProject
         private void button1_Click(object sender, EventArgs e)
         {
             LoadData loadData = new LoadData();
-            loadData.loadProducts();
+            loadData.LoadLists();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            LoadData loadData = new LoadData();
+            loadData.LoadLists();
+         
         }
     }
 }

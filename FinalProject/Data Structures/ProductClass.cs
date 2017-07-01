@@ -12,9 +12,17 @@ namespace FinalProject.Data_Structures
         public string ProductID { get; set; }
         public string ProductName { get; set; }
         public double ProductCapacity { get; set; }
-        public Dictionary<string, int> ProductTree { get; set; }
+        public Dictionary<string, int> InitProductTree { get; set; }
+        public Dictionary<ProductClass, int> ProductTree { get; set; }
         public List<Tool> ProductionToolList { get; set; }
         public Dictionary<Tool, ProductionStatusEnum> ProductionProgress { get; set; }
+
+        public enum ProductionStatusEnum
+        {
+            NotStarted,
+            InProgress,
+            Ready
+        }
 
         public ProductClass(string productID)
         {
@@ -29,19 +37,11 @@ namespace FinalProject.Data_Structures
             ProductID = productID;
             ProductName = productName;
             ProductCapacity = productCapacity;
-            ProductTree = new Dictionary<string, int>();
+            InitProductTree = new Dictionary<string, int>();
             ProductionToolList = new List<Tool>();
             setInitProductionProgress();
             //ProductionProgress = new Dictionary<Tool, ProductionStatusEnum>();
         }
-        public enum ProductionStatusEnum
-        {
-            NotStarted,
-            InProgress,
-            Ready
-        }
-
-
 
         private void setInitProductionProgress()
         {
@@ -92,7 +92,6 @@ namespace FinalProject.Data_Structures
             }
             catch (Exception)
             {
-                MessageBox.Show("Error: Product ID " + productID + " no Found in Product List");
                 return null;
             }
         }

@@ -24,7 +24,7 @@
       <SupplierReliability>0.6</SupplierReliability>
       <SupplierPriceMatrix>
         <SupplierPriceMatrixBranch>
-          <SupplierPriceMatrixBranch_ProductID>Product_A</SupplierPriceMatrixBranch_ProductID>
+          <SupplierPriceMatrixBranch_ProductID>Product_C</SupplierPriceMatrixBranch_ProductID>
           <SupplierPriceMatrixBranch_UnitPrice>2</SupplierPriceMatrixBranch_UnitPrice>
           <SupplierPriceMatrixBranch_LeadTime>3</SupplierPriceMatrixBranch_LeadTime>
         </SupplierPriceMatrixBranch>

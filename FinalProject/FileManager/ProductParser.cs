@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Xml;
 
 namespace FinalProject.FileManager
@@ -43,7 +44,7 @@ namespace FinalProject.FileManager
                             product.ProductCapacity = int.Parse(productparameter.InnerText);
                             break;
                         case XMLProductFields.ProductTree:
-                            product.ProductTree = getProductTree(productparameter);
+                            product.InitProductTree = getProductTree(productparameter);
                             break;
                         default:
                             break;
@@ -51,7 +52,35 @@ namespace FinalProject.FileManager
                 }
                 productClassList.AddProduct(product);
             }
+
+            productClassList = GenerateProductTree(productClassList);
+
             return productClassList;
+        }
+
+        private static ProductClassList GenerateProductTree(ProductClassList productClassList)
+        {
+            ProductClassList productList = new ProductClassList();
+            foreach (ProductClass product in productClassList.ProductList)
+            {
+                Dictionary<string, int> initProductTree = product.InitProductTree;
+                Dictionary<ProductClass, int> productTree = new Dictionary<ProductClass, int>();
+
+                foreach (KeyValuePair<string, int> initTreeBranch in initProductTree)
+                {
+                    ProductClass productSon = productClassList.GetProduct(initTreeBranch.Key);
+                    if (productSon == null)
+                    {
+                        MessageBox.Show("Error: Product tree Incorrect", "Error");
+                        return null;
+                    }
+                    else
+                        productTree.Add(productSon, initTreeBranch.Value);
+                }
+                product.ProductTree = productTree;
+                productList.AddProduct(product);
+            }
+            return productList;
         }
 
         private static Dictionary<string, int> getProductTree(XmlNode productTreeNode)

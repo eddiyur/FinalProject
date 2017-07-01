@@ -4,11 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Xml;
 
 namespace FinalProject.FileManager
 {
-    public static class  SuppliersParser
+    public static class SuppliersParser
     {
         enum XMLSuppliersListFields
         {
@@ -23,7 +24,7 @@ namespace FinalProject.FileManager
             SupplierPriceMatrixBranch_LeadTime
         }
 
-        public static  SuppliersList Parse(XmlNodeList suppliersNodeList, ProductClassList productsList)
+        public static SuppliersList Parse(XmlNodeList suppliersNodeList, ProductClassList productsList)
         {
             SuppliersList suppliersList = new SuppliersList();
 
@@ -76,8 +77,13 @@ namespace FinalProject.FileManager
                         switch (XMLSuppliersListField)
                         {
                             case XMLSuppliersListFields.SupplierPriceMatrixBranch_ProductID:
-                                ProductClass product = productsList.GetProduct(priceMatrixRowParameter.InnerText);
-                                break;
+                                {
+                                    ProductClass product = productsList.GetProduct(priceMatrixRowParameter.InnerText);
+                                    if (product == null)
+                                        MessageBox.Show("Wrong Product in Supplier Matrix", "Error");
+                                    priceMatrixRow.product = product;
+                                    break;
+                                }
                             case XMLSuppliersListFields.SupplierPriceMatrixBranch_UnitPrice:
                                 priceMatrixRow.UnitPrice = double.Parse(priceMatrixRowParameter.InnerText);
                                 break;

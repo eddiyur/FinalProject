@@ -37,6 +37,8 @@ namespace FinalProject.Data_Structures
 
         public Order()
         { }
+        public Order(OrderTypeEnum orderType)
+        { OrderType = orderType; }
 
         public Order(string orderID)
         { OrderID = orderID; }

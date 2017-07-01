@@ -1,3 +1,2 @@
-﻿1. data validation
-	1.1 no null in data structures
-	1.1 valid product tree
+﻿1. add error to the prediction
+	depend on XML of orders

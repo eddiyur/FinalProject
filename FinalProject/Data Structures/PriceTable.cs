@@ -19,6 +19,10 @@ namespace FinalProject.Data_Structures
             Cost = cost;
         }
 
+        public PriceTable()
+        {
+        }
+
         public double getTotalCalculation()
         {
             return Amount * Cost;

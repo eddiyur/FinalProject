@@ -14,7 +14,8 @@ namespace FinalProject.Logic.Prediction
         public double Mape { get; set; }
 
 
-        public PredictionClass() {
+        public PredictionClass()
+        {
             PredictionResults = new SortedDictionary<DateTime, double>();
         }
 
@@ -34,7 +35,6 @@ namespace FinalProject.Logic.Prediction
                 KeyValuePair<DateTime, double> Updatepair = new KeyValuePair<DateTime, double>(pair.Key, (double)pair.Value);
                 result.Add(Updatepair);
             }
-
             return result;
         }
     }

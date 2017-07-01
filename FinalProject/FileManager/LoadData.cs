@@ -18,13 +18,14 @@ namespace FinalProject.Data_Structures
     {
         public ProductClassList productsList;
         public SuppliersList suppliersList;
-
+        public OrdersList customerOrderList;
         public LoadData() { }
 
         enum XMLMainCategories
         {
             ProductsList,
-            SuppliersList
+            SuppliersList,
+            CustomerOrderList,
         }
 
        
@@ -35,9 +36,11 @@ namespace FinalProject.Data_Structures
         {
             XmlNodeList productsNodeList = getXmlNodeList("ProductList.xml", XMLMainCategories.ProductsList);
             XmlNodeList suppliersNodeList = getXmlNodeList("SuppliersList.xml", XMLMainCategories.SuppliersList);
+            XmlNodeList CustomerOrderNodeList = getXmlNodeList("CustomerOrderList.xml", XMLMainCategories.CustomerOrderList);
 
             productsList = ProductParser.Parse(productsNodeList);
             suppliersList = SuppliersParser.Parse(suppliersNodeList, productsList);
+            customerOrderList = CustomerOrderParser.Parse(CustomerOrderNodeList, productsList);
         }
 
 

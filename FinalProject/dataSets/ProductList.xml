@@ -23,5 +23,12 @@
       <ProductTree>
       </ProductTree>
     </Product>
+    <Product>
+      <ProductID>Product_C</ProductID>
+      <ProductName>Product_C</ProductName>
+      <ProductCapacity>1</ProductCapacity>
+      <ProductTree>
+      </ProductTree>
+    </Product>
   </ProductsList>
 </dataSet>

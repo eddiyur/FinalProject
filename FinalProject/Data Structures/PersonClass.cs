@@ -18,6 +18,8 @@ namespace FinalProject.Data_Structures
         public string ID { get; set; }
         public PersonTypeEnum PersonType { get; set; }
 
+        public PersonClass() { }
+
         public PersonClass(string name, string id, PersonTypeEnum personType)
         {
             Name = name;
@@ -66,12 +68,19 @@ namespace FinalProject.Data_Structures
     {
         public struct PriceMatrixStruct
         {
-            public PriceTable priceTable;
-            public int DeliveryTime;
+            public ProductClass product;
+            public double UnitPrice;
+            public int LeadTime;
         }
 
         public List<PriceMatrixStruct> PriceMatrix { get; set; }
-        public double Reliability { get; }
+        public double Reliability { get; set; }
+
+
+        public Supplier() : base()
+        {
+            PersonType = PersonTypeEnum.Supplier;
+        }
 
         public Supplier(string id) : base(id)
         {
@@ -109,14 +118,14 @@ namespace FinalProject.Data_Structures
 
     public class SuppliersList
     {
-       public List<Supplier> SupplierList { get; set; }
+        public List<Supplier> SupplierList { get; set; }
 
         public SuppliersList()
         {
             SupplierList = new List<Supplier>();
         }
 
-        public void AddSupploer(Supplier supplier)
+        public void AddSupplier(Supplier supplier)
         {
             SupplierList.Add(supplier);
         }

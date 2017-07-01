@@ -47,14 +47,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data Structures\LoadData.cs" />
+    <Compile Include="FileManager\LoadData.cs" />
     <Compile Include="Data Structures\Order.cs" />
     <Compile Include="Data Structures\PersonClass.cs" />
     <Compile Include="Data Structures\PriceTable.cs" />
     <Compile Include="Data Structures\ProductClass.cs" />
     <Compile Include="Data Structures\ProductionOrder.cs" />
     <Compile Include="Data Structures\Tool.cs" />
-    <Compile Include="FileManager.cs" />
+    <Compile Include="FileManager\FileManager.cs" />
+    <Compile Include="FileManager\ProductParser.cs" />
+    <Compile Include="FileManager\SuppliersParser.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -100,8 +102,14 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="dataSets\CustomerOrderList.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="dataSets\ProductList.xml" />
-    <Content Include="dataSets\SuppliersList.xml" />
+    <Content Include="dataSets\SuppliersList.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="dataSets\Todo.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

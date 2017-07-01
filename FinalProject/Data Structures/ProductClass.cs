@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace FinalProject.Data_Structures
 {
@@ -84,8 +85,16 @@ namespace FinalProject.Data_Structures
 
         public ProductClass GetProduct(string productID)
         {
-            ProductClass product = new ProductClass(productID);
-            return ProductList[ProductList.IndexOf(product)];
+            try
+            {
+                ProductClass product = new ProductClass(productID);
+                return ProductList[ProductList.IndexOf(product)];
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error: Product ID " + productID + " no Found in Product List");
+                return null;
+            }
         }
 
     }//end ProductClassList

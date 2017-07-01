@@ -31,7 +31,7 @@ namespace FinalProject.Data_Structures
         public string OrderID { get; set; }
         public DateTime OrderDate { get; set; }
         public DateTime OrderDeliveryDate { get; set; }
-        public List<PriceTable> ProductsList { get; set; }
+        public List<PriceTable> OrderProductsList { get; set; }
 
         public OrderStatusEnum OrderStatus;
 
@@ -60,7 +60,7 @@ namespace FinalProject.Data_Structures
             OrderID = orderID;
             OrderDate = orderDate;
             OrderDeliveryDate = orderDeliveryDate;
-            ProductsList = productsList;
+            OrderProductsList = productsList;
         }
 
         /// <summary>
@@ -75,7 +75,7 @@ namespace FinalProject.Data_Structures
 
             List<ProductionOrder> productionOrderList = new List<ProductionOrder>();
 
-            foreach (PriceTable priceTable in ProductsList)
+            foreach (PriceTable priceTable in OrderProductsList)
             {
                 int amount = priceTable.Amount;
                 for (int i = 0; i < amount; i++)

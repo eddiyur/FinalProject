@@ -1,0 +1,3 @@
+﻿1. data validation
+	1.1 no null in data structures
+	1.1 valid product tree

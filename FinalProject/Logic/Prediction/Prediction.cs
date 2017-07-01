@@ -74,7 +74,7 @@ namespace FinalProject.Logic.Prediction
             {
                 DateTime monthNumber = getMonthNumber(order.OrderDeliveryDate);
 
-                foreach (PriceTable priceTableRow in order.ProductsList)
+                foreach (PriceTable priceTableRow in order.OrderProductsList)
                 {
                     ProductClass product = priceTableRow.Product;
                     SortedDictionary<DateTime, int> monthsSummary;

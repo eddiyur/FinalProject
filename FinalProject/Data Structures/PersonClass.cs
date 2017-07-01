@@ -54,6 +54,10 @@ namespace FinalProject.Data_Structures
 
     public class Customer : PersonClass
     {
+        public Customer() : base()
+        {
+            PersonType = PersonTypeEnum.Customer;
+        }
         public Customer(string name, string id) : base(name, id)
         {
             Name = name;

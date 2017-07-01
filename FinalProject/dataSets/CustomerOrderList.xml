@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<dataSet>
+  <CustomerOrderList>
+    <CustomerName>Customer_11</CustomerName>
+    <CustomerID>Customer_1</CustomerID>
+    <CustomerOrderID>CustomerOrder_1</CustomerOrderID>
+    <CustomerOrderDate>01/01/2017</CustomerOrderDate>
+    <CustomerOrderDeliveryDate>01/01/2017</CustomerOrderDeliveryDate>
+    <CustomerOrder_Status>open</CustomerOrder_Status>
+    <CustomerOrderProductsList>
+      <CustomerOrderProductsListBranch>
+        <CustomerOrderProductsListBranch_ProductID>Product_A</CustomerOrderProductsListBranch_ProductID>
+        <CustomerOrderProductsListBranch_Amount>5</CustomerOrderProductsListBranch_Amount>
+        <CustomerOrderProductsListBranch_Price>10</CustomerOrderProductsListBranch_Price>
+      </CustomerOrderProductsListBranch>
+    </CustomerOrderProductsList>
+  </CustomerOrderList>
+</dataSet>

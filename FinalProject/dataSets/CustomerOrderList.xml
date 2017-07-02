@@ -24,7 +24,7 @@
     <CustomerOrder>
       <CustomerName>Customer_2</CustomerName>
       <CustomerID>Customer_2</CustomerID>
-      <CustomerOrderID>CustomerOrder_1</CustomerOrderID>
+      <CustomerOrderID>CustomerOrder_2</CustomerOrderID>
       <CustomerOrderDate>02/01/2017</CustomerOrderDate>
       <CustomerOrderDeliveryDate>02/01/2017</CustomerOrderDeliveryDate>
       <CustomerOrder_Status>Open</CustomerOrder_Status>
@@ -33,6 +33,26 @@
           <CustomerOrderProductsListBranch_ProductID>Product_B</CustomerOrderProductsListBranch_ProductID>
           <CustomerOrderProductsListBranch_Amount>2</CustomerOrderProductsListBranch_Amount>
           <CustomerOrderProductsListBranch_Price>2</CustomerOrderProductsListBranch_Price>
+        </CustomerOrderProductsListBranch>
+        <CustomerOrderProductsListBranch>
+          <CustomerOrderProductsListBranch_ProductID>Product_C</CustomerOrderProductsListBranch_ProductID>
+          <CustomerOrderProductsListBranch_Amount>3</CustomerOrderProductsListBranch_Amount>
+          <CustomerOrderProductsListBranch_Price>3</CustomerOrderProductsListBranch_Price>
+        </CustomerOrderProductsListBranch>
+      </CustomerOrderProductsList>
+    </CustomerOrder>
+    <CustomerOrder>
+      <CustomerName>Customer_3</CustomerName>
+      <CustomerID>Customer_3</CustomerID>
+      <CustomerOrderID>CustomerOrder_3</CustomerOrderID>
+      <CustomerOrderDate>03/01/2017</CustomerOrderDate>
+      <CustomerOrderDeliveryDate>03/01/2017</CustomerOrderDeliveryDate>
+      <CustomerOrder_Status>Open</CustomerOrder_Status>
+      <CustomerOrderProductsList>
+        <CustomerOrderProductsListBranch>
+          <CustomerOrderProductsListBranch_ProductID>Product_B</CustomerOrderProductsListBranch_ProductID>
+          <CustomerOrderProductsListBranch_Amount>3</CustomerOrderProductsListBranch_Amount>
+          <CustomerOrderProductsListBranch_Price>3</CustomerOrderProductsListBranch_Price>
         </CustomerOrderProductsListBranch>
         <CustomerOrderProductsListBranch>
           <CustomerOrderProductsListBranch_ProductID>Product_C</CustomerOrderProductsListBranch_ProductID>

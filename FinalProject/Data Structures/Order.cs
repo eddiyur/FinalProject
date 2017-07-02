@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -53,8 +54,49 @@ namespace FinalProject.Data_Structures
         public override int GetHashCode()
         {
             return OrderID.GetHashCode();
+
         }
 
+        enum OrderDTStructure
+        {
+            Name,
+            ID,
+            OrderID,
+            OrderDate,
+            OrderDeliveryDate,
+            OrderStatus
+        }
+
+
+
+        public DataTable ToDataTable()
+        {
+            DataTable dt = new DataTable();
+            DataTable priceTableDT = PriceTable.ToDataTable(OrderProductsList);
+
+            foreach (OrderDTStructure header in Enum.GetValues(typeof(OrderDTStructure)))
+                dt.Columns.Add(header.ToString());
+
+            foreach (DataColumn column in priceTableDT.Columns)
+                dt.Columns.Add(column.ColumnName);
+
+            foreach (DataRow drow in priceTableDT.Rows)
+            {
+                DataRow newDrow = dt.NewRow();
+                newDrow[OrderDTStructure.Name.ToString()] = Person.Name;
+                newDrow[OrderDTStructure.ID.ToString()] = Person.ID;
+                newDrow[OrderDTStructure.OrderID.ToString()] = OrderID;
+                newDrow[OrderDTStructure.OrderDate.ToString()] = OrderDate.ToShortDateString();
+                newDrow[OrderDTStructure.OrderDeliveryDate.ToString()] = OrderDeliveryDate.ToShortDateString();
+                newDrow[OrderDTStructure.OrderStatus.ToString()] = OrderStatus.ToString();
+
+                foreach (DataColumn header in priceTableDT.Columns)
+                    newDrow[header.ColumnName] = drow[header.ColumnName];
+
+                dt.Rows.Add(newDrow);
+            }
+            return dt;
+        }
         public Order(PersonClass person, OrderTypeEnum orderType, string orderID, DateTime orderDate, DateTime orderDeliveryDate, List<PriceTable> productsList)
         {
             Person = person;
@@ -126,6 +168,26 @@ namespace FinalProject.Data_Structures
                 if (order.OrderStatus.Equals(orderStatus))
                     result.Add(order);
             return result;
+        }
+
+        public void RemoveOrder(Order order)
+        {
+            OrderList.Remove(order);
+        }
+
+        public DataTable ToDataTable()
+        {
+            try
+            {
+                DataTable ordersDT = OrderList[0].ToDataTable();
+                for (int i = 1; i < OrderList.Count; i++)
+                    ordersDT.Merge(OrderList[i].ToDataTable());
+                return ordersDT;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
 

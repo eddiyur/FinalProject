@@ -106,7 +106,7 @@ namespace FinalProject.FileManager
                                 priceTable.Amount = int.Parse(orderProductRowParameter.InnerText);
                                 break;
                             case XMLCustomerOrderFields.CustomerOrderProductsListBranch_Price:
-                                priceTable.Cost = double.Parse(orderProductRowParameter.InnerText);
+                                priceTable.Price = double.Parse(orderProductRowParameter.InnerText);
                                 break;
                             default:
                                 break;

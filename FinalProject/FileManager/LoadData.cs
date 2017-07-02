@@ -28,9 +28,9 @@ namespace FinalProject.Data_Structures
             CustomerOrderList,
         }
 
-       
 
-      
+
+
 
         public void LoadLists()
         {
@@ -41,6 +41,7 @@ namespace FinalProject.Data_Structures
             productsList = ProductParser.Parse(productsNodeList);
             suppliersList = SuppliersParser.Parse(suppliersNodeList, productsList);
             customerOrderList = CustomerOrderParser.Parse(CustomerOrderNodeList, productsList);
+
         }
 
 
@@ -73,14 +74,14 @@ namespace FinalProject.Data_Structures
         }
 
 
-       
 
 
-       
-      
-       
-      
-       
+
+
+
+
+
+
 
     }//end class loadData
 }

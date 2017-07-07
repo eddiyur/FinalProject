@@ -41,7 +41,6 @@ namespace FinalProject.Data_Structures
             productsList = ProductParser.Parse(productsNodeList);
             suppliersList = SuppliersParser.Parse(suppliersNodeList, productsList);
             customerOrderList = CustomerOrderParser.Parse(CustomerOrderNodeList, productsList);
-
         }
 
 

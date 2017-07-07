@@ -124,7 +124,6 @@
     <Content Include="dataSets\SuppliersList.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="dataSets\test1,txt.txt" />
     <Content Include="dataSets\Todo.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 
-namespace FinalProject.FileManager
+namespace FinalProject.FileManagerFolder
 {
     public static class SuppliersParser
     {

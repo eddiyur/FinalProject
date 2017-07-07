@@ -1,5 +1,5 @@
 ﻿using FinalProject.Data_Structures;
-using FinalProject.FileManager;
+using FinalProject.FileManagerFolder;
 using FinalProject.Logic.Prediction;
 using FinalProject.Logic.Warehouse;
 using System;
@@ -58,14 +58,14 @@ namespace FinalProject.Data_Structures
         }
 
 
-        private string getTempFolderPath()
+        public static string getTempFolderPath()
         {
             UtilitiesFileManager.FileManager fileManager = new UtilitiesFileManager.FileManager();
             string folderPath = fileManager.ExePath();
             string[] pathParts = folderPath.Split('\\');
 
             folderPath = pathParts[0];
-            for (int i = 1; i < 8; i++)
+            for (int i = 1; i < pathParts.Count()-3; i++)
             {
                 folderPath = folderPath + "\\" + pathParts[i];
             }

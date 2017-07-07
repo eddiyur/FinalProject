@@ -1,0 +1,6 @@
+ProductID,ProductName,ProductCapacity,ProductTree_ProductID_1,ProductTree_Amount_1,ProductTree_ProductID_2,ProductTree_Amount_2,ProductTree_ProductID_3,ProductTree_Amount_3
+Product_01,Red Chair,10,Product_02,4,Product_03,1,Product_04,1
+Product_02,Chair leg,1,,,,,,
+Product_03,Chair Seat,2,,,,,,
+Product_04,Chair Backrest,2,,,,,,
+Product_05,Armchair,50,,,,,,

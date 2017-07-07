@@ -47,17 +47,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FileManager\CustomerOrderParser.cs" />
-    <Compile Include="FileManager\LoadData.cs" />
+    <Compile Include="FileManagerFolder\CustomerOrderParser.cs" />
+    <Compile Include="FileManagerFolder\LoadData.cs" />
     <Compile Include="Data Structures\Order.cs" />
     <Compile Include="Data Structures\PersonClass.cs" />
     <Compile Include="Data Structures\PriceTable.cs" />
     <Compile Include="Data Structures\ProductClass.cs" />
     <Compile Include="Data Structures\ProductionOrder.cs" />
     <Compile Include="Data Structures\Tool.cs" />
-    <Compile Include="FileManager\FileManager.cs" />
-    <Compile Include="FileManager\ProductParser.cs" />
-    <Compile Include="FileManager\SuppliersParser.cs" />
+    <Compile Include="FileManagerFolder\FileManager.cs" />
+    <Compile Include="FileManagerFolder\ProductParser.cs" />
+    <Compile Include="FileManagerFolder\SuppliersParser.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -69,6 +69,12 @@
     </Compile>
     <Compile Include="GUI\CustomerOrderForm.Designer.cs">
       <DependentUpon>CustomerOrderForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\GeneralDataGrid.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\GeneralDataGrid.Designer.cs">
+      <DependentUpon>GeneralDataGrid.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\OrdersTable.cs">
       <SubType>Form</SubType>
@@ -89,6 +95,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\CustomerOrderForm.resx">
       <DependentUpon>CustomerOrderForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\GeneralDataGrid.resx">
+      <DependentUpon>GeneralDataGrid.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\OrdersTable.resx">
       <DependentUpon>OrdersTable.cs</DependentUpon>
@@ -120,6 +129,7 @@
     <Content Include="dataSets\CustomerOrderList.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="dataSets\eddi.xml" />
     <Content Include="dataSets\ProductList.xml" />
     <Content Include="dataSets\SuppliersList.xml">
       <SubType>Designer</SubType>

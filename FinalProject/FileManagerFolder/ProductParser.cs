@@ -1,11 +1,13 @@
 ﻿using FinalProject.Data_Structures;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
+using UtilitiesFileManager;
 
 namespace FinalProject.FileManagerFolder
 {
@@ -13,14 +15,16 @@ namespace FinalProject.FileManagerFolder
     {
         enum XMLProductFields
         {
+            Product,
             ProductID,
             ProductName,
             ProductCapacity,
             ProductTree,
+            ProductTreeBranch,
             ProductTree_ProductID,
             ProductTree_Amount
         }
-
+   
         public static ProductClassList Parse(XmlNodeList productsNodeList)
         {
             ProductClassList productClassList = new ProductClassList();
@@ -103,6 +107,46 @@ namespace FinalProject.FileManagerFolder
             return ProductTree;
         }
 
+        public static void ProductClassCSVToXML()
+        {
+
+            string FolderPath = LoadData.getTempFolderPath();
+            string filePath = FolderPath + "ProductCSV.csv";
+            FileManager fm = new FileManager();
+            DataTable dt = fm.GetCSV(filePath);
+
+            XmlDocument doc = new XmlDocument();
+            XmlDeclaration xmlDeclaration = doc.CreateXmlDeclaration("1.0", "UTF-8", null);
+            XmlElement root = doc.CreateElement(LoadData.XMLMainCategories.dataset.ToString());
+            doc.InsertBefore(xmlDeclaration, doc.DocumentElement);
+            doc.AppendChild(root);
+
+            var productsList = doc.CreateElement(LoadData.XMLMainCategories.ProductsList.ToString());
+            root.AppendChild(productsList);
+
+            foreach (DataRow row in dt.Rows)
+            {
+                var product = doc.CreateElement(XMLProductFields.Product.ToString());
+                foreach (DataColumn column in dt.Columns)
+                {
+                    var tagName = doc.CreateElement(column.ColumnName);
+                    tagName.InnerText = row[column].ToString();
+                    product.AppendChild(tagName);
+                }
+
+
+
+
+
+                productsList.AppendChild(product);
+            }
+
+            using (var writer = new XmlTextWriter(FolderPath + "eddi.xml", Encoding.UTF8) { Formatting = Formatting.Indented })
+            {
+                doc.WriteTo(writer);
+            }
+
+        }
 
     }//end class
 }

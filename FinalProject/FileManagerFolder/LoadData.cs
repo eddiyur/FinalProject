@@ -21,8 +21,9 @@ namespace FinalProject.Data_Structures
         public OrdersList customerOrderList;
         public LoadData() { }
 
-        enum XMLMainCategories
+        public enum XMLMainCategories
         {
+            dataset,
             ProductsList,
             SuppliersList,
             CustomerOrderList,

@@ -1,5 +1,7 @@
 ﻿using FinalProject.Data_Structures;
+using FinalProject.FileManagerFolder;
 using FinalProject.GUI;
+using FinalProject.Logic.MainLogic;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -40,12 +42,12 @@ namespace FinalProject
             loadData.LoadLists();
 
             DB.customerOrderList = loadData.customerOrderList;
-           
+
         }
 
         private void LoadAllOrders()
         {
-            DataTable dt =  DB.customerOrderList.ToDataTable();
+            DataTable dt = DB.customerOrderList.ToDataTable();
             OrdersTable ordersTable = new OrdersTable(dt);
             var result = ordersTable.ShowDialog();
         }
@@ -54,7 +56,7 @@ namespace FinalProject
         {
             List<Order> orderList = DB.customerOrderList.OrderList;
             CustomerOrderForm customerOrderForm = new CustomerOrderForm(orderList[0]);
-         
+
             var result = customerOrderForm.ShowDialog();
             if (result == DialogResult.OK)
             {
@@ -72,40 +74,24 @@ namespace FinalProject
         }
 
         private void button3_Click(object sender, EventArgs e)
-        {            
-           
-            string FolderPath = LoadData.getTempFolderPath();
-            string filePath = FolderPath +"ProductCSV.csv";
-            FileManager fm = new FileManager();
-            DataTable dt = fm.GetCSV(filePath);
+        {
+            ProductParser.ProductClassCSVToXML();
+        }
 
-            XmlDocument doc = new XmlDocument();
-            XmlDeclaration xmlDeclaration = doc.CreateXmlDeclaration("1.0", "UTF-8", null);
-            XmlElement root = doc.CreateElement("dataset");
-            XmlAttribute att = null;
-            doc.InsertBefore(xmlDeclaration, doc.DocumentElement);
-            doc.AppendChild(root);
+        public Clock clock;
+        public MainManager mn;
 
-            var productsList = doc.CreateElement("ProductsList");
-            root.AppendChild(productsList);
+        private void button4_Click(object sender, EventArgs e)
+        {
+            clock = new Clock(DateTime.Now);
+            mn = new MainManager();
 
-            foreach (DataRow row in dt.Rows)
-            {
-                var product = doc.CreateElement("Product");
-                foreach (DataColumn column in dt.Columns)
-                {
-                    var tagName = doc.CreateElement(column.ColumnName);
-                    tagName.InnerText = row[column].ToString();
-                    product.AppendChild(tagName);
-                }
-                productsList.AppendChild(product);
-            }
+        }
 
-            using (var writer = new XmlTextWriter(FolderPath + "eddi.xml", Encoding.UTF8) { Formatting = Formatting.Indented })
-            {
-                doc.WriteTo(writer);
-            }
-
+        private void button5_Click(object sender, EventArgs e)
+        {
+            mn.test(clock);
+            clock.nextHour();
         }
     }
 }

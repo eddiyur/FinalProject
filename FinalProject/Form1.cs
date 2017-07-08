@@ -75,7 +75,7 @@ namespace FinalProject
 
         private void button3_Click(object sender, EventArgs e)
         {
-            ProductParser.ProductClassCSVToXML();
+            ProductParser.ProductClassCSVToXML("ProductCSV.csv","eddi.xml");
         }
 
         public Clock clock;

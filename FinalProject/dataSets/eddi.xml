@@ -2,83 +2,36 @@
 <dataset>
   <ProductsList>
     <Product>
-      <ProductID>Product_01</ProductID>
-      <ProductName>Red Chair</ProductName>
-      <ProductCapacity>10</ProductCapacity>
-      <ProductTree_ProductID_1>Product_02</ProductTree_ProductID_1>
-      <ProductTree_Amount_1>4</ProductTree_Amount_1>
-      <ProductTree_ProductID_2>Product_03</ProductTree_ProductID_2>
-      <ProductTree_Amount_2>1</ProductTree_Amount_2>
-      <ProductTree_ProductID_3>Product_04</ProductTree_ProductID_3>
-      <ProductTree_Amount_3>1</ProductTree_Amount_3>
-    </Product>
-    <Product>
-      <ProductID>Product_02</ProductID>
-      <ProductName>Chair leg</ProductName>
+      <ProductID>Product_A</ProductID>
+      <ProductName>Product_A</ProductName>
       <ProductCapacity>1</ProductCapacity>
-      <ProductTree_ProductID_1>
-      </ProductTree_ProductID_1>
-      <ProductTree_Amount_1>
-      </ProductTree_Amount_1>
-      <ProductTree_ProductID_2>
-      </ProductTree_ProductID_2>
-      <ProductTree_Amount_2>
-      </ProductTree_Amount_2>
-      <ProductTree_ProductID_3>
-      </ProductTree_ProductID_3>
-      <ProductTree_Amount_3>
-      </ProductTree_Amount_3>
+      <ProductTree>
+        <ProductTreeBranch>
+          <ProductTree_ProductID>Product_B</ProductTree_ProductID>
+          <ProductTree_Amount>3</ProductTree_Amount>
+        </ProductTreeBranch>
+        <ProductTreeBranch>
+          <ProductTree_ProductID>Product_C</ProductTree_ProductID>
+          <ProductTree_Amount>5</ProductTree_Amount>
+        </ProductTreeBranch>
+      </ProductTree>
     </Product>
     <Product>
-      <ProductID>Product_03</ProductID>
-      <ProductName>Chair Seat</ProductName>
-      <ProductCapacity>2</ProductCapacity>
-      <ProductTree_ProductID_1>
-      </ProductTree_ProductID_1>
-      <ProductTree_Amount_1>
-      </ProductTree_Amount_1>
-      <ProductTree_ProductID_2>
-      </ProductTree_ProductID_2>
-      <ProductTree_Amount_2>
-      </ProductTree_Amount_2>
-      <ProductTree_ProductID_3>
-      </ProductTree_ProductID_3>
-      <ProductTree_Amount_3>
-      </ProductTree_Amount_3>
+      <ProductID>Product_B</ProductID>
+      <ProductName>Product_B</ProductName>
+      <ProductCapacity>1</ProductCapacity>
+      <ProductTree>
+        <ProductTreeBranch>
+          <ProductTree_ProductID>Product_C</ProductTree_ProductID>
+          <ProductTree_Amount>5</ProductTree_Amount>
+        </ProductTreeBranch>
+      </ProductTree>
     </Product>
     <Product>
-      <ProductID>Product_04</ProductID>
-      <ProductName>Chair Backrest</ProductName>
-      <ProductCapacity>2</ProductCapacity>
-      <ProductTree_ProductID_1>
-      </ProductTree_ProductID_1>
-      <ProductTree_Amount_1>
-      </ProductTree_Amount_1>
-      <ProductTree_ProductID_2>
-      </ProductTree_ProductID_2>
-      <ProductTree_Amount_2>
-      </ProductTree_Amount_2>
-      <ProductTree_ProductID_3>
-      </ProductTree_ProductID_3>
-      <ProductTree_Amount_3>
-      </ProductTree_Amount_3>
-    </Product>
-    <Product>
-      <ProductID>Product_05</ProductID>
-      <ProductName>Armchair</ProductName>
-      <ProductCapacity>50</ProductCapacity>
-      <ProductTree_ProductID_1>
-      </ProductTree_ProductID_1>
-      <ProductTree_Amount_1>
-      </ProductTree_Amount_1>
-      <ProductTree_ProductID_2>
-      </ProductTree_ProductID_2>
-      <ProductTree_Amount_2>
-      </ProductTree_Amount_2>
-      <ProductTree_ProductID_3>
-      </ProductTree_ProductID_3>
-      <ProductTree_Amount_3>
-      </ProductTree_Amount_3>
+      <ProductID>Product_C</ProductID>
+      <ProductName>Product_C</ProductName>
+      <ProductCapacity>1</ProductCapacity>
+      <ProductTree />
     </Product>
   </ProductsList>
 </dataset>

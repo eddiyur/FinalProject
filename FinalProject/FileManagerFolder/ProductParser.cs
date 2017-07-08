@@ -24,7 +24,7 @@ namespace FinalProject.FileManagerFolder
             ProductTree_ProductID,
             ProductTree_Amount
         }
-   
+
         public static ProductClassList Parse(XmlNodeList productsNodeList)
         {
             ProductClassList productClassList = new ProductClassList();
@@ -107,11 +107,11 @@ namespace FinalProject.FileManagerFolder
             return ProductTree;
         }
 
-        public static void ProductClassCSVToXML()
+        public static void ProductClassCSVToXML(string SourcefileName,string targetFileName)
         {
 
             string FolderPath = LoadData.getTempFolderPath();
-            string filePath = FolderPath + "ProductCSV.csv";
+            string filePath = FolderPath + SourcefileName;
             FileManager fm = new FileManager();
             DataTable dt = fm.GetCSV(filePath);
 
@@ -127,21 +127,50 @@ namespace FinalProject.FileManagerFolder
             foreach (DataRow row in dt.Rows)
             {
                 var product = doc.CreateElement(XMLProductFields.Product.ToString());
-                foreach (DataColumn column in dt.Columns)
+
+                var ProductIDTagName = doc.CreateElement(XMLProductFields.ProductID.ToString());
+                ProductIDTagName.InnerText = row[0].ToString();
+                product.AppendChild(ProductIDTagName);
+
+                var ProductNameTagName = doc.CreateElement(XMLProductFields.ProductName.ToString());
+                ProductNameTagName.InnerText = row[1].ToString();
+                product.AppendChild(ProductNameTagName);
+
+                var ProductCapacityTagName = doc.CreateElement(XMLProductFields.ProductCapacity.ToString());
+                ProductCapacityTagName.InnerText = row[2].ToString();
+                product.AppendChild(ProductCapacityTagName);
+
+                var ProductTreeTagName = doc.CreateElement(XMLProductFields.ProductTree.ToString());
+               
+
+                int columnIndex = 3;
+                for (int i = 0; i < 3; i++)
                 {
-                    var tagName = doc.CreateElement(column.ColumnName);
-                    tagName.InnerText = row[column].ToString();
-                    product.AppendChild(tagName);
+                    string ProductTree_ProductIDValue = row[columnIndex].ToString();
+                    string ProductTree_AmountValue= row[columnIndex+1].ToString();
+
+                    if (!string.IsNullOrEmpty(ProductTree_ProductIDValue))
+                    {
+                        var ProductTreeBranchTagName = doc.CreateElement(XMLProductFields.ProductTreeBranch.ToString());
+                        var ProductTree_ProductIDTagName = doc.CreateElement(XMLProductFields.ProductTree_ProductID.ToString());
+                        ProductTree_ProductIDTagName.InnerText = ProductTree_ProductIDValue;
+                        ProductTreeBranchTagName.AppendChild(ProductTree_ProductIDTagName);
+                        var ProductTree_AmountTagName = doc.CreateElement(XMLProductFields.ProductTree_Amount.ToString());
+                        ProductTree_AmountTagName.InnerText = ProductTree_AmountValue;
+                        ProductTreeBranchTagName.AppendChild(ProductTree_AmountTagName);
+
+                        ProductTreeTagName.AppendChild(ProductTreeBranchTagName);
+                    }
+
+                    columnIndex = columnIndex + 2;
+
                 }
-
-
-
-
-
+                product.AppendChild(ProductTreeTagName);
+              
                 productsList.AppendChild(product);
             }
 
-            using (var writer = new XmlTextWriter(FolderPath + "eddi.xml", Encoding.UTF8) { Formatting = Formatting.Indented })
+            using (var writer = new XmlTextWriter(FolderPath + targetFileName, Encoding.UTF8) { Formatting = Formatting.Indented })
             {
                 doc.WriteTo(writer);
             }

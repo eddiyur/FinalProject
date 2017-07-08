@@ -30,8 +30,7 @@ namespace FinalProject.Data_Structures
         }
 
 
-
-
+        
 
         public void LoadLists()
         {
@@ -42,6 +41,11 @@ namespace FinalProject.Data_Structures
             productsList = ProductParser.Parse(productsNodeList);
             suppliersList = SuppliersParser.Parse(suppliersNodeList, productsList);
             customerOrderList = CustomerOrderParser.Parse(CustomerOrderNodeList, productsList);
+
+            ////csv to xml test
+            //XmlNodeList edduNodeList = getXmlNodeList("eddi.xml", XMLMainCategories.ProductsList);
+            //productsList = ProductParser.Parse(edduNodeList);
+
         }
 
 

@@ -4,9 +4,9 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static FinalProject.Data_Structures.Order;
+using static OperationalTrainer.Data_Structures.Order;
 
-namespace FinalProject.Data_Structures
+namespace OperationalTrainer.Data_Structures
 {
 
 
@@ -26,37 +26,6 @@ namespace FinalProject.Data_Structures
             Canceled,
             Delivered
         }
-
-        public PersonClass Person { get; set; }
-        public OrderTypeEnum OrderType { get; set; }
-        public string OrderID { get; set; }
-        public DateTime OrderDate { get; set; }
-        public DateTime OrderDeliveryDate { get; set; }
-        public List<PriceTable> OrderProductsList { get; set; }
-
-        public OrderStatusEnum OrderStatus;
-
-        public Order()
-        { }
-        public Order(OrderTypeEnum orderType)
-        { OrderType = orderType; }
-
-        public Order(string orderID)
-        { OrderID = orderID; }
-
-        public override bool Equals(object obj)
-        {
-            Order order = (Order)obj;
-            return OrderID.Equals(order.OrderID);
-        }
-
-
-        public override int GetHashCode()
-        {
-            return OrderID.GetHashCode();
-
-        }
-
         enum OrderDTStructure
         {
             Name,
@@ -67,8 +36,46 @@ namespace FinalProject.Data_Structures
             OrderStatus
         }
 
+        public PersonClass Person { get; set; }
+        public OrderTypeEnum OrderType { get; set; }
+        public string OrderID { get; set; }
+        public DateTime OrderDate { get; set; }
+        public DateTime OrderDeliveryDate { get; set; }
+        public List<PriceTable> OrderProductsList { get; set; }
+        public OrderStatusEnum OrderStatus { get; set; }
 
+        public Order() { }
+        public Order(OrderTypeEnum orderType)
+        { OrderType = orderType; }
 
+        public Order(string orderID)
+        { OrderID = orderID; }
+        public Order(PersonClass person, OrderTypeEnum orderType, string orderID, DateTime orderDate, DateTime orderDeliveryDate, List<PriceTable> productsList)
+        {
+            Person = person;
+            OrderType = orderType;
+            OrderID = orderID;
+            OrderDate = orderDate;
+            OrderDeliveryDate = orderDeliveryDate;
+            OrderProductsList = productsList;
+        }
+
+        public override bool Equals(object obj)
+        {
+            Order order = (Order)obj;
+            return OrderID.Equals(order.OrderID);
+        }
+
+        public override int GetHashCode()
+        {
+            return OrderID.GetHashCode();
+
+        }
+
+        /// <summary>
+        /// Convert Order type to DataTable
+        /// </summary>
+        /// <returns></returns>
         public DataTable ToDataTable()
         {
             DataTable dt = new DataTable();
@@ -97,15 +104,7 @@ namespace FinalProject.Data_Structures
             }
             return dt;
         }
-        public Order(PersonClass person, OrderTypeEnum orderType, string orderID, DateTime orderDate, DateTime orderDeliveryDate, List<PriceTable> productsList)
-        {
-            Person = person;
-            OrderType = orderType;
-            OrderID = orderID;
-            OrderDate = orderDate;
-            OrderDeliveryDate = orderDeliveryDate;
-            OrderProductsList = productsList;
-        }
+
 
         /// <summary>
         /// /not ready
@@ -133,7 +132,7 @@ namespace FinalProject.Data_Structures
         }
 
 
-    }//end orderClass
+    }//end OrderClass
 
 
     public class OrdersList
@@ -145,22 +144,42 @@ namespace FinalProject.Data_Structures
             OrderList = new List<Order>();
         }
 
+
+        /// <summary>
+        /// Add Order type to OrderList
+        /// </summary>
+        /// <param name="order"></param>
         public void AddOrder(Order order)
         {
             OrderList.Add(order);
         }
 
+        /// <summary>
+        /// Rerutn Order from OrderList
+        /// </summary>
+        /// <param name="order"></param>
+        /// <returns></returns>
         public Order GetOrder(Order order)
         {
             return OrderList[OrderList.IndexOf(order)];
         }
 
+        /// <summary>
+        /// Return Order from OrderList
+        /// </summary>
+        /// <param name="orderID"></param>
+        /// <returns></returns>
         public Order GetOrder(string orderID)
         {
             Order order = new Order(orderID);
             return OrderList[OrderList.IndexOf(order)];
         }
 
+        /// <summary>
+        /// Retutn OrderList with given Order Status
+        /// </summary>
+        /// <param name="orderStatus"></param>
+        /// <returns></returns>
         public List<Order> GetOrders(OrderStatusEnum orderStatus)
         {
             List<Order> result = new List<Order>();
@@ -170,11 +189,46 @@ namespace FinalProject.Data_Structures
             return result;
         }
 
+        /// <summary>
+        /// Retutn OrderList with given OrderDate
+        /// </summary>
+        /// <param name="orderDate"></param>
+        /// <returns></returns>
+        public OrdersList GetOrders(DateTime orderDate)
+        {
+
+            OrdersList result = new OrdersList();
+            foreach (Order order in OrderList)
+                if (order.OrderDate.Date == orderDate.Date)
+                    result.AddOrder(order);
+
+            return result;
+        }
+
+        /// <summary>
+        /// Remove Order From order List
+        /// </summary>
+        /// <param name="order"></param>
         public void RemoveOrder(Order order)
         {
             OrderList.Remove(order);
         }
 
+        /// <summary>
+        /// Remove Orders From Order List
+        /// </summary>
+        /// <param name="orderList"></param>
+        public void RemoveOrders(OrdersList orderList)
+        {
+            if (orderList.OrderList.Count > 0)
+                foreach (Order order in orderList.OrderList)
+                    RemoveOrder(order);
+        }
+
+        /// <summary>
+        /// Convert OrderList type to DataTable
+        /// </summary>
+        /// <returns>DataTable</returns>
         public DataTable ToDataTable()
         {
             try

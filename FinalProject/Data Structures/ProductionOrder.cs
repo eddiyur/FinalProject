@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static FinalProject.Data_Structures.Order;
+using static OperationalTrainer.Data_Structures.Order;
 
-namespace FinalProject.Data_Structures
+namespace OperationalTrainer.Data_Structures
 {
     public class ProductionOrder
     {

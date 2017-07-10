@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FinalProject.Logic.MainLogic
+namespace OperationalTrainer.Logic.MainLogic
 {
     public class ClockTimeEventArgs : EventArgs
     {
@@ -15,6 +15,7 @@ namespace FinalProject.Logic.MainLogic
     {
         public EventHandler<ClockTimeEventArgs> Tick;
         public ClockTimeEventArgs ClockTime { get; set; }
+        private const int TickSize = 8;
 
 
         public Clock(DateTime startTime) {
@@ -24,7 +25,7 @@ namespace FinalProject.Logic.MainLogic
 
         public void nextHour()
         {
-            ClockTime.Time = ClockTime.Time.AddHours(1);
+            ClockTime.Time = ClockTime.Time.AddHours(TickSize);
             Tick(this, ClockTime);
         }
 

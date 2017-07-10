@@ -1,11 +1,11 @@
-﻿using FinalProject.Data_Structures;
+﻿using OperationalTrainer.Data_Structures;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FinalProject.Logic.Prediction
+namespace OperationalTrainer.Logic.Prediction
 {
     public class ExponentialSmootingPrediction
     {

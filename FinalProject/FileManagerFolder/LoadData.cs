@@ -1,7 +1,8 @@
-﻿using FinalProject.Data_Structures;
-using FinalProject.FileManagerFolder;
-using FinalProject.Logic.Prediction;
-using FinalProject.Logic.Warehouse;
+﻿using OperationalTrainer.Data_Structures;
+using OperationalTrainer.FileManagerFolder;
+using OperationalTrainer.Logic.MainLogic;
+using OperationalTrainer.Logic.Prediction;
+using OperationalTrainer.Logic.Warehouse;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -11,14 +12,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
+using static OperationalTrainer.Logic.MainLogic.DataManager;
+using static OperationalTrainer.Logic.MainLogic.MainManager;
 
-namespace FinalProject.Data_Structures
+namespace OperationalTrainer.Data_Structures
 {
     public class LoadData
     {
-        public ProductClassList productsList;
-        public SuppliersList suppliersList;
-        public OrdersList customerOrderList;
+        private ProductClassList productsList;
+        private SuppliersList suppliersList;
+        private OrdersList customerOrderList;
         public LoadData() { }
 
         public enum XMLMainCategories
@@ -29,8 +32,25 @@ namespace FinalProject.Data_Structures
             CustomerOrderList,
         }
 
+        public OperationalTrainerDataSet LoadInitData()
+        {
+            OperationalTrainerDataSet operationalTrainerData = new OperationalTrainerDataSet();
 
-        
+            XmlNodeList productsNodeList = getXmlNodeList("ProductList.xml", XMLMainCategories.ProductsList);
+            XmlNodeList suppliersNodeList = getXmlNodeList("SuppliersList.xml", XMLMainCategories.SuppliersList);
+            XmlNodeList customerOrderNodeList = getXmlNodeList("CustomerOrderList.xml", XMLMainCategories.CustomerOrderList);
+            XmlNodeList fucureCustomerOrderNodeList = getXmlNodeList("futureCustomersOrderList.xml", XMLMainCategories.CustomerOrderList);
+
+
+            operationalTrainerData.ProductsMetaDataList = ProductParser.Parse(productsNodeList);
+            operationalTrainerData.SuppliersList = SuppliersParser.Parse(suppliersNodeList, productsList);
+            operationalTrainerData.CustomersOrderList= CustomerOrderParser.Parse(customerOrderNodeList, productsList);
+            operationalTrainerData.futureCustomersOrderList = CustomerOrderParser.Parse(fucureCustomerOrderNodeList, productsList);
+            return operationalTrainerData;
+
+
+        }
+
 
         public void LoadLists()
         {
@@ -70,7 +90,7 @@ namespace FinalProject.Data_Structures
             string[] pathParts = folderPath.Split('\\');
 
             folderPath = pathParts[0];
-            for (int i = 1; i < pathParts.Count()-3; i++)
+            for (int i = 1; i < pathParts.Count() - 3; i++)
             {
                 folderPath = folderPath + "\\" + pathParts[i];
             }

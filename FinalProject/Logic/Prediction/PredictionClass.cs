@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FinalProject.Logic.Prediction
+namespace OperationalTrainer.Logic.Prediction
 {
     public class PredictionClass
     {

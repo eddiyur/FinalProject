@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace FinalProject.Properties
+namespace OperationalTrainer.Properties
 {
 
 

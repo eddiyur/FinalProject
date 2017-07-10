@@ -1,4 +1,4 @@
-﻿using FinalProject.Data_Structures;
+﻿using OperationalTrainer.Data_Structures;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 
-namespace FinalProject.FileManagerFolder
+namespace OperationalTrainer.FileManagerFolder
 {
     public static class CustomerOrderParser
     {

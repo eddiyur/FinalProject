@@ -1,4 +1,4 @@
-﻿using FinalProject.Data_Structures;
+﻿using OperationalTrainer.Data_Structures;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace FinalProject.GUI
+namespace OperationalTrainer.GUI
 {
     public partial class CustomerOrderForm : Form
     {

@@ -1,4 +1,4 @@
-﻿using FinalProject.Data_Structures;
+﻿using OperationalTrainer.Data_Structures;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -9,7 +9,7 @@ using System.Windows.Forms;
 using System.Xml;
 using UtilitiesFileManager;
 
-namespace FinalProject.FileManagerFolder
+namespace OperationalTrainer.FileManagerFolder
 {
     public class ProductParser
     {
@@ -142,7 +142,6 @@ namespace FinalProject.FileManagerFolder
 
                 var ProductTreeTagName = doc.CreateElement(XMLProductFields.ProductTree.ToString());
                
-
                 int columnIndex = 3;
                 for (int i = 0; i < 3; i++)
                 {

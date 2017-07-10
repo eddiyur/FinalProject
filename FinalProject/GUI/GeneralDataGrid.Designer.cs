@@ -1,4 +1,4 @@
-﻿namespace FinalProject.GUI
+﻿namespace OperationalTrainer.GUI
 {
     partial class GeneralDataGrid
     {

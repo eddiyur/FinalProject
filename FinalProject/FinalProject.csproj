@@ -55,7 +55,7 @@
     <Compile Include="Data Structures\ProductClass.cs" />
     <Compile Include="Data Structures\ProductionOrder.cs" />
     <Compile Include="Data Structures\Tool.cs" />
-    <Compile Include="FileManagerFolder\FileManager.cs" />
+    <Compile Include="Logic\MainLogic\FileManager.cs" />
     <Compile Include="FileManagerFolder\ProductParser.cs" />
     <Compile Include="FileManagerFolder\SuppliersParser.cs" />
     <Compile Include="Form1.cs">
@@ -83,6 +83,7 @@
       <DependentUpon>OrdersTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Logic\MainLogic\Clock.cs" />
+    <Compile Include="FileManagerFolder\DataManager.cs" />
     <Compile Include="Logic\MainLogic\MainManager.cs" />
     <Compile Include="Logic\Prediction\ExponentialSmootingPrediction.cs" />
     <Compile Include="Logic\Prediction\Prediction.cs" />
@@ -133,6 +134,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="dataSets\eddi.xml" />
+    <Content Include="dataSets\futureCustomersOrderList.xml" />
     <Content Include="dataSets\ProductList.xml" />
     <Content Include="dataSets\SuppliersList.xml">
       <SubType>Designer</SubType>

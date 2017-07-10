@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<dataSet>
+  <CustomerOrderList>
+    <CustomerOrder>
+      <CustomerName>Customer_11</CustomerName>
+      <CustomerID>Customer_1</CustomerID>
+      <CustomerOrderID>FutureCO_1</CustomerOrderID>
+      <CustomerOrderDate>02/01/2017</CustomerOrderDate>
+      <CustomerOrderDeliveryDate>02/01/2017</CustomerOrderDeliveryDate>
+      <CustomerOrder_Status>Open</CustomerOrder_Status>
+      <CustomerOrderProductsList>
+        <CustomerOrderProductsListBranch>
+          <CustomerOrderProductsListBranch_ProductID>Product_A</CustomerOrderProductsListBranch_ProductID>
+          <CustomerOrderProductsListBranch_Amount>1</CustomerOrderProductsListBranch_Amount>
+          <CustomerOrderProductsListBranch_Price>1</CustomerOrderProductsListBranch_Price>
+        </CustomerOrderProductsListBranch>
+        <CustomerOrderProductsListBranch>
+          <CustomerOrderProductsListBranch_ProductID>Product_B</CustomerOrderProductsListBranch_ProductID>
+          <CustomerOrderProductsListBranch_Amount>2</CustomerOrderProductsListBranch_Amount>
+          <CustomerOrderProductsListBranch_Price>2</CustomerOrderProductsListBranch_Price>
+        </CustomerOrderProductsListBranch>
+      </CustomerOrderProductsList>
+    </CustomerOrder>
+    <CustomerOrder>
+      <CustomerName>Customer_2</CustomerName>
+      <CustomerID>Customer_2</CustomerID>
+      <CustomerOrderID>FutureCO_2</CustomerOrderID>
+      <CustomerOrderDate>02/02/2017</CustomerOrderDate>
+      <CustomerOrderDeliveryDate>02/02/2017</CustomerOrderDeliveryDate>
+      <CustomerOrder_Status>Open</CustomerOrder_Status>
+      <CustomerOrderProductsList>
+        <CustomerOrderProductsListBranch>
+          <CustomerOrderProductsListBranch_ProductID>Product_B</CustomerOrderProductsListBranch_ProductID>
+          <CustomerOrderProductsListBranch_Amount>2</CustomerOrderProductsListBranch_Amount>
+          <CustomerOrderProductsListBranch_Price>2</CustomerOrderProductsListBranch_Price>
+        </CustomerOrderProductsListBranch>
+        <CustomerOrderProductsListBranch>
+          <CustomerOrderProductsListBranch_ProductID>Product_C</CustomerOrderProductsListBranch_ProductID>
+          <CustomerOrderProductsListBranch_Amount>3</CustomerOrderProductsListBranch_Amount>
+          <CustomerOrderProductsListBranch_Price>3</CustomerOrderProductsListBranch_Price>
+        </CustomerOrderProductsListBranch>
+      </CustomerOrderProductsList>
+    </CustomerOrder>
+   
+  </CustomerOrderList>
+</dataSet>

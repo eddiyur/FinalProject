@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace FinalProject.Data_Structures
+namespace OperationalTrainer.Data_Structures
 {
     public class ProductClass
     {
@@ -60,6 +60,16 @@ namespace FinalProject.Data_Structures
         public override int GetHashCode()
         {
             return ProductID.GetHashCode();
+        }
+
+        public ProductClass Copy()
+        {
+            ProductClass product = new ProductClass(ProductID);
+            product.ProductName = this.ProductName;
+            product.ProductCapacity = this.ProductCapacity;
+            product.ProductTree = this.ProductTree;
+            product.ProductionToolList = this.ProductionToolList;
+            return product;
         }
 
     }//end Product class

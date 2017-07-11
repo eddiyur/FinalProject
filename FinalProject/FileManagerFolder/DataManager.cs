@@ -27,6 +27,7 @@ namespace OperationalTrainer.Logic.MainLogic
 
     public class DataManager
     {
+        private Clock _clock;
         public OperationalTrainerDataSet DataSet { get; set; }
 
         public DataManager()
@@ -38,7 +39,8 @@ namespace OperationalTrainer.Logic.MainLogic
 
         public void ConnectToClock(Clock clock)
         {
-            clock.Tick += ClockTick;
+            _clock = clock;
+            _clock.Tick += ClockTick;
         }
 
         public void ClockTick(object sender, ClockTimeEventArgs e)

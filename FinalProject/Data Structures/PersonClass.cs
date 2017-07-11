@@ -134,12 +134,12 @@ namespace OperationalTrainer.Data_Structures
             SupplierList.Add(supplier);
         }
 
-        public Supplier GetSupploer(Supplier supplier)
+        public Supplier GetSupplier(Supplier supplier)
         {
             return SupplierList[SupplierList.IndexOf(supplier)];
         }
 
-        public Supplier GetSupploer(string supplierID)
+        public Supplier GetSupplier(string supplierID)
         {
             Supplier supplier = new Supplier(supplierID);
             return SupplierList[SupplierList.IndexOf(supplier)];

@@ -15,6 +15,8 @@ namespace OperationalTrainer.Logic.MainLogic
     {
         public EventHandler<ClockTimeEventArgs> Tick;
         public ClockTimeEventArgs ClockTime { get; set; }
+
+
         private const int TickSize = 8;
 
 

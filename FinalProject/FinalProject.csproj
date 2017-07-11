@@ -55,6 +55,7 @@
     <Compile Include="Data Structures\ProductClass.cs" />
     <Compile Include="Data Structures\ProductionOrder.cs" />
     <Compile Include="Data Structures\Tool.cs" />
+    <Compile Include="Logic\Bank.cs" />
     <Compile Include="Logic\MainLogic\FileManager.cs" />
     <Compile Include="FileManagerFolder\ProductParser.cs" />
     <Compile Include="FileManagerFolder\SuppliersParser.cs" />
@@ -90,7 +91,7 @@
     <Compile Include="Logic\Prediction\PredictionClass.cs" />
     <Compile Include="Logic\Prediction\SimpleAveragePrediction.cs" />
     <Compile Include="Logic\Prediction\WeightedAveragePrediction.cs" />
-    <Compile Include="Logic\Warehouse\WarehouseClass.cs" />
+    <Compile Include="Logic\WarehouseClass.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">

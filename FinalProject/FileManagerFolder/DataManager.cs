@@ -9,29 +9,41 @@ namespace OperationalTrainer.Logic.MainLogic
 {
     public class OperationalTrainerDataSet
     {
+        //init data
+        public DateTime startDate { get; set; }
+        public double WarehouseMaxCapacity { get; set; }
+
+        //update data
         public DateTime CurrentDateTime { get; set; }
+        public Double BankCurrentBalance { get; set; }
         public ProductClassList ProductsMetaDataList { get; set; }
         public SuppliersList SuppliersList { get; set; }
         public OrdersList CustomersOrderList { get; set; }
         public OrdersList SupplieOrderList { get; set; }
         public OrdersList futureCustomersOrderList { get; set; }
+
     }
 
 
     public class DataManager
     {
-
         public OperationalTrainerDataSet DataSet { get; set; }
 
         public DataManager()
         {
             LoadData ld = new LoadData();
             DataSet = ld.LoadInitData();
+
         }
 
-        public void UpdateClock(DateTime newCurrentDateTime)
+        public void ConnectToClock(Clock clock)
         {
-            DataSet.CurrentDateTime = newCurrentDateTime;
+            clock.Tick += ClockTick;
+        }
+
+        private void ClockTick(object sender, ClockTimeEventArgs e)
+        {
+            DataSet.CurrentDateTime = e.Time;
         }
 
         /// <summary>
@@ -46,5 +58,13 @@ namespace OperationalTrainer.Logic.MainLogic
             return newCustomerOrdersList;
         }
 
+        /// <summary>
+        /// Removes from future_Customers_Order_List Orders with CurrentDate and return them
+        /// </summary>
+        /// <returns></returns>
+        public OrdersList getNewCustomerOrdersList()
+        {
+            return getNewCustomerOrdersList(DataSet.CurrentDateTime);
+        }
     }
 }

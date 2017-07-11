@@ -82,7 +82,7 @@ namespace OperationalTrainer
 
         private void button4_Click(object sender, EventArgs e)
         {
-            mn = new MainManager(new DateTime(2017,02,01));
+            mn = new MainManager();
             mn.StartClock();
 
         }

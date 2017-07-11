@@ -13,16 +13,23 @@ namespace OperationalTrainer.Logic.Warehouse
         public double MaxCapacity { get; }
         public double Capacity { get; set; }
 
-        //add transakzion
-
-        public WarehouseClass(List<ProductClass> ProductsList, double maxCapacity)
+        public WarehouseClass(ProductClassList ProductsList, double maxCapacity)
         {
             Inventory = new Dictionary<ProductClass, double>();
-            foreach (ProductClass product in ProductsList)
+            foreach (ProductClass product in ProductsList.ProductList)
                 Inventory.Add(product, 0);
             MaxCapacity = maxCapacity;
             updateCapacity();
         }
+
+        //public WarehouseClass(List<ProductClass> ProductsList, double maxCapacity)
+        //{
+        //    Inventory = new Dictionary<ProductClass, double>();
+        //    foreach (ProductClass product in ProductsList)
+        //        Inventory.Add(product, 0);
+        //    MaxCapacity = maxCapacity;
+        //    updateCapacity();
+        //}
 
         public WarehouseClass(Dictionary<ProductClass, double> ProductsList, double maxCapacity)
         {
@@ -31,14 +38,24 @@ namespace OperationalTrainer.Logic.Warehouse
             updateCapacity();
         }
 
+        /// <summary>
+        /// Add amount of products to inventory, return true if success, false if out of capacity
+        /// </summary>
+        /// <param name="product"></param>
+        /// <param name="amount"></param>
+        /// <returns></returns>
         public bool AddProduct(ProductClass product, int amount)
         {
-            if (MaxCapacity < Inventory[product]+amount)
-                return false;
             Inventory[product] += amount;
             return updateCapacity();
         }
 
+        /// <summary>
+        /// Get  amount of products from inventory, return true if success, false if out of inventory
+        /// </summary>
+        /// <param name="product"></param>
+        /// <param name="amount"></param>
+        /// <returns></returns>
         public bool GetProduct(ProductClass product, int amount)
         {
             if (amount > Inventory[product])
@@ -48,6 +65,10 @@ namespace OperationalTrainer.Logic.Warehouse
             return updateCapacity();
         }
 
+        /// <summary>
+        ///Calculate the capacity of the inventory, returns false if out of capacity
+        /// </summary>
+        /// <returns></returns>
         private bool updateCapacity()
         {
             double capacity = 0;

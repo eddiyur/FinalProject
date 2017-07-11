@@ -36,6 +36,12 @@ namespace OperationalTrainer.Data_Structures
         {
             OperationalTrainerDataSet operationalTrainerData = new OperationalTrainerDataSet();
 
+            //init data
+            operationalTrainerData.startDate = new DateTime(2017, 01, 31);
+            operationalTrainerData.WarehouseMaxCapacity = 100;
+            operationalTrainerData.BankCurrentBalance = 100;
+            //load from file
+
             XmlNodeList productsNodeList = getXmlNodeList("ProductList.xml", XMLMainCategories.ProductsList);
             XmlNodeList suppliersNodeList = getXmlNodeList("SuppliersList.xml", XMLMainCategories.SuppliersList);
             XmlNodeList customerOrderNodeList = getXmlNodeList("CustomerOrderList.xml", XMLMainCategories.CustomerOrderList);

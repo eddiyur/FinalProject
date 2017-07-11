@@ -33,7 +33,7 @@ namespace OperationalTrainer.Logic.MainLogic
         {
             LoadData ld = new LoadData();
             DataSet = ld.LoadInitData();
-
+            DataSet.CurrentDateTime = DataSet.startDate;
         }
 
         public void ConnectToClock(Clock clock)
@@ -41,7 +41,7 @@ namespace OperationalTrainer.Logic.MainLogic
             clock.Tick += ClockTick;
         }
 
-        private void ClockTick(object sender, ClockTimeEventArgs e)
+        public void ClockTick(object sender, ClockTimeEventArgs e)
         {
             DataSet.CurrentDateTime = e.Time;
         }
@@ -62,9 +62,10 @@ namespace OperationalTrainer.Logic.MainLogic
         /// Removes from future_Customers_Order_List Orders with CurrentDate and return them
         /// </summary>
         /// <returns></returns>
-        public OrdersList getNewCustomerOrdersList()
+        public OrdersList getNewCustomerOrdersList(Clock clock)
         {
-            return getNewCustomerOrdersList(DataSet.CurrentDateTime);
+            return getNewCustomerOrdersList(clock.ClockTime.Time);
+            // return getNewCustomerOrdersList(DataSet.CurrentDateTime);
         }
     }
 }

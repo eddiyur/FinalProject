@@ -38,8 +38,8 @@ namespace OperationalTrainer
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            LoadData loadData = new LoadData();
-            loadData.LoadLists();
+            //LoadData loadData = new LoadData();
+            //loadData.LoadLists();
 
             //   DB.customerOrderList = loadData.customerOrderList;
 

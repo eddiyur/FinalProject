@@ -115,8 +115,9 @@ namespace OperationalTrainer.FileManagerFolder
                     priceMatrix.Add(priceTable);
                 }//end priceMatrix level
             }//end try
-            catch (Exception)
+            catch (Exception e)
             {
+                MessageBox.Show(e.ToString());
                 return null;
             }
             return priceMatrix;

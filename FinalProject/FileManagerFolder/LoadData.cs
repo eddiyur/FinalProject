@@ -19,9 +19,9 @@ namespace OperationalTrainer.Data_Structures
 {
     public class LoadData
     {
-        private ProductClassList productsList;
-        private SuppliersList suppliersList;
-        private OrdersList customerOrderList;
+        //private ProductClassList productsList;
+        //private SuppliersList suppliersList;
+        //private OrdersList customerOrderList;
         public LoadData() { }
 
         public enum XMLMainCategories
@@ -49,9 +49,9 @@ namespace OperationalTrainer.Data_Structures
 
 
             operationalTrainerData.ProductsMetaDataList = ProductParser.Parse(productsNodeList);
-            operationalTrainerData.SuppliersList = SuppliersParser.Parse(suppliersNodeList, productsList);
-            operationalTrainerData.CustomersOrderList= CustomerOrderParser.Parse(customerOrderNodeList, productsList);
-            operationalTrainerData.futureCustomersOrderList = CustomerOrderParser.Parse(fucureCustomerOrderNodeList, productsList);
+            operationalTrainerData.SuppliersList = SuppliersParser.Parse(suppliersNodeList, operationalTrainerData.ProductsMetaDataList);
+            operationalTrainerData.CustomersOrderList= CustomerOrderParser.Parse(customerOrderNodeList, operationalTrainerData.ProductsMetaDataList);
+            operationalTrainerData.futureCustomersOrderList = CustomerOrderParser.Parse(fucureCustomerOrderNodeList, operationalTrainerData.ProductsMetaDataList);
             return operationalTrainerData;
 
 
@@ -60,17 +60,17 @@ namespace OperationalTrainer.Data_Structures
 
         public void LoadLists()
         {
-            XmlNodeList productsNodeList = getXmlNodeList("ProductList.xml", XMLMainCategories.ProductsList);
-            XmlNodeList suppliersNodeList = getXmlNodeList("SuppliersList.xml", XMLMainCategories.SuppliersList);
-            XmlNodeList CustomerOrderNodeList = getXmlNodeList("CustomerOrderList.xml", XMLMainCategories.CustomerOrderList);
+            //XmlNodeList productsNodeList = getXmlNodeList("ProductList.xml", XMLMainCategories.ProductsList);
+            //XmlNodeList suppliersNodeList = getXmlNodeList("SuppliersList.xml", XMLMainCategories.SuppliersList);
+            //XmlNodeList CustomerOrderNodeList = getXmlNodeList("CustomerOrderList.xml", XMLMainCategories.CustomerOrderList);
 
-            productsList = ProductParser.Parse(productsNodeList);
-            suppliersList = SuppliersParser.Parse(suppliersNodeList, productsList);
-            customerOrderList = CustomerOrderParser.Parse(CustomerOrderNodeList, productsList);
+            //productsList = ProductParser.Parse(productsNodeList);
+            //suppliersList = SuppliersParser.Parse(suppliersNodeList, productsList);
+            //customerOrderList = CustomerOrderParser.Parse(CustomerOrderNodeList, productsList);
 
-            ////csv to xml test
-            //XmlNodeList edduNodeList = getXmlNodeList("eddi.xml", XMLMainCategories.ProductsList);
-            //productsList = ProductParser.Parse(edduNodeList);
+            //////csv to xml test
+            ////XmlNodeList edduNodeList = getXmlNodeList("eddi.xml", XMLMainCategories.ProductsList);
+            ////productsList = ProductParser.Parse(edduNodeList);
 
         }
 

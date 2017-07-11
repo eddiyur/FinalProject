@@ -16,7 +16,7 @@ namespace FinalProject.Logic
         public Bank()
         { CurrentBalance = 0; }
 
-        public Bank(int currentBalance)
+        public Bank(double currentBalance)
         { CurrentBalance = currentBalance; }
 
         public double UpdateBalance(Order order)

@@ -21,12 +21,14 @@ namespace OperationalTrainer.Logic.MainLogic
         {
             dataManager = new DataManager();
 
+
             clock = new Clock(dataManager.DataSet.startDate);
             clock.Tick += ClockTick;
 
             dataManager.ConnectToClock(clock);
 
             Warehouse = new WarehouseClass(dataManager.DataSet.ProductsMetaDataList, dataManager.DataSet.WarehouseMaxCapacity);
+            bank = new Bank(dataManager.DataSet.BankCurrentBalance);
         }
 
 
@@ -50,7 +52,10 @@ namespace OperationalTrainer.Logic.MainLogic
 
         private void mainLogic()
         {
-            OrdersList newOrders = dataManager.getNewCustomerOrdersList();
+            OrdersList newOrders = dataManager.getNewCustomerOrdersList(clock);
+
+            if (newOrders.OrderList.Count > 0)
+                bank.UpdateBalance(newOrders.OrderList[0]);
 
 
             //when all loghic finish

@@ -28,7 +28,7 @@ namespace FinalProject.Logic
                 factor = -1;
 
             double amount = CalculateOrderAmount(order) * factor;
-            CurrentBalance = +amount;
+            CurrentBalance = CurrentBalance + amount;
 
             return CurrentBalance;
         }

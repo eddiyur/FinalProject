@@ -7,15 +7,11 @@ using System.Threading.Tasks;
 
 namespace OperationalTrainer.Logic.MainLogic
 {
-    public class OperationalTrainerDataSet
+    public class OperationalTrainerDataSetStructure
     {
-        //init data
-        public DateTime startDate { get; set; }
-        public double WarehouseMaxCapacity { get; set; }
 
-        //update data
-        public DateTime CurrentDateTime { get; set; }
-        public Double BankCurrentBalance { get; set; }
+        //    public DateTime CurrentDateTime { get; set; }
+
         public ProductClassList ProductsMetaDataList { get; set; }
         public SuppliersList SuppliersList { get; set; }
         public OrdersList CustomersOrderList { get; set; }
@@ -24,17 +20,26 @@ namespace OperationalTrainer.Logic.MainLogic
 
     }
 
+    public class InitOperationalTrainerDataSet
+    {
+        //init data
+        public DateTime startDate { get; set; }
+        public double WarehouseMaxCapacity { get; set; }
+        public Double BankCurrentBalance { get; set; }
+        public OperationalTrainerDataSetStructure OperationalTrainerDataSet { get; set; }
+
+        public InitOperationalTrainerDataSet()
+        { OperationalTrainerDataSet = new OperationalTrainerDataSetStructure(); }
+    }
 
     public class DataManager
     {
         private Clock _clock;
-        public OperationalTrainerDataSet DataSet { get; set; }
+        public OperationalTrainerDataSetStructure DataSet { get; set; }
 
-        public DataManager()
+        public DataManager(OperationalTrainerDataSetStructure dataSet)
         {
-            LoadData ld = new LoadData();
-            DataSet = ld.LoadInitData();
-            DataSet.CurrentDateTime = DataSet.startDate;
+            DataSet = dataSet;
         }
 
         public void ConnectToClock(Clock clock)
@@ -45,7 +50,7 @@ namespace OperationalTrainer.Logic.MainLogic
 
         public void ClockTick(object sender, ClockTimeEventArgs e)
         {
-            DataSet.CurrentDateTime = e.Time;
+            //    DataSet.CurrentDateTime = e.Time;
         }
 
         /// <summary>

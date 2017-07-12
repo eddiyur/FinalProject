@@ -11,7 +11,7 @@
       <OrderProductsList>
         <OrderProductsListBranch>
           <OrderProductsListBranch_ProductID>Product_A</OrderProductsListBranch_ProductID>
-          <OrderProductsListBranch_Amount>1</OrderProductsListBranch_Amount>
+          <OrderProductsListBranch_Amount>10</OrderProductsListBranch_Amount>
           <OrderProductsListBranch_Price>1</OrderProductsListBranch_Price>
         </OrderProductsListBranch>
       </OrderProductsList>

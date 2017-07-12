@@ -1,2 +1,0 @@
-﻿1. add error to the prediction
-	depend on XML of orders

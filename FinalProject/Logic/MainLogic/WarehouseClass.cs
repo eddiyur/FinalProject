@@ -9,6 +9,12 @@ namespace OperationalTrainer.Logic.Warehouse
 {
     public class WarehouseClass
     {
+
+        // work with order
+        // can get?
+        //can delivere?
+
+        
         private Dictionary<ProductClass, double> Inventory { get; }
         public double MaxCapacity { get; }
         public double Capacity { get; set; }
@@ -81,5 +87,5 @@ namespace OperationalTrainer.Logic.Warehouse
             else return true;
 
         }
-    }
+    }//end warehouse Class
 }

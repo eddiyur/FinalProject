@@ -16,19 +16,30 @@ namespace OperationalTrainer.Logic.MainLogic
         private Clock clock { get; set; }
         private WarehouseClass Warehouse { get; set; }
         private Bank bank { get; set; }
+        private DateTime CurrnetTime { get; set; }
+        private ProcessesSchedule CurrentProcesses;
+
+        enum ProcessesSchedule
+        {
+            BeginningOfTheTimeTick,
+            NewCustomerOrdersArrived,
+            SupplierOrdersDelivered
+        }
 
         public MainManager()
         {
-            dataManager = new DataManager();
+            LoadData ld = new LoadData();
+            InitOperationalTrainerDataSet initOperationalTrainerDataSet = ld.LoadInitData();
 
+            CurrnetTime = initOperationalTrainerDataSet.startDate;
 
-            clock = new Clock(dataManager.DataSet.startDate);
+            dataManager = new DataManager(initOperationalTrainerDataSet.OperationalTrainerDataSet);
+
+            clock = new Clock(CurrnetTime);
             clock.Tick += ClockTick;
 
-            dataManager.ConnectToClock(clock);
-
-            Warehouse = new WarehouseClass(dataManager.DataSet.ProductsMetaDataList, dataManager.DataSet.WarehouseMaxCapacity);
-            bank = new Bank(dataManager.DataSet.BankCurrentBalance);
+            Warehouse = new WarehouseClass(dataManager.DataSet.ProductsMetaDataList, initOperationalTrainerDataSet.WarehouseMaxCapacity);
+            bank = new Bank(initOperationalTrainerDataSet.BankCurrentBalance);
         }
 
 
@@ -45,21 +56,34 @@ namespace OperationalTrainer.Logic.MainLogic
         /// <param name="e"></param>
         private void ClockTick(object sender, ClockTimeEventArgs e)
         {
+            CurrnetTime = e.Time;
+            CurrentProcesses = ProcessesSchedule.NewCustomerOrdersArrived;
             mainLogic();
         }
 
-
-
+        
         private void mainLogic()
         {
-            OrdersList newOrders = dataManager.getNewCustomerOrdersList(clock);
 
-            if (newOrders.OrderList.Count > 0)
-                bank.UpdateBalance(newOrders.OrderList[0]);
-
+            ProcessesScheduleParser();
 
             //when all loghic finish
             clock.nextHour();
+        }
+
+        private void ProcessesScheduleParser()
+        {
+            var a = (int)CurrentProcesses;
+                }
+
+        private void NewCustomerOrder()
+        {
+            OrdersList newOrders = dataManager.getNewCustomerOrdersList(CurrnetTime);
+            if (newOrders.OrderList.Count > 0)
+            {
+                MessageBox.Show("new order Araive");
+                bank.UpdateBalance(newOrders.OrderList[0]);
+            }
         }
 
     }//end class MainManager

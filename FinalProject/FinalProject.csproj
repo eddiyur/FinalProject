@@ -56,8 +56,8 @@
     <Compile Include="Data Structures\ProductionOrder.cs" />
     <Compile Include="Data Structures\Tool.cs" />
     <Compile Include="FileManagerFolder\OrderParser.cs" />
-    <Compile Include="Logic\Bank.cs" />
-    <Compile Include="Logic\MainLogic\FileManager.cs" />
+    <Compile Include="Logic\MainLogic\Bank.cs" />
+    <Compile Include="FileManagerFolder\FileManager.cs" />
     <Compile Include="FileManagerFolder\ProductParser.cs" />
     <Compile Include="FileManagerFolder\SuppliersParser.cs" />
     <Compile Include="Form1.cs">
@@ -85,14 +85,14 @@
       <DependentUpon>OrdersTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Logic\MainLogic\Clock.cs" />
-    <Compile Include="FileManagerFolder\DataManager.cs" />
+    <Compile Include="Logic\MainLogic\DataManager.cs" />
     <Compile Include="Logic\MainLogic\MainManager.cs" />
     <Compile Include="Logic\Prediction\ExponentialSmootingPrediction.cs" />
     <Compile Include="Logic\Prediction\Prediction.cs" />
     <Compile Include="Logic\Prediction\PredictionClass.cs" />
     <Compile Include="Logic\Prediction\SimpleAveragePrediction.cs" />
     <Compile Include="Logic\Prediction\WeightedAveragePrediction.cs" />
-    <Compile Include="Logic\WarehouseClass.cs" />
+    <Compile Include="Logic\MainLogic\WarehouseClass.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
@@ -135,14 +135,12 @@
     <Content Include="dataSets\CustomerOrderList.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="dataSets\eddi.xml" />
     <Content Include="dataSets\futureCustomersOrderList.xml" />
     <Content Include="dataSets\ProductList.xml" />
     <Content Include="dataSets\SuppliersList.xml">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="dataSets\SuppliersOrderList.xml" />
-    <Content Include="dataSets\Todo.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

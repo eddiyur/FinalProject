@@ -30,14 +30,15 @@ namespace OperationalTrainer.Data_Structures
             dataset,
             ProductsList,
             SuppliersList,
-            CustomerOrderList,
-            FutureCustomerOrderList,
+            CustomersOrderList,
+            FutureCustomersOrderList,
             SuppliersOrderList
         }
 
-        public OperationalTrainerDataSet LoadInitData()
+        public InitOperationalTrainerDataSet LoadInitData()
         {
-            OperationalTrainerDataSet operationalTrainerData = new OperationalTrainerDataSet();
+            InitOperationalTrainerDataSet operationalTrainerData = new InitOperationalTrainerDataSet();
+            
 
             //init data
             operationalTrainerData.startDate = new DateTime(2017, 01, 31);
@@ -47,18 +48,18 @@ namespace OperationalTrainer.Data_Structures
 
             XmlNodeList productsNodeList = getXmlNodeList("ProductList.xml", XMLMainCategories.ProductsList);
             XmlNodeList suppliersNodeList = getXmlNodeList("SuppliersList.xml", XMLMainCategories.SuppliersList);
-            XmlNodeList customerOrderNodeList = getXmlNodeList("CustomerOrderList.xml", XMLMainCategories.CustomerOrderList);
-            XmlNodeList fucureCustomerOrderNodeList = getXmlNodeList("futureCustomersOrderList.xml", XMLMainCategories.FutureCustomerOrderList);
+            XmlNodeList customerOrderNodeList = getXmlNodeList("CustomerOrderList.xml", XMLMainCategories.CustomersOrderList);
+            XmlNodeList fucureCustomerOrderNodeList = getXmlNodeList("futureCustomersOrderList.xml", XMLMainCategories.FutureCustomersOrderList);
             XmlNodeList supploersOrderNodeList = getXmlNodeList("SuppliersOrderList.xml", XMLMainCategories.SuppliersOrderList);
 
-            operationalTrainerData.ProductsMetaDataList = ProductParser.Parse(productsNodeList);
-            operationalTrainerData.SuppliersList = SuppliersParser.Parse(suppliersNodeList, operationalTrainerData.ProductsMetaDataList);
+            operationalTrainerData.OperationalTrainerDataSet.ProductsMetaDataList = ProductParser.Parse(productsNodeList);
+            operationalTrainerData.OperationalTrainerDataSet.SuppliersList = SuppliersParser.Parse(suppliersNodeList, operationalTrainerData.OperationalTrainerDataSet.ProductsMetaDataList);
 
             // operationalTrainerData.CustomersOrderList = CustomerOrderParser.Parse(customerOrderNodeList, operationalTrainerData.ProductsMetaDataList);
-            operationalTrainerData.CustomersOrderList = OrderParser.Parse(customerOrderNodeList, operationalTrainerData.ProductsMetaDataList, Order.OrderTypeEnum.CustomerOrder);
+            operationalTrainerData.OperationalTrainerDataSet.CustomersOrderList = OrderParser.Parse(customerOrderNodeList, operationalTrainerData.OperationalTrainerDataSet.ProductsMetaDataList, Order.OrderTypeEnum.CustomerOrder);
             //operationalTrainerData.futureCustomersOrderList = CustomerOrderParser.Parse(fucureCustomerOrderNodeList, operationalTrainerData.ProductsMetaDataList);
-            operationalTrainerData.futureCustomersOrderList = OrderParser.Parse(fucureCustomerOrderNodeList, operationalTrainerData.ProductsMetaDataList, Order.OrderTypeEnum.CustomerOrder);
-            operationalTrainerData.SupplieOrderList = OrderParser.Parse(supploersOrderNodeList, operationalTrainerData.ProductsMetaDataList, Order.OrderTypeEnum.SupplierOrder, operationalTrainerData.SuppliersList);
+            operationalTrainerData.OperationalTrainerDataSet.futureCustomersOrderList = OrderParser.Parse(fucureCustomerOrderNodeList, operationalTrainerData.OperationalTrainerDataSet.ProductsMetaDataList, Order.OrderTypeEnum.CustomerOrder);
+            operationalTrainerData.OperationalTrainerDataSet.SupplieOrderList = OrderParser.Parse(supploersOrderNodeList, operationalTrainerData.OperationalTrainerDataSet.ProductsMetaDataList, Order.OrderTypeEnum.SupplierOrder, operationalTrainerData.OperationalTrainerDataSet.SuppliersList);
 
             return operationalTrainerData;
 

@@ -1,12 +1,8 @@
 ﻿using FinalProject.Logic;
 using OperationalTrainer.Data_Structures;
+using OperationalTrainer.GUI;
 using OperationalTrainer.Logic.Warehouse;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace OperationalTrainer.Logic.MainLogic
 {
@@ -23,7 +19,8 @@ namespace OperationalTrainer.Logic.MainLogic
         {
             BeginningOfTheTimeTick,
             NewCustomerOrdersArrived,
-            SupplierOrdersDelivered
+            SupplierOrdersDelivered,
+            EndOfProcess
         }
 
         public MainManager()
@@ -57,34 +54,78 @@ namespace OperationalTrainer.Logic.MainLogic
         private void ClockTick(object sender, ClockTimeEventArgs e)
         {
             CurrnetTime = e.Time;
-            CurrentProcesses = ProcessesSchedule.NewCustomerOrdersArrived;
-            mainLogic();
+            CurrentProcesses = ProcessesSchedule.BeginningOfTheTimeTick;
+            // mainLogic();
+            testLogic();
         }
 
-        
+
+        void testLogic()
+        {
+            CurrnetTime = new DateTime(2017, 02, 01);
+            NewCustomerOrder();
+
+        }
+
         private void mainLogic()
         {
 
             ProcessesScheduleParser();
 
-            //when all loghic finish
-            clock.nextHour();
         }
 
         private void ProcessesScheduleParser()
         {
-            var a = (int)CurrentProcesses;
-                }
+            CurrentProcesses = (ProcessesSchedule)((int)CurrentProcesses + 1);
+
+            switch (CurrentProcesses)
+            {
+                case ProcessesSchedule.BeginningOfTheTimeTick:
+                    break;
+                case ProcessesSchedule.NewCustomerOrdersArrived:
+                    NewCustomerOrder();
+                    break;
+                case ProcessesSchedule.SupplierOrdersDelivered:
+                    break;
+                case ProcessesSchedule.EndOfProcess:
+                    clock.nextHour();
+                    break;
+                default:
+                    break;
+            }
+            ProcessesScheduleParser();
+
+        }
 
         private void NewCustomerOrder()
         {
             OrdersList newOrders = dataManager.getNewCustomerOrdersList(CurrnetTime);
             if (newOrders.OrderList.Count > 0)
             {
-                MessageBox.Show("new order Araive");
-                bank.UpdateBalance(newOrders.OrderList[0]);
+                OrderForm of = new OrderForm(newOrders.OrderList[0]);
+                of.Show();
+                //  MessageBox.Show("new order Araive");
+
             }
         }
+
+
+        /// <summary>
+        ///Get new order to add to customer order list
+        /// </summary>
+        /// <param name="newOrder"></param>
+        public void NewCustomerOrderApproved(Order newOrder)
+        {
+            dataManager.DataSet.CustomersOrderList.AddOrder(newOrder);
+        }
+
+        /// <summary>
+        /// Get new order user dinied
+        /// </summary>
+        /// <param name="newOrder"></param>
+        public void NewCustomerOrderDenied(Order newOrder)
+        { }
+
 
     }//end class MainManager
 }

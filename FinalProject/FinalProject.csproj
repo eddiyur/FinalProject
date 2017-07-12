@@ -66,11 +66,11 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\CustomerOrderForm.cs">
+    <Compile Include="GUI\OrderForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUI\CustomerOrderForm.Designer.cs">
-      <DependentUpon>CustomerOrderForm.cs</DependentUpon>
+    <Compile Include="GUI\OrderForm.Designer.cs">
+      <DependentUpon>OrderForm.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\GeneralDataGrid.cs">
       <SubType>Form</SubType>
@@ -98,8 +98,8 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\CustomerOrderForm.resx">
-      <DependentUpon>CustomerOrderForm.cs</DependentUpon>
+    <EmbeddedResource Include="GUI\OrderForm.resx">
+      <DependentUpon>OrderForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\GeneralDataGrid.resx">
       <DependentUpon>GeneralDataGrid.cs</DependentUpon>

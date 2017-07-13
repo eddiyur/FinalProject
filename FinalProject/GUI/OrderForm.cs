@@ -1,4 +1,5 @@
-﻿using OperationalTrainer.Data_Structures;
+﻿using FinalProject.Controllers;
+using OperationalTrainer.Data_Structures;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -182,7 +183,12 @@ namespace OperationalTrainer.GUI
 
         private void button1_Click(object sender, EventArgs e)
         {
+           MainController.NewOrderArrived(this.order);
+        }
 
+        private void button2_Click(object sender, EventArgs e)
+        {
+            MainController.NewCustomerOrderEventEnd();
         }
     }
 }

@@ -6,6 +6,11 @@ using System;
 
 namespace OperationalTrainer.Logic.MainLogic
 {
+    public class NewOrderArrivedEventArgs : EventArgs
+    {
+        public Order Order { get; set; }
+    }
+
     public class MainManager
     {
         public DataManager dataManager { get; set; }
@@ -14,6 +19,8 @@ namespace OperationalTrainer.Logic.MainLogic
         private Bank bank { get; set; }
         private DateTime CurrnetTime { get; set; }
         private ProcessesSchedule CurrentProcesses;
+        public EventHandler<NewOrderArrivedEventArgs> NewOrderArrived;
+        public NewOrderArrivedEventArgs NewOrderArrivedEventArgs { get; set; }
 
         enum ProcessesSchedule
         {
@@ -55,15 +62,15 @@ namespace OperationalTrainer.Logic.MainLogic
         {
             CurrnetTime = e.Time;
             CurrentProcesses = ProcessesSchedule.BeginningOfTheTimeTick;
-            // mainLogic();
+            //mainLogic();
             testLogic();
         }
 
 
         void testLogic()
         {
-            CurrnetTime = new DateTime(2017, 02, 01);
-            NewCustomerOrder();
+            CurrnetTime = new DateTime(2017, 02, 02);
+            ProcessesScheduleParser();
 
         }
 
@@ -102,8 +109,11 @@ namespace OperationalTrainer.Logic.MainLogic
             OrdersList newOrders = dataManager.getNewCustomerOrdersList(CurrnetTime);
             if (newOrders.OrderList.Count > 0)
             {
-                OrderForm of = new OrderForm(newOrders.OrderList[0]);
-                of.Show();
+                var args = new NewOrderArrivedEventArgs();
+                args.Order = newOrders.OrderList[0];
+                NewOrderArrived(this, args);
+                //OrderForm of = new OrderForm(newOrders.OrderList[0]);
+                //of.ShowDialog();
                 //  MessageBox.Show("new order Araive");
 
             }
@@ -125,6 +135,11 @@ namespace OperationalTrainer.Logic.MainLogic
         /// <param name="newOrder"></param>
         public void NewCustomerOrderDenied(Order newOrder)
         { }
+
+        public void EventEnded()
+        {
+            ProcessesScheduleParser();
+        }
 
 
     }//end class MainManager

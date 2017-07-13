@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\MainController.cs" />
     <Compile Include="FileManagerFolder\CustomerOrderParser.cs" />
     <Compile Include="FileManagerFolder\LoadData.cs" />
     <Compile Include="Data Structures\Order.cs" />

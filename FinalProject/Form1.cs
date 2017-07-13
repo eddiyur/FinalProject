@@ -1,4 +1,5 @@
-﻿using OperationalTrainer.Data_Structures;
+﻿using FinalProject.Controllers;
+using OperationalTrainer.Data_Structures;
 using OperationalTrainer.FileManagerFolder;
 using OperationalTrainer.GUI;
 using OperationalTrainer.Logic.MainLogic;
@@ -77,14 +78,10 @@ namespace OperationalTrainer
         {
             ProductParser.ProductClassCSVToXML("ProductCSV.csv", "eddi.xml");
         }
-
-        public MainManager mn;
-
+          
         private void button4_Click(object sender, EventArgs e)
         {
-            mn = new MainManager();
-            mn.StartClock();
-
+            MainController.StartClock();
         }
 
        

@@ -1,7 +1,8 @@
 ﻿using FinalProject.Controllers;
+using FinalProject.FileManagerFolder;
+using FinalProject.GUI;
 using OperationalTrainer.Data_Structures;
 using OperationalTrainer.FileManagerFolder;
-using OperationalTrainer.GUI;
 using OperationalTrainer.Logic.MainLogic;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ using System.Windows.Forms;
 using System.Xml;
 using UtilitiesFileManager;
 
-namespace OperationalTrainer
+namespace FinalProject
 {
     public partial class Form1 : Form
     {
@@ -31,11 +32,6 @@ namespace OperationalTrainer
             DB = new DataSet();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            //loadCustomerOrderForm_Test();
-            //LoadAllOrders();
-        }
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -46,44 +42,24 @@ namespace OperationalTrainer
 
         }
 
-        private void LoadAllOrders()
-        {
-            DataTable dt = DB.customerOrderList.ToDataTable();
-            OrdersTable ordersTable = new OrdersTable(dt);
-            var result = ordersTable.ShowDialog();
-        }
 
-        //private void loadCustomerOrderForm_Test()
-        //{
-        //    List<Order> orderList = DB.customerOrderList.OrderList;
-        //    CustomerOrderForm customerOrderForm = new CustomerOrderForm(orderList[0]);
 
-        //    var result = customerOrderForm.ShowDialog();
-        //    if (result == DialogResult.OK)
-        //    {
-        //        var a = customerOrderForm.ReturnValue1;
-        //    }
-        //}
+        public Clock clock;
+        public MainManager mn;
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-
-            //DataTable dt = DB.customerOrderList.ToDataTable();
-
-            //GeneralDataGrid gd = new GeneralDataGrid(dt);
-            //gd.Show();
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            ProductParser.ProductClassCSVToXML("ProductCSV.csv", "eddi.xml");
-        }
-          
         private void button4_Click(object sender, EventArgs e)
         {
-            MainController.StartClock();
+            clock = new Clock(new DateTime(2017, 01, 31));
+            mn = new MainManager();
+
         }
 
-       
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //MainController.test();
+            DataTable dt = MainController.GetCustomerOrdersDataTable();
+            CustomerOrdersForm cof = new CustomerOrdersForm(dt);
+            cof.ShowDialog();
+        }
     }
 }

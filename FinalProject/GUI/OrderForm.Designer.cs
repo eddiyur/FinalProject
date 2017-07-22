@@ -39,6 +39,7 @@
             this.DTPanel.Name = "DTPanel";
             this.DTPanel.Size = new System.Drawing.Size(200, 100);
             this.DTPanel.TabIndex = 0;
+            this.DTPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.DTPanel_Paint);
             // 
             // button1
             // 

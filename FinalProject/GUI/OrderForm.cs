@@ -190,5 +190,10 @@ namespace OperationalTrainer.GUI
         {
             MainController.NewCustomerOrderEventEnd();
         }
+
+        private void DTPanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

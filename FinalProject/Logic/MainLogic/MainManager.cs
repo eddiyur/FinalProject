@@ -1,8 +1,10 @@
 ﻿using FinalProject.Logic;
+using FinalProject.Logic.MainLogic;
 using OperationalTrainer.Data_Structures;
 using OperationalTrainer.GUI;
 using OperationalTrainer.Logic.Warehouse;
 using System;
+using System.Data;
 
 namespace OperationalTrainer.Logic.MainLogic
 {
@@ -18,6 +20,8 @@ namespace OperationalTrainer.Logic.MainLogic
         private WarehouseClass Warehouse { get; set; }
         private Bank bank { get; set; }
         private DateTime CurrnetTime { get; set; }
+        private DataSummaryClass DataSummary { get; set; }
+
         private ProcessesSchedule CurrentProcesses;
         public EventHandler<NewOrderArrivedEventArgs> NewOrderArrived;
         public NewOrderArrivedEventArgs NewOrderArrivedEventArgs { get; set; }
@@ -44,6 +48,7 @@ namespace OperationalTrainer.Logic.MainLogic
 
             Warehouse = new WarehouseClass(dataManager.DataSet.ProductsMetaDataList, initOperationalTrainerDataSet.WarehouseMaxCapacity);
             bank = new Bank(initOperationalTrainerDataSet.BankCurrentBalance);
+            DataSummary = new DataSummaryClass(Warehouse,dataManager);
         }
 
 
@@ -67,11 +72,23 @@ namespace OperationalTrainer.Logic.MainLogic
         }
 
 
-        void testLogic()
-        {
-            CurrnetTime = new DateTime(2017, 02, 02);
-            ProcessesScheduleParser();
+        
 
+        public void testLogic()
+        {
+            CurrnetTime = new DateTime(2017, 02, 01);
+            OrdersList newOrders = dataManager.getNewCustomerOrdersList(CurrnetTime);
+
+            DataSummary.GenerateCustomerOrdersDataTable(newOrders); 
+
+            // ProcessesScheduleParser();
+
+        }
+
+
+        public DataTable GetCustomerOrdersDataTable()
+        {
+            return DataSummary.GenerateCustomerOrdersDataTable();
         }
 
         private void mainLogic()
@@ -107,15 +124,12 @@ namespace OperationalTrainer.Logic.MainLogic
         private void NewCustomerOrder()
         {
             OrdersList newOrders = dataManager.getNewCustomerOrdersList(CurrnetTime);
+
             if (newOrders.OrderList.Count > 0)
             {
                 var args = new NewOrderArrivedEventArgs();
                 args.Order = newOrders.OrderList[0];
                 NewOrderArrived(this, args);
-                //OrderForm of = new OrderForm(newOrders.OrderList[0]);
-                //of.ShowDialog();
-                //  MessageBox.Show("new order Araive");
-
             }
         }
 

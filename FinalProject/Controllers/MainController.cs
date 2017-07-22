@@ -3,6 +3,7 @@ using OperationalTrainer.GUI;
 using OperationalTrainer.Logic.MainLogic;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,5 +39,16 @@ namespace FinalProject.Controllers
         {
             mainManager.EventEnded();
         }
-    }
+
+        public static void test()
+        {
+            mainManager.testLogic();
+        }
+
+        public static DataTable GetCustomerOrdersDataTable()
+        {
+            return mainManager.GetCustomerOrdersDataTable();
+        }
+
+    }//end  MainController
 }

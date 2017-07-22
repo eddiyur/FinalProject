@@ -57,6 +57,12 @@
     <Compile Include="Data Structures\ProductionOrder.cs" />
     <Compile Include="Data Structures\Tool.cs" />
     <Compile Include="FileManagerFolder\OrderParser.cs" />
+    <Compile Include="GUI\CustomerOrdersForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\CustomerOrdersForm.Designer.cs">
+      <DependentUpon>CustomerOrdersForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Logic\MainLogic\Bank.cs" />
     <Compile Include="FileManagerFolder\FileManager.cs" />
     <Compile Include="FileManagerFolder\ProductParser.cs" />
@@ -87,6 +93,7 @@
     </Compile>
     <Compile Include="Logic\MainLogic\Clock.cs" />
     <Compile Include="Logic\MainLogic\DataManager.cs" />
+    <Compile Include="Logic\MainLogic\DataSummaryClass.cs" />
     <Compile Include="Logic\MainLogic\MainManager.cs" />
     <Compile Include="Logic\Prediction\ExponentialSmootingPrediction.cs" />
     <Compile Include="Logic\Prediction\Prediction.cs" />
@@ -98,6 +105,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\CustomerOrdersForm.resx">
+      <DependentUpon>CustomerOrdersForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\OrderForm.resx">
       <DependentUpon>OrderForm.cs</DependentUpon>

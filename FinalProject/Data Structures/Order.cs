@@ -69,7 +69,6 @@ namespace OperationalTrainer.Data_Structures
         public override int GetHashCode()
         {
             return OrderID.GetHashCode();
-
         }
 
         /// <summary>
@@ -105,6 +104,17 @@ namespace OperationalTrainer.Data_Structures
             return dt;
         }
 
+        /// <summary>
+        /// Calculate the Amount of the order
+        /// </summary>
+        /// <returns></returns>
+        public double GetOrderAmount()
+        {
+            double amount = 0;
+            foreach (PriceTable priceTable in OrderProductsList)
+                amount = amount + (priceTable.Amount * priceTable.Price);
+            return amount;
+        }
 
         /// <summary>
         /// /not ready

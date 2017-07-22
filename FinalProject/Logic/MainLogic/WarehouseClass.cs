@@ -4,17 +4,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace OperationalTrainer.Logic.Warehouse
 {
     public class WarehouseClass
     {
-
-        // work with order
+        //event out of stouck
+        //event out of capasity
         // can get?
         //can delivere?
 
-        
+
         private Dictionary<ProductClass, double> Inventory { get; }
         public double MaxCapacity { get; }
         public double Capacity { get; set; }
@@ -28,14 +29,6 @@ namespace OperationalTrainer.Logic.Warehouse
             updateCapacity();
         }
 
-        //public WarehouseClass(List<ProductClass> ProductsList, double maxCapacity)
-        //{
-        //    Inventory = new Dictionary<ProductClass, double>();
-        //    foreach (ProductClass product in ProductsList)
-        //        Inventory.Add(product, 0);
-        //    MaxCapacity = maxCapacity;
-        //    updateCapacity();
-        //}
 
         public WarehouseClass(Dictionary<ProductClass, double> ProductsList, double maxCapacity)
         {
@@ -45,37 +38,44 @@ namespace OperationalTrainer.Logic.Warehouse
         }
 
         /// <summary>
-        /// Add amount of products to inventory, return true if success, false if out of capacity
+        /// Add amount of products to inventory
         /// </summary>
         /// <param name="product"></param>
         /// <param name="amount"></param>
         /// <returns></returns>
-        public bool AddProduct(ProductClass product, int amount)
+        private void AddProduct(ProductClass product, int amount)
         {
             Inventory[product] += amount;
-            return updateCapacity();
+            updateCapacity();
         }
 
         /// <summary>
-        /// Get  amount of products from inventory, return true if success, false if out of inventory
+        /// Get amount of products from inventory
         /// </summary>
         /// <param name="product"></param>
         /// <param name="amount"></param>
         /// <returns></returns>
-        public bool GetProduct(ProductClass product, int amount)
+        private void GetProduct(ProductClass product, int amount)
         {
-            if (amount > Inventory[product])
-                return false;
-            else
-                Inventory[product] -= amount;
-            return updateCapacity();
+            Inventory[product] -= amount;
+
+            if (Inventory[product] < 0)
+                //event
+                MessageBox.Show("Error");
+            updateCapacity();
+        }
+
+
+        private bool CanGetProduct(ProductClass product, int amount)
+        {
+            return Inventory[product] >= amount;
         }
 
         /// <summary>
-        ///Calculate the capacity of the inventory, returns false if out of capacity
+        ///Calculate the capacity of the inventory
         /// </summary>
         /// <returns></returns>
-        private bool updateCapacity()
+        private void updateCapacity()
         {
             double capacity = 0;
             foreach (KeyValuePair<ProductClass, double> product in Inventory)
@@ -83,9 +83,39 @@ namespace OperationalTrainer.Logic.Warehouse
 
             Capacity = capacity;
             if (Capacity > MaxCapacity)
-                return false;
-            else return true;
-
+                MessageBox.Show("Error");
         }
+
+        /// <summary>
+        ///Extract products form order
+        /// </summary>
+        /// <param name="order"></param>
+        public void GetOrder(Order order)
+        {
+            foreach (PriceTable priceTable in order.OrderProductsList)
+                GetProduct(priceTable.Product, priceTable.Amount);
+        }
+
+
+        /// <summary>
+        ///Add products from order
+        /// </summary>
+        /// <param name="order"></param>
+        public void AddOrder(Order order)
+        {
+            foreach (PriceTable priceTable in order.OrderProductsList)
+                AddProduct(priceTable.Product, priceTable.Amount);
+        }
+
+
+        public bool CanGetOrder(Order order)
+        {
+            foreach (PriceTable priceTable in order.OrderProductsList)
+                if (!CanGetProduct(priceTable.Product, priceTable.Amount))
+                    return false;
+            return true;
+        }
+
+
     }//end warehouse Class
 }

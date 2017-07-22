@@ -57,9 +57,18 @@ namespace FinalProject
         private void button1_Click(object sender, EventArgs e)
         {
             //MainController.test();
-            DataTable dt = MainController.GetCustomerOrdersDataTable();
-            CustomerOrdersForm cof = new CustomerOrdersForm(dt);
-            cof.ShowDialog();
+            OrdersMainForm CustomerMainForm = new OrdersMainForm(MainController.GetCustomerOrdersDataTable());
+            CustomerMainForm.Show();
+
+            OrdersMainForm SupplierMainForm = new OrdersMainForm(MainController.GetSupplierOrdersDataTable());
+            SupplierMainForm.Show();
+
+         //   DataTable bank = MainController.GetBankDataTable();
+
+            OrdersMainForm bankMainForm = new OrdersMainForm(MainController.GetBankDataTable());
+            bankMainForm.Show();
         }
-    }
+
+
+    }//end class
 }

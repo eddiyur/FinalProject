@@ -50,5 +50,15 @@ namespace FinalProject.Controllers
             return mainManager.GetCustomerOrdersDataTable();
         }
 
+        public static DataTable GetSupplierOrdersDataTable()
+        {
+            return mainManager.GetSupplierOrdersDataTable();
+        }
+
+        public static DataTable GetBankDataTable()
+        {
+            return mainManager.GetBankDataTable();
+        }
+
     }//end  MainController
 }

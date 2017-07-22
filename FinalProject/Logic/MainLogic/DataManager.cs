@@ -17,7 +17,7 @@ namespace OperationalTrainer.Logic.MainLogic
         public OrdersList CustomersOrderList { get; set; }
         public OrdersList SupplieOrderList { get; set; }
         public OrdersList futureCustomersOrderList { get; set; }
-
+    
     }
 
     public class InitOperationalTrainerDataSet
@@ -36,22 +36,16 @@ namespace OperationalTrainer.Logic.MainLogic
     {
         private Clock _clock;
         public OperationalTrainerDataSetStructure DataSet { get; set; }
+        public DateTime CurrnetTime { get; set; }
 
         public DataManager(OperationalTrainerDataSetStructure dataSet)
         {
             DataSet = dataSet;
         }
 
-        public void ConnectToClock(Clock clock)
-        {
-            _clock = clock;
-            _clock.Tick += ClockTick;
-        }
 
-        public void ClockTick(object sender, ClockTimeEventArgs e)
-        {
-            //    DataSet.CurrentDateTime = e.Time;
-        }
+        public void UpdateTime(DateTime currnetTime)
+        { CurrnetTime = currnetTime; }
 
         /// <summary>
         /// Removes from future_Customers_Order_List Orders with given date and return them

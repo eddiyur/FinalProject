@@ -40,16 +40,18 @@ namespace OperationalTrainer.Logic.MainLogic
             InitOperationalTrainerDataSet initOperationalTrainerDataSet = ld.LoadInitData();
 
             CurrnetTime = initOperationalTrainerDataSet.startDate;
-
+            
             dataManager = new DataManager(initOperationalTrainerDataSet.OperationalTrainerDataSet);
+            dataManager.UpdateTime(CurrnetTime);
 
             clock = new Clock(CurrnetTime);
             clock.Tick += ClockTick;
 
             Warehouse = new WarehouseClass(dataManager.DataSet.ProductsMetaDataList, initOperationalTrainerDataSet.WarehouseMaxCapacity);
             bank = new Bank(initOperationalTrainerDataSet.BankCurrentBalance);
-            DataSummary = new DataSummaryClass(Warehouse,dataManager);
+            DataSummary = new DataSummaryClass(Warehouse, dataManager,bank, CurrnetTime);
         }
+
 
 
         public void StartClock()
@@ -72,14 +74,16 @@ namespace OperationalTrainer.Logic.MainLogic
         }
 
 
-        
+
 
         public void testLogic()
         {
             CurrnetTime = new DateTime(2017, 02, 01);
             OrdersList newOrders = dataManager.getNewCustomerOrdersList(CurrnetTime);
 
-            DataSummary.GenerateCustomerOrdersDataTable(newOrders); 
+            dataManager.UpdateTime(CurrnetTime);
+
+            DataSummary.GenerateCustomerOrdersDataTable(newOrders);
 
             // ProcessesScheduleParser();
 
@@ -87,9 +91,14 @@ namespace OperationalTrainer.Logic.MainLogic
 
 
         public DataTable GetCustomerOrdersDataTable()
-        {
-            return DataSummary.GenerateCustomerOrdersDataTable();
-        }
+        { return DataSummary.GenerateCustomerOrdersDataTable(); }
+
+        public DataTable GetSupplierOrdersDataTable()
+        { return DataSummary.GenerateSupplierOrdersDataTable(); }
+
+        public DataTable GetBankDataTable()
+        { return DataSummary.GenerateBank(); }
+
 
         private void mainLogic()
         {

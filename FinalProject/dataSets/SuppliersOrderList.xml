@@ -6,7 +6,7 @@
       <PersonID>Supplier1</PersonID>
       <OrderID>Order_1</OrderID>
       <OrderDate>01/01/2017</OrderDate>
-      <OrderDeliveryDate>01/01/2017</OrderDeliveryDate>
+      <OrderDeliveryDate>01/31/2017</OrderDeliveryDate>
       <Order_Status>Open</Order_Status>
       <OrderProductsList>
         <OrderProductsListBranch>

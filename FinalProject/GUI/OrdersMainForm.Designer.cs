@@ -1,6 +1,6 @@
 ﻿namespace FinalProject.GUI
 {
-    partial class CustomerOrdersForm
+    partial class OrdersMainForm
     {
         /// <summary>
         /// Required designer variable.
@@ -35,19 +35,19 @@
             // 
             this.OrdersPanel.Location = new System.Drawing.Point(26, 13);
             this.OrdersPanel.Name = "OrdersPanel";
-            this.OrdersPanel.Size = new System.Drawing.Size(252, 105);
+            this.OrdersPanel.Size = new System.Drawing.Size(670, 309);
             this.OrdersPanel.TabIndex = 0;
             this.OrdersPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.OrdersPanel_Paint);
             // 
-            // CustomerOrdersForm
+            // OrdersMainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(419, 328);
+            this.ClientSize = new System.Drawing.Size(738, 334);
             this.Controls.Add(this.OrdersPanel);
-            this.Name = "CustomerOrdersForm";
+            this.Name = "OrdersMainForm";
             this.Text = "CustomerOrdersForm";
-            this.Load += new System.EventHandler(this.CustomerOrdersForm_Load);
+            this.Load += new System.EventHandler(this.OrdersForm_Load_1);
             this.ResumeLayout(false);
 
         }

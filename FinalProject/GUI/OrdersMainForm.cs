@@ -11,28 +11,28 @@ using System.Windows.Forms;
 
 namespace FinalProject.GUI
 {
-    public partial class CustomerOrdersForm : Form
+    public partial class OrdersMainForm : Form
     {
         DataTable Dt;
-        public CustomerOrdersForm(DataTable dt)
+        public OrdersMainForm(DataTable dt)
         {
             Dt = dt;
+            InitializeComponent();
         }
 
-        private void CustomerOrdersForm_Load(object sender, EventArgs e)
+
+        private void OrdersPanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void OrdersForm_Load_1(object sender, EventArgs e)
         {
             GeneralDataGrid gdg = new GeneralDataGrid(Dt, Width, Height);
             gdg.Left = 0;
             gdg.Top = 0;
             gdg.Show();
             OrdersPanel.Controls.Add(gdg);
-           
-
-        }
-
-        private void OrdersPanel_Paint(object sender, PaintEventArgs e)
-        {
-
         }
     }
 }

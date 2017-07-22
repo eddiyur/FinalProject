@@ -17,7 +17,7 @@ namespace OperationalTrainer.Logic.MainLogic
         public OrdersList CustomersOrderList { get; set; }
         public OrdersList SupplieOrderList { get; set; }
         public OrdersList futureCustomersOrderList { get; set; }
-    
+
     }
 
     public class InitOperationalTrainerDataSet
@@ -34,17 +34,14 @@ namespace OperationalTrainer.Logic.MainLogic
 
     public class DataManager
     {
-        private Clock _clock;
+        //   private Clock _clock;
         public OperationalTrainerDataSetStructure DataSet { get; set; }
         public DateTime CurrnetTime { get; set; }
 
         public DataManager(OperationalTrainerDataSetStructure dataSet)
-        {
-            DataSet = dataSet;
-        }
+        { DataSet = dataSet; }
 
-
-        public void UpdateTime(DateTime currnetTime)
+                public void UpdateTime(DateTime currnetTime)
         { CurrnetTime = currnetTime; }
 
         /// <summary>

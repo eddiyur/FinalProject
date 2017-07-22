@@ -40,7 +40,7 @@ namespace OperationalTrainer.Logic.MainLogic
             InitOperationalTrainerDataSet initOperationalTrainerDataSet = ld.LoadInitData();
 
             CurrnetTime = initOperationalTrainerDataSet.startDate;
-            
+
             dataManager = new DataManager(initOperationalTrainerDataSet.OperationalTrainerDataSet);
             dataManager.UpdateTime(CurrnetTime);
 
@@ -49,7 +49,7 @@ namespace OperationalTrainer.Logic.MainLogic
 
             Warehouse = new WarehouseClass(dataManager.DataSet.ProductsMetaDataList, initOperationalTrainerDataSet.WarehouseMaxCapacity);
             bank = new Bank(initOperationalTrainerDataSet.BankCurrentBalance);
-            DataSummary = new DataSummaryClass(Warehouse, dataManager,bank, CurrnetTime);
+            DataSummary = new DataSummaryClass(Warehouse, dataManager, bank, CurrnetTime);
         }
 
 
@@ -99,6 +99,10 @@ namespace OperationalTrainer.Logic.MainLogic
         public DataTable GetBankDataTable()
         { return DataSummary.GenerateBank(); }
 
+        public DataTable GetWarehouseDataTable()
+        {
+            return DataSummary.GenerateWarehouse();
+        }
 
         private void mainLogic()
         {

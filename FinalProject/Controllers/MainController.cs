@@ -60,5 +60,9 @@ namespace FinalProject.Controllers
             return mainManager.GetBankDataTable();
         }
 
+        internal static DataTable GetWarehouseDataTable()
+        {
+            return mainManager.GetWarehouseDataTable();
+        }
     }//end  MainController
 }

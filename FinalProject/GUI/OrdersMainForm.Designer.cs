@@ -35,7 +35,7 @@
             // 
             this.OrdersPanel.Location = new System.Drawing.Point(26, 13);
             this.OrdersPanel.Name = "OrdersPanel";
-            this.OrdersPanel.Size = new System.Drawing.Size(670, 309);
+            this.OrdersPanel.Size = new System.Drawing.Size(1080, 309);
             this.OrdersPanel.TabIndex = 0;
             this.OrdersPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.OrdersPanel_Paint);
             // 
@@ -43,7 +43,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(738, 334);
+            this.ClientSize = new System.Drawing.Size(1138, 334);
             this.Controls.Add(this.OrdersPanel);
             this.Name = "OrdersMainForm";
             this.Text = "CustomerOrdersForm";

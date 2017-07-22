@@ -116,6 +116,8 @@ namespace OperationalTrainer.Logic.Warehouse
             return true;
         }
 
+        public double GetAmount(ProductClass product)
+        { return Inventory[product]; }
 
     }//end warehouse Class
 }

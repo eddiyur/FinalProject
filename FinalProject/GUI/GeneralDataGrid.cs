@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FinalProject.GUI;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,17 +13,18 @@ namespace OperationalTrainer.GUI
 {
 
     public delegate void ClickableDelegate();
+    public delegate DataTable GetDataBaseDelegate();
 
-    public partial class GeneralDataGridForm : Form
+    public partial class GeneralDataGridForm : Form, IDataUpdatble
     {
-        DataTable dataTable;
         private readonly List<int> clickable_cols;
         private readonly List<ClickableDelegate> click_col_actions;
+        GetDataBaseDelegate getUpdatedData;
 
-        public GeneralDataGridForm(DataTable dataTable, int width, int height, List<int> clickable_idx, List<ClickableDelegate> click_actions)
+        public GeneralDataGridForm(GetDataBaseDelegate getDataBaseUpdater, int width, int height, List<int> clickable_idx, List<ClickableDelegate> click_actions)
         {
             InitializeComponent();
-            this.dataTable = dataTable;
+            getUpdatedData = getDataBaseUpdater;
             clickable_cols = new List<int>(clickable_idx);
             click_col_actions = new List<ClickableDelegate>(click_actions);
 
@@ -43,14 +45,18 @@ namespace OperationalTrainer.GUI
                 click_col_actions[cellColIdx].Invoke();
         }
 
+        private void updateDataSet()
+        { dataGridView1.DataSource = getUpdatedData(); }
+
         private void GeneralDataGrid_Load(object sender, EventArgs e)
-        {
-            dataGridView1.DataSource = dataTable;
-        }
+        { updateDataSet(); }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
+
+        public void UpdateData()
+        { updateDataSet(); }
     }
 }

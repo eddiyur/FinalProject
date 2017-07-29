@@ -65,39 +65,27 @@
     <Compile Include="GUI\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\OrdersMainForm.cs">
+    <Compile Include="GUI\NewSupplierOrder.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUI\OrdersMainForm.Designer.cs">
-      <DependentUpon>OrdersMainForm.cs</DependentUpon>
+    <Compile Include="GUI\NewSupplierOrder.Designer.cs">
+      <DependentUpon>NewSupplierOrder.cs</DependentUpon>
     </Compile>
     <Compile Include="Logic\MainLogic\Bank.cs" />
     <Compile Include="FileManagerFolder\FileManager.cs" />
     <Compile Include="FileManagerFolder\ProductParser.cs" />
     <Compile Include="FileManagerFolder\SuppliersParser.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="GUI\OrderViewForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\OrderForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\OrderForm.Designer.cs">
-      <DependentUpon>OrderForm.cs</DependentUpon>
+    <Compile Include="GUI\OrderViewForm.Designer.cs">
+      <DependentUpon>OrderViewForm.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\GeneralDataGrid.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="GUI\GeneralDataGrid.Designer.cs">
       <DependentUpon>GeneralDataGrid.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\OrdersTable.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\OrdersTable.Designer.cs">
-      <DependentUpon>OrdersTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Logic\MainLogic\Clock.cs" />
     <Compile Include="Logic\MainLogic\DataManager.cs" />
@@ -111,23 +99,17 @@
     <Compile Include="Logic\MainLogic\WarehouseClass.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="GUI\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\OrdersMainForm.resx">
-      <DependentUpon>OrdersMainForm.cs</DependentUpon>
+    <EmbeddedResource Include="GUI\NewSupplierOrder.resx">
+      <DependentUpon>NewSupplierOrder.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\OrderForm.resx">
-      <DependentUpon>OrderForm.cs</DependentUpon>
+    <EmbeddedResource Include="GUI\OrderViewForm.resx">
+      <DependentUpon>OrderViewForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\GeneralDataGrid.resx">
       <DependentUpon>GeneralDataGrid.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUI\OrdersTable.resx">
-      <DependentUpon>OrdersTable.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

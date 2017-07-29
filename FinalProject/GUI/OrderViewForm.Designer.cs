@@ -1,6 +1,6 @@
 ﻿namespace OperationalTrainer.GUI
 {
-    partial class OrderForm
+    partial class OrderViewForm
     {
         /// <summary>
         /// Required designer variable.

@@ -56,18 +56,18 @@ namespace FinalProject
 
         private void button1_Click(object sender, EventArgs e)
         {
-            OrdersMainForm CustomerMainForm = new OrdersMainForm(MainController.GetCustomerOrdersDataTable());
-            CustomerMainForm.Show();
+            //OrdersMainForm CustomerMainForm = new OrdersMainForm(MainController.GetCustomerOrdersDataTable());
+            //CustomerMainForm.Show();
 
-            OrdersMainForm SupplierMainForm = new OrdersMainForm(MainController.GetSupplierOrdersDataTable());
-            SupplierMainForm.Show();
+            //OrdersMainForm SupplierMainForm = new OrdersMainForm(MainController.GetSupplierOrdersDataTable());
+            //SupplierMainForm.Show();
 
 
-            OrdersMainForm bankMainForm = new OrdersMainForm(MainController.GetBankDataTable());
-            bankMainForm.Show();
+            //OrdersMainForm bankMainForm = new OrdersMainForm(MainController.GetBankDataTable());
+            //bankMainForm.Show();
 
-            OrdersMainForm WarehouseMainForm = new OrdersMainForm(MainController.GetWarehouseDataTable());
-            WarehouseMainForm.Show();
+            //OrdersMainForm WarehouseMainForm = new OrdersMainForm(MainController.GetWarehouseDataTable());
+            //WarehouseMainForm.Show();
            
         }
 

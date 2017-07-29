@@ -23,9 +23,13 @@ namespace OperationalTrainer.Logic.MainLogic
         private DataSummaryClass DataSummary { get; set; }
 
         private ProcessesSchedule CurrentProcesses;
-        public EventHandler<NewOrderArrivedEventArgs> NewCustomerOrderArrived;
-        public EventHandler CustomerOrderAdded;
-        public EventHandler EndOfTimeTick;
+
+
+        public EventHandler<NewOrderArrivedEventArgs> Event_NewCustomerOrderArrived;
+        public EventHandler Event_CustomerOrdersListUpdate;
+        public EventHandler Event_EndOfTimeTickSchedule;
+
+
         public NewOrderArrivedEventArgs NewOrderArrivedEventArgs { get; set; }
 
         enum ProcessesSchedule
@@ -54,15 +58,26 @@ namespace OperationalTrainer.Logic.MainLogic
             DataSummary = new DataSummaryClass(Warehouse, dataManager, bank, CurrnetTime);
         }
 
+        /// <summary>
+        /// Return Current Time
+        /// </summary>
+        /// <returns></returns>
         public DateTime GetCurrentTime()
         {
             return CurrnetTime;
         }
 
+        /// <summary>
+        /// Start the Ticker
+        /// </summary>
         public void StartClock()
         {
             clock.nextHour();
         }
+
+
+
+
 
 
         /// <summary>
@@ -83,12 +98,6 @@ namespace OperationalTrainer.Logic.MainLogic
 
         public void testLogic()
         {
-            //  CurrnetTime = new DateTime(2017, 02, 01);
-            // OrdersList newOrders = dataManager.getNewCustomerOrdersList(CurrnetTime);
-
-            //        dataManager.UpdateTime(CurrnetTime);
-
-            //      DataSummary.GenerateCustomerOrdersDataTable(newOrders);
 
             ProcessesScheduleParser();
 
@@ -105,13 +114,10 @@ namespace OperationalTrainer.Logic.MainLogic
         { return DataSummary.GenerateBank(); }
 
         public DataTable GetWarehouseDataTable()
-        {
-            return DataSummary.GenerateWarehouse();
-        }
+        { return DataSummary.GenerateWarehouse(); }
 
         private void mainLogic()
         {
-
             ProcessesScheduleParser();
 
         }
@@ -132,7 +138,7 @@ namespace OperationalTrainer.Logic.MainLogic
                     ProcessesScheduleParser();
                     break;
                 case ProcessesSchedule.EndOfProcess:
-                    TimeTickEnd();
+                    TimeTickScheduleEnd();
                     //  clock.nextHour();
                     break;
                 default:
@@ -141,11 +147,13 @@ namespace OperationalTrainer.Logic.MainLogic
 
         }//end ProcessesScheduleParser
 
-        private void TimeTickEnd()
-        {
-            EndOfTimeTick(this, null);
-        }
+        private void TimeTickScheduleEnd()
+        { Event_EndOfTimeTickSchedule(this, null); }
 
+
+        /// <summary>
+        /// Checks if new customer orders arrived
+        /// </summary>
         private void NewCustomerOrder()
         {
             OrdersList newOrders = dataManager.getNewCustomerOrdersList(CurrnetTime);
@@ -156,27 +164,41 @@ namespace OperationalTrainer.Logic.MainLogic
                 {
                     var args = new NewOrderArrivedEventArgs();
                     args.Order = order;
-                    NewCustomerOrderArrived(this, args);
+                    Event_NewCustomerOrderArrived(this, args);
                 }
-                //var args = new NewOrderArrivedEventArgs();
-                //args.Order = newOrders.OrderList[0];
-                //NewOrderArrived(this, args);
             }
             ProcessesScheduleParser();
         }
 
 
         /// <summary>
-        ///Get new order to add to customer order list
+        ///Add new customer order to customer orders list
         /// </summary>
         /// <param name="newOrder"></param>
         public void NewCustomerOrderApproved(Order newOrder)
         {
             dataManager.DataSet.CustomersOrderList.AddOrder(newOrder);
+            Event_CustomerOrdersListUpdate(this, null);
         }
 
         /// <summary>
-        /// Get new order user dinied
+        /// Return Products MetaData list
+        /// </summary>
+        /// <returns></returns>
+        public ProductClassList GetProductsMetaData()
+        { return dataManager.DataSet.ProductsMetaDataList; }
+
+
+        /// <summary>
+        /// Return suppliersList
+        /// </summary>
+        /// <returns></returns>
+        public SuppliersList GetSuppliersList()
+        { return dataManager.DataSet.SuppliersList; }
+
+
+        /// <summary>
+        /// Get new order user Decline
         /// </summary>
         /// <param name="newOrder"></param>
         public void NewCustomerOrderDecline(Order newOrder)

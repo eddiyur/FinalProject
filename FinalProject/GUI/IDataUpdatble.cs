@@ -1,4 +1,6 @@
-﻿namespace FinalProject.GUI
+﻿using System.Data;
+
+namespace FinalProject.GUI
 {
     internal interface IDataUpdatble
     {

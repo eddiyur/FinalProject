@@ -31,6 +31,7 @@
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nextTickToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.newSupplierOrderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -38,7 +39,8 @@
             // 
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.testToolStripMenuItem,
-            this.nextTickToolStripMenuItem});
+            this.nextTickToolStripMenuItem,
+            this.newSupplierOrderToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
             this.menuStrip.Size = new System.Drawing.Size(1405, 24);
@@ -58,6 +60,13 @@
             this.nextTickToolStripMenuItem.Size = new System.Drawing.Size(68, 20);
             this.nextTickToolStripMenuItem.Text = "Next Tick";
             this.nextTickToolStripMenuItem.Click += new System.EventHandler(this.nextTickToolStripMenuItem_Click);
+            // 
+            // newSupplierOrderToolStripMenuItem
+            // 
+            this.newSupplierOrderToolStripMenuItem.Name = "newSupplierOrderToolStripMenuItem";
+            this.newSupplierOrderToolStripMenuItem.Size = new System.Drawing.Size(117, 20);
+            this.newSupplierOrderToolStripMenuItem.Text = "new supplier order";
+            this.newSupplierOrderToolStripMenuItem.Click += new System.EventHandler(this.newSupplierOrderToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -81,5 +90,6 @@
         private System.Windows.Forms.MenuStrip menuStrip;
         private System.Windows.Forms.ToolStripMenuItem testToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem nextTickToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem newSupplierOrderToolStripMenuItem;
     }
 }

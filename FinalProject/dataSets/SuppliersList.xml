@@ -35,11 +35,7 @@
         </SupplierPriceMatrixBranch>
       </SupplierPriceMatrix>
     </Supplier>
-    <Supplier>
-      <SupplierID>Supplier3</SupplierID>
-      <SupplierName>Supplier3</SupplierName>
-      <SupplierReliability>0.6</SupplierReliability>
-    </Supplier>
+   
   </SuppliersList>
 
 </dataSet>

@@ -114,10 +114,10 @@ namespace FinalProject.GUI
 
         }//end setScreenSize
 
-
         public void UpdateGUI()
         {
             formVisualElements.TimeLabel.Text = transferToTimeLabel(MainController.GetCurrentTime());
+            //CustomerMainForm.UpdateData(MainController.GetCustomerOrdersDataTable());
             foreach (var form in updatebleForms)
                 form.UpdateData();
 
@@ -181,27 +181,27 @@ namespace FinalProject.GUI
         private void createSubForms()
         {
             //  bankMainForm = new OrdersMainForm(MainController.GetBankDataTable(), formVisualElements.BankPanel.Width, formVisualElements.BankPanel.Height);
-            bankMainForm = new GeneralDataGridForm(MainController.GetBankDataTable(), formVisualElements.BankPanel.Width, formVisualElements.BankPanel.Height, new List<int>(), new List<ClickableDelegate>());
+            bankMainForm = new GeneralDataGridForm(MainController.GetBankDataTable, formVisualElements.BankPanel.Width, formVisualElements.BankPanel.Height, new List<int>(), new List<ClickableDelegate>());
             formVisualElements.BankPanel.Controls.Add(bankMainForm);
-            //  updatebleForms.Add(bankMainForm);
+            updatebleForms.Add(bankMainForm);
             bankMainForm.Show();
 
             //   WarehouseMainForm = new OrdersMainForm(MainController.GetWarehouseDataTable(), formVisualElements.WarehousePanel.Width, formVisualElements.WarehousePanel.Height);
-            WarehouseMainForm = new GeneralDataGridForm(MainController.GetWarehouseDataTable(), formVisualElements.WarehousePanel.Width, formVisualElements.WarehousePanel.Height, new List<int>(), new List<ClickableDelegate>());
+            WarehouseMainForm = new GeneralDataGridForm(MainController.GetWarehouseDataTable, formVisualElements.WarehousePanel.Width, formVisualElements.WarehousePanel.Height, new List<int>(), new List<ClickableDelegate>());
             formVisualElements.WarehousePanel.Controls.Add(WarehouseMainForm);
-            //   updatebleForms.Add(WarehouseMainForm);
+            updatebleForms.Add(WarehouseMainForm);
             WarehouseMainForm.Show();
 
             //            CustomerMainForm = new OrdersMainForm(MainController.GetCustomerOrdersDataTable(), formVisualElements.CustomerOrderPanel.Width, formVisualElements.CustomerOrderPanel.Height);
-            CustomerMainForm = new GeneralDataGridForm(MainController.GetCustomerOrdersDataTable(), formVisualElements.CustomerOrderPanel.Width, formVisualElements.CustomerOrderPanel.Height, new List<int>(), new List<ClickableDelegate>());
+            CustomerMainForm = new GeneralDataGridForm(MainController.GetCustomerOrdersDataTable, formVisualElements.CustomerOrderPanel.Width, formVisualElements.CustomerOrderPanel.Height, new List<int>(), new List<ClickableDelegate>());
             formVisualElements.CustomerOrderPanel.Controls.Add(CustomerMainForm);
-            //    updatebleForms.Add(CustomerMainForm);
+            updatebleForms.Add(CustomerMainForm);
             CustomerMainForm.Show();
 
            // SupplierMainForm = new OrdersMainForm(MainController.GetSupplierOrdersDataTable(), formVisualElements.SupplierOrderPanel.Width, formVisualElements.SupplierOrderPanel.Height);
-            SupplierMainForm = new GeneralDataGridForm(MainController.GetSupplierOrdersDataTable(), formVisualElements.SupplierOrderPanel.Width, formVisualElements.SupplierOrderPanel.Height, new List<int>(), new List<ClickableDelegate>());
+            SupplierMainForm = new GeneralDataGridForm(MainController.GetSupplierOrdersDataTable, formVisualElements.SupplierOrderPanel.Width, formVisualElements.SupplierOrderPanel.Height, new List<int>(), new List<ClickableDelegate>());
             formVisualElements.SupplierOrderPanel.Controls.Add(SupplierMainForm);
-       //     updatebleForms.Add(SupplierMainForm);
+            updatebleForms.Add(SupplierMainForm);
             SupplierMainForm.Show();
         }
 
@@ -216,6 +216,12 @@ namespace FinalProject.GUI
         private void nextTickToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MainController.StartClock();
+        }
+
+        private void newSupplierOrderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            NewSupplierOrder newSupplierOrder = new NewSupplierOrder(MainController.GetProductsMetaData,MainController.GetSuppliersList);
+            newSupplierOrder.ShowDialog();
         }
     }//end form
 

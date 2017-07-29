@@ -12,13 +12,13 @@ using System.Windows.Forms;
 
 namespace OperationalTrainer.GUI
 {
-    public partial class OrderForm : Form
+    public partial class OrderViewForm : Form
     {
         Order order { get; set; }
 
         public ScreenSettings screenSettings;
         OrderFormType orderFormType;
-        //     private List<ClickableDelegate> click_actions;
+        private List<ClickableDelegate> click_actions;
 
         public enum OrderFormType
         {
@@ -31,7 +31,7 @@ namespace OperationalTrainer.GUI
             public int rowHeight;
         }
 
-        public OrderForm(Order order, OrderFormType orderFormType)
+        public OrderViewForm(Order order, OrderFormType orderFormType)
         {
             this.orderFormType = orderFormType;
             this.order = order;
@@ -42,14 +42,17 @@ namespace OperationalTrainer.GUI
         {
             initScreenSetings();
             setStructure();
-
         }
+
+        internal DataTable getPriceDataTable()
+        { return PriceTable.ToDataTable(order.OrderProductsList); }
 
         private void initScreenSetings()
         {
             Width = 450;
             screenSettings.rowHeight = 25;
         }
+
         private void setStructure()
         {
             this.Left = 800;
@@ -157,7 +160,7 @@ namespace OperationalTrainer.GUI
             OrderStatusTextBox.Enabled = false;
             this.Controls.Add(OrderStatusTextBox);
 
-            DataTable dt = PriceTable.ToDataTable(order.OrderProductsList);
+            //DataTable dt = PriceTable.ToDataTable(order.OrderProductsList);
 
             DTPanel.Width = Width;
             DTPanel.Left = 0;
@@ -165,7 +168,7 @@ namespace OperationalTrainer.GUI
             DTPanel.Height = 100;
 
 
-            GeneralDataGridForm GDG = new GeneralDataGridForm(dt, Width, DTPanel.Height, new List<int>(), new List<ClickableDelegate>());
+            GeneralDataGridForm GDG = new GeneralDataGridForm(getPriceDataTable, Width, DTPanel.Height, new List<int>(), new List<ClickableDelegate>());
             DTPanel.Controls.Add(GDG);
             GDG.Show();
 

@@ -19,38 +19,36 @@ namespace FinalProject.Controllers
         {
             mainManager = new MainManager();
             mainForm = mForm;
-            mainManager.NewCustomerOrderArrived += NewCustomerOrderArriver;
-            mainManager.EndOfTimeTick += EndOfTimeTick;
-            mainManager.CustomerOrderAdded += CustomerOrderAdded;
+            mainManager.Event_NewCustomerOrderArrived += NewCustomerOrderArriver;
+            mainManager.Event_EndOfTimeTickSchedule += EndOfTimeTickSchedule;
+            mainManager.Event_CustomerOrdersListUpdate += CustomerOrdersListUpdate;
         }
 
-        private static void CustomerOrderAdded(object sender, EventArgs e)
-        {
-             mainForm.UpdateGUI();
-        }
-
-        private static void EndOfTimeTick(object sender, EventArgs e)
+        private static void CustomerOrdersListUpdate(object sender, EventArgs e)
         {
             mainForm.UpdateGUI();
         }
+
+        private static void EndOfTimeTickSchedule(object sender, EventArgs e)
+        { mainForm.UpdateGUI(); }
 
         public static void StartClock()
         { mainManager.StartClock(); }
 
         public static void NewCustomerOrderArriver(object sender, NewOrderArrivedEventArgs args)
         {
-            OrderForm of = new OrderForm(args.Order, OrderForm.OrderFormType.newOrder);
+            OrderViewForm of = new OrderViewForm(args.Order, OrderViewForm.OrderFormType.newOrder);
             of.ShowDialog();
         }
 
-        public static void NewOrderArrived(Order order)
-        { mainManager.NewCustomerOrderApproved(order); }
+        //public static void NewOrderArrived(Order order)
+        //{ mainManager.NewCustomerOrderApproved(order); }
 
-        public static void NewCustomerOrderEventEnd()
-        { mainManager.EventEnded(); }
+        //public static void NewCustomerOrderEventEnd()
+        //{ mainManager.EventEnded(); }
 
-        public static void test()
-        { mainManager.testLogic(); }
+        //public static void test()
+        //{ mainManager.testLogic(); }
 
         public static DataTable GetCustomerOrdersDataTable()
         { return mainManager.GetCustomerOrdersDataTable(); }
@@ -67,10 +65,18 @@ namespace FinalProject.Controllers
         public static DateTime GetCurrentTime()
         { return mainManager.GetCurrentTime(); }
 
+        public static ProductClassList GetProductsMetaData()
+        { return mainManager.GetProductsMetaData(); }
+
+        public static SuppliersList GetSuppliersList ()
+        { return mainManager.GetSuppliersList(); }
+
         public static void NewOrderDecline(Order order)
         { mainManager.NewCustomerOrderDecline(order); }
 
         public static void NewOrderApproved(Order order)
         { mainManager.NewCustomerOrderApproved(order); }
+
+
     }//end  MainController
 }

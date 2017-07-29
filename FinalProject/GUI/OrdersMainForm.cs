@@ -11,15 +11,27 @@ using System.Windows.Forms;
 
 namespace FinalProject.GUI
 {
-    public partial class OrdersMainForm : Form
+
+    public partial class OrdersMainForm : Form, IDataUpdatble
     {
-        DataTable Dt;
-        public OrdersMainForm(DataTable dt)
+        DataTable dataTable;
+        GeneralDataGridForm dataGridForm;
+        public OrdersMainForm(DataTable dataTable)
         {
-            Dt = dt;
+            this.TopLevel = false;
+            this.dataTable = dataTable;
             InitializeComponent();
         }
 
+        public OrdersMainForm(DataTable dataTable, int width, int height)
+        {
+            this.TopLevel = false;
+            this.Width = width;
+            this.Height = height;
+            dataGridForm = new GeneralDataGridForm(dataTable, Width, Height, new List<int>(), new List<ClickableDelegate>());
+            this.dataTable = dataTable;
+            InitializeComponent();
+        }
 
         private void OrdersPanel_Paint(object sender, PaintEventArgs e)
         {
@@ -28,11 +40,16 @@ namespace FinalProject.GUI
 
         private void OrdersForm_Load_1(object sender, EventArgs e)
         {
-            GeneralDataGrid gdg = new GeneralDataGrid(Dt, Width, Height);
-            gdg.Left = 0;
-            gdg.Top = 0;
-            gdg.Show();
-            OrdersPanel.Controls.Add(gdg);
+            dataGridForm.Left = 0;
+            dataGridForm.Top = 0;
+            dataGridForm.Show();
+            OrdersPanel.Controls.Add(dataGridForm);
+        }
+
+        public void UpdateData()
+        {
+            dataGridForm.Update();
+            throw new NotImplementedException();
         }
     }
 }

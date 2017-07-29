@@ -209,7 +209,7 @@ namespace OperationalTrainer.Data_Structures
 
             OrdersList result = new OrdersList();
             foreach (Order order in OrderList)
-                if (order.OrderDate.Date == orderDate.Date)
+                if (order.OrderDate.Date <= orderDate.Date)
                     result.AddOrder(order);
 
             return result;

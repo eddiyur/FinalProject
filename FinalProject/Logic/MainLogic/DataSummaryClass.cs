@@ -24,7 +24,12 @@ namespace FinalProject.Logic.MainLogic
             this.bank = bank;
             CurrnetTime = currnetTime;
         }
-
+        private DataTable sortDataTable(DataTable dt, string columnName)
+        {
+            DataView dv = new DataView(dt);
+            dv.Sort = columnName + " ASC";
+            return dv.ToTable();
+        }
         enum CustomerOrderColumnsNames
         {
             Customer_Name,
@@ -32,14 +37,6 @@ namespace FinalProject.Logic.MainLogic
             Delivery_Date,
             Total_Order_Price,
             Possible_To_Deliver
-        }
-
-        enum SupplierOrderColumnsNames
-        {
-            Supplier_Name,
-            Supplier_ID,
-            Delivery_Date,
-            Total_Order_Price
         }
 
         public DataTable GenerateCustomerOrdersDataTable()
@@ -67,7 +64,13 @@ namespace FinalProject.Logic.MainLogic
             return customerOrdersTable;
         }//end GenerateCustomerDataTable
 
-
+        enum SupplierOrderColumnsNames
+        {
+            Supplier_Name,
+            Supplier_ID,
+            Delivery_Date,
+            Total_Order_Price
+        }
         public DataTable GenerateSupplierOrdersDataTable()
         { return GenerateSupplierOrdersDataTable(dataManager.DataSet.SupplieOrderList); }
 
@@ -139,13 +142,6 @@ namespace FinalProject.Logic.MainLogic
             drow[BankColumnNames.Total.ToString()] = bank.CurrentBalance;
             dt.Rows.Add(drow);
             return dt;
-        }
-
-        private DataTable sortDataTable(DataTable dt, string columnName)
-        {
-            DataView dv = new DataView(dt);
-            dv.Sort = columnName + " ASC";
-            return dv.ToTable();
         }
 
         private DataTable BankOrdersToTable(DataTable dt, OrdersList ordersList)
@@ -264,10 +260,7 @@ namespace FinalProject.Logic.MainLogic
                 drow[WarehouseCulumnsNames.Order_Type.ToString()] = order.OrderType;
 
                 foreach (PriceTable priceTable in order.OrderProductsList)
-
                     drow[(priceTable.Product.ProductName + " " + WarehouseCulumnsNames.Amount.ToString())] = priceTable.Amount * orderType;
-
-                //    drow[WarehouseCulumnsNames.Amount.ToString()] = order.GetOrderAmount() * orderType;
 
                 warehouseDataTable.Rows.Add(drow);
             }

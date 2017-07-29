@@ -23,7 +23,9 @@ namespace OperationalTrainer.Logic.MainLogic
         private DataSummaryClass DataSummary { get; set; }
 
         private ProcessesSchedule CurrentProcesses;
-        public EventHandler<NewOrderArrivedEventArgs> NewOrderArrived;
+        public EventHandler<NewOrderArrivedEventArgs> NewCustomerOrderArrived;
+        public EventHandler CustomerOrderAdded;
+        public EventHandler EndOfTimeTick;
         public NewOrderArrivedEventArgs NewOrderArrivedEventArgs { get; set; }
 
         enum ProcessesSchedule
@@ -52,7 +54,10 @@ namespace OperationalTrainer.Logic.MainLogic
             DataSummary = new DataSummaryClass(Warehouse, dataManager, bank, CurrnetTime);
         }
 
-
+        public DateTime GetCurrentTime()
+        {
+            return CurrnetTime;
+        }
 
         public void StartClock()
         {
@@ -78,14 +83,14 @@ namespace OperationalTrainer.Logic.MainLogic
 
         public void testLogic()
         {
-            CurrnetTime = new DateTime(2017, 02, 01);
-            OrdersList newOrders = dataManager.getNewCustomerOrdersList(CurrnetTime);
+            //  CurrnetTime = new DateTime(2017, 02, 01);
+            // OrdersList newOrders = dataManager.getNewCustomerOrdersList(CurrnetTime);
 
-            dataManager.UpdateTime(CurrnetTime);
+            //        dataManager.UpdateTime(CurrnetTime);
 
-            DataSummary.GenerateCustomerOrdersDataTable(newOrders);
+            //      DataSummary.GenerateCustomerOrdersDataTable(newOrders);
 
-            // ProcessesScheduleParser();
+            ProcessesScheduleParser();
 
         }
 
@@ -118,20 +123,27 @@ namespace OperationalTrainer.Logic.MainLogic
             switch (CurrentProcesses)
             {
                 case ProcessesSchedule.BeginningOfTheTimeTick:
+                    ProcessesScheduleParser();
                     break;
                 case ProcessesSchedule.NewCustomerOrdersArrived:
                     NewCustomerOrder();
                     break;
                 case ProcessesSchedule.SupplierOrdersDelivered:
+                    ProcessesScheduleParser();
                     break;
                 case ProcessesSchedule.EndOfProcess:
-                    clock.nextHour();
+                    TimeTickEnd();
+                    //  clock.nextHour();
                     break;
                 default:
                     break;
             }
-            ProcessesScheduleParser();
 
+        }//end ProcessesScheduleParser
+
+        private void TimeTickEnd()
+        {
+            EndOfTimeTick(this, null);
         }
 
         private void NewCustomerOrder()
@@ -140,10 +152,17 @@ namespace OperationalTrainer.Logic.MainLogic
 
             if (newOrders.OrderList.Count > 0)
             {
-                var args = new NewOrderArrivedEventArgs();
-                args.Order = newOrders.OrderList[0];
-                NewOrderArrived(this, args);
+                foreach (Order order in newOrders.OrderList)
+                {
+                    var args = new NewOrderArrivedEventArgs();
+                    args.Order = order;
+                    NewCustomerOrderArrived(this, args);
+                }
+                //var args = new NewOrderArrivedEventArgs();
+                //args.Order = newOrders.OrderList[0];
+                //NewOrderArrived(this, args);
             }
+            ProcessesScheduleParser();
         }
 
 
@@ -160,13 +179,11 @@ namespace OperationalTrainer.Logic.MainLogic
         /// Get new order user dinied
         /// </summary>
         /// <param name="newOrder"></param>
-        public void NewCustomerOrderDenied(Order newOrder)
+        public void NewCustomerOrderDecline(Order newOrder)
         { }
 
         public void EventEnded()
-        {
-            ProcessesScheduleParser();
-        }
+        { }
 
 
     }//end class MainManager

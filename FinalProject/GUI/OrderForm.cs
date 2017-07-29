@@ -15,17 +15,25 @@ namespace OperationalTrainer.GUI
     public partial class OrderForm : Form
     {
         Order order { get; set; }
-        public ScreenSettings screenSettings;
 
-        public string ReturnValue1 { get; set; }
+        public ScreenSettings screenSettings;
+        OrderFormType orderFormType;
+        //     private List<ClickableDelegate> click_actions;
+
+        public enum OrderFormType
+        {
+            ShowOrder,
+            newOrder
+        }
 
         public struct ScreenSettings
         {
             public int rowHeight;
         }
 
-        public OrderForm(Order order)
+        public OrderForm(Order order, OrderFormType orderFormType)
         {
+            this.orderFormType = orderFormType;
             this.order = order;
             InitializeComponent();
         }
@@ -156,40 +164,63 @@ namespace OperationalTrainer.GUI
             DTPanel.Top = screenSettings.rowHeight * 7;
             DTPanel.Height = 100;
 
-            GeneralDataGrid GDG = new GeneralDataGrid(dt, Width, DTPanel.Height);
+
+            GeneralDataGridForm GDG = new GeneralDataGridForm(dt, Width, DTPanel.Height, new List<int>(), new List<ClickableDelegate>());
             DTPanel.Controls.Add(GDG);
             GDG.Show();
 
-            AddCloseButton();
+            if (orderFormType == OrderFormType.newOrder)
+                newOrderButtons();
+            else
+                ShowOrderButtons();
 
 
         }
 
-        void AddCloseButton()
+        private void ShowOrderButtons()
         {
-            Button b3 = new Button();
-            b3.Left = 10;
-            b3.Top = DTPanel.Bottom;
-            b3.Text = "close";
-            b3.Click += a;
-            this.Controls.Add(b3);
+            Button closeButton = new Button();
+            closeButton.Left = 10;
+            closeButton.Top = DTPanel.Bottom + 10;
+            closeButton.Text = "close";
+            closeButton.Click += closeForm;
+            this.Controls.Add(closeButton);
         }
 
-
-        private void a(object sender, EventArgs e)
+        private void newOrderButtons()
         {
+            Button approveButton = new Button();
+            approveButton.Left = 10;
+            approveButton.Top = DTPanel.Bottom + 10;
+            approveButton.Text = "Approve";
+            approveButton.Click += approveNewOrder;
+            this.Controls.Add(approveButton);
+
+            Button declineButton = new Button();
+            declineButton.Left = approveButton.Right + 10;
+            declineButton.Top = DTPanel.Bottom + 10;
+            declineButton.Text = "Decline";
+            declineButton.Click += declineNewOrder;
+            this.Controls.Add(declineButton);
+        }
+
+        private void declineNewOrder(object sender, EventArgs e)
+        {
+            MainController.NewOrderDecline(order);
             Close();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void approveNewOrder(object sender, EventArgs e)
         {
-           MainController.NewOrderArrived(this.order);
+            MainController.NewOrderApproved(order);
+            Close();
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            MainController.NewCustomerOrderEventEnd();
-        }
+
+        private void closeForm(object sender, EventArgs e)
+        { Close(); }
+
+
 
         private void DTPanel_Paint(object sender, PaintEventArgs e)
         {

@@ -1,4 +1,5 @@
-﻿using OperationalTrainer.Data_Structures;
+﻿using FinalProject.GUI;
+using OperationalTrainer.Data_Structures;
 using OperationalTrainer.GUI;
 using OperationalTrainer.Logic.MainLogic;
 using System;
@@ -12,57 +13,64 @@ namespace FinalProject.Controllers
 {
     public static class MainController
     {
-        private static MainManager mainManager;        
-        public static void Initialize()
+        private static MainManager mainManager;
+        private static MainForm mainForm;
+        public static void Initialize(MainForm mForm)
         {
             mainManager = new MainManager();
-            mainManager.NewOrderArrived += NewOrderArriver;
+            mainForm = mForm;
+            mainManager.NewCustomerOrderArrived += NewCustomerOrderArriver;
+            mainManager.EndOfTimeTick += EndOfTimeTick;
+            mainManager.CustomerOrderAdded += CustomerOrderAdded;
+        }
+
+        private static void CustomerOrderAdded(object sender, EventArgs e)
+        {
+             mainForm.UpdateGUI();
+        }
+
+        private static void EndOfTimeTick(object sender, EventArgs e)
+        {
+            mainForm.UpdateGUI();
         }
 
         public static void StartClock()
-        {
-            mainManager.StartClock();
-        }
+        { mainManager.StartClock(); }
 
-        public static void NewOrderArriver(object sender, NewOrderArrivedEventArgs args)
+        public static void NewCustomerOrderArriver(object sender, NewOrderArrivedEventArgs args)
         {
-            OrderForm of = new OrderForm(args.Order);
+            OrderForm of = new OrderForm(args.Order, OrderForm.OrderFormType.newOrder);
             of.ShowDialog();
         }
 
         public static void NewOrderArrived(Order order)
-        {
-            mainManager.NewCustomerOrderApproved(order);
-        }
+        { mainManager.NewCustomerOrderApproved(order); }
 
         public static void NewCustomerOrderEventEnd()
-        {
-            mainManager.EventEnded();
-        }
+        { mainManager.EventEnded(); }
 
         public static void test()
-        {
-            mainManager.testLogic();
-        }
+        { mainManager.testLogic(); }
 
         public static DataTable GetCustomerOrdersDataTable()
-        {
-            return mainManager.GetCustomerOrdersDataTable();
-        }
+        { return mainManager.GetCustomerOrdersDataTable(); }
 
         public static DataTable GetSupplierOrdersDataTable()
-        {
-            return mainManager.GetSupplierOrdersDataTable();
-        }
+        { return mainManager.GetSupplierOrdersDataTable(); }
 
         public static DataTable GetBankDataTable()
-        {
-            return mainManager.GetBankDataTable();
-        }
+        { return mainManager.GetBankDataTable(); }
 
-        internal static DataTable GetWarehouseDataTable()
-        {
-            return mainManager.GetWarehouseDataTable();
-        }
+        public static DataTable GetWarehouseDataTable()
+        { return mainManager.GetWarehouseDataTable(); }
+
+        public static DateTime GetCurrentTime()
+        { return mainManager.GetCurrentTime(); }
+
+        public static void NewOrderDecline(Order order)
+        { mainManager.NewCustomerOrderDecline(order); }
+
+        public static void NewOrderApproved(Order order)
+        { mainManager.NewCustomerOrderApproved(order); }
     }//end  MainController
 }

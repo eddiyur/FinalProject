@@ -10,13 +10,21 @@ using System.Windows.Forms;
 
 namespace OperationalTrainer.GUI
 {
-    public partial class GeneralDataGrid : Form
+
+    public delegate void ClickableDelegate();
+
+    public partial class GeneralDataGridForm : Form
     {
-        DataTable DT;
-        public GeneralDataGrid(DataTable dt,int width, int height)
+        DataTable dataTable;
+        private readonly List<int> clickable_cols;
+        private readonly List<ClickableDelegate> click_col_actions;
+
+        public GeneralDataGridForm(DataTable dataTable, int width, int height, List<int> clickable_idx, List<ClickableDelegate> click_actions)
         {
             InitializeComponent();
-            DT = dt;
+            this.dataTable = dataTable;
+            clickable_cols = new List<int>(clickable_idx);
+            click_col_actions = new List<ClickableDelegate>(click_actions);
 
             Width = width;
             Height = height;
@@ -27,17 +35,22 @@ namespace OperationalTrainer.GUI
             this.TopLevel = false;
         }
 
-        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs cell)
         {
-            int a = e.RowIndex;
-            int c = e.ColumnIndex;
-            var b = DT.Rows[a][2].ToString();
+            int cellRowIdx = cell.RowIndex;
+            int cellColIdx = cell.ColumnIndex;
+            if (clickable_cols.Contains(cellColIdx))
+                click_col_actions[cellColIdx].Invoke();
         }
 
         private void GeneralDataGrid_Load(object sender, EventArgs e)
         {
-            
-            dataGridView1.DataSource = DT;
+            dataGridView1.DataSource = dataTable;
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using FinalProject;
 using FinalProject.Controllers;
+using FinalProject.GUI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,10 +17,12 @@ namespace OperationalTrainer
         [STAThread]
         static void Main()
         {
-            MainController.Initialize();
+           
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            MainForm mf = new MainForm();
+            MainController.Initialize(mf);
+            Application.Run(mf);
         }
     }
 

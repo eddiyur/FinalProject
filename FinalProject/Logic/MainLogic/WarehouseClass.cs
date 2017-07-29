@@ -12,8 +12,6 @@ namespace OperationalTrainer.Logic.Warehouse
     {
         //event out of stouck
         //event out of capasity
-        // can get?
-        //can delivere?
 
 
         private Dictionary<ProductClass, double> Inventory { get; }

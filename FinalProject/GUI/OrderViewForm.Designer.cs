@@ -39,15 +39,16 @@
             this.DTPanel.TabIndex = 0;
             this.DTPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.DTPanel_Paint);
             // 
-            // OrderForm
+            // OrderViewForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(375, 494);
             this.ControlBox = false;
             this.Controls.Add(this.DTPanel);
-            this.Name = "OrderForm";
-            this.Text = "CustomerOrderForm";
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Name = "OrderViewForm";
+            this.Text = "Order";
             this.Load += new System.EventHandler(this.CustomerOrderForm_Load);
             this.ResumeLayout(false);
 

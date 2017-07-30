@@ -27,10 +27,10 @@ namespace OperationalTrainer.Logic.MainLogic
 
         public EventHandler<NewOrderArrivedEventArgs> Event_NewCustomerOrderArrived;
         public EventHandler Event_CustomerOrdersListUpdate;
+        public EventHandler Event_SupplierOrdersListUpdate;
         public EventHandler Event_EndOfTimeTickSchedule;
 
-
-        public NewOrderArrivedEventArgs NewOrderArrivedEventArgs { get; set; }
+            public NewOrderArrivedEventArgs NewOrderArrivedEventArgs { get; set; }
 
         enum ProcessesSchedule
         {
@@ -75,12 +75,7 @@ namespace OperationalTrainer.Logic.MainLogic
             clock.nextHour();
         }
 
-
-
-
-
-
-        /// <summary>
+               /// <summary>
         /// Listener  to the Clock
         /// </summary>
         /// <param name="sender"></param>
@@ -168,6 +163,12 @@ namespace OperationalTrainer.Logic.MainLogic
                 }
             }
             ProcessesScheduleParser();
+        }
+
+        public void NewSupplierOrderApproved(Order order)
+        {
+            dataManager.DataSet.SupplieOrderList.AddOrder(order);
+            Event_SupplierOrdersListUpdate(this, null);
         }
 
 

@@ -1,4 +1,6 @@
-﻿using OperationalTrainer.Data_Structures;
+﻿using FinalProject.Controllers;
+using OperationalTrainer.Data_Structures;
+using OperationalTrainer.GUI;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -31,6 +33,11 @@ namespace FinalProject.GUI
         List<string> ProductsNameList;
         DataTable PossibleSuppliersdataTable;
         int selectedIndex;
+        ProductClass selectectProduct;
+        int amount;
+        Order order;
+        OrderViewForm orderViewForm;
+
 
         public NewSupplierOrder(GetProductClassListDelegate getProductClassListDelegate, GetSuppliersListDelegate getSuppliersListDelegate)
         {
@@ -45,12 +52,12 @@ namespace FinalProject.GUI
             initScreenSetings();
             setStructure();
             selectedIndex = -1;
+            amount = 1;
         }
 
 
         private void initScreenSetings()
         {
-            Width = 450;
         }
 
         private void setStructure()
@@ -107,7 +114,7 @@ namespace FinalProject.GUI
 
         private void comboBoxProductsList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ProductClass selectectProduct = getProductFromcomboBoxProductsList(comboBoxProductsList.SelectedItem.ToString());
+            selectectProduct = getProductFromcomboBoxProductsList(comboBoxProductsList.SelectedItem.ToString());
             PossibleSuppliersdataTable = generateDataTableForProduct(selectectProduct);
             dataGridView1.DataSource = PossibleSuppliersdataTable;
         }
@@ -123,17 +130,87 @@ namespace FinalProject.GUI
                     MessageBox.Show("Digits only", "Error");
                     textBox1.Text = "";
                 }
+                else
+                    amount = Convert.ToInt32(textboxtText);
             }
+        }
+
+
+        private void markRow(DataGridViewCellEventArgs cell)
+        {
+            try
+            {
+                dataGridView1.ClearSelection();
+
+                for (int i = 0; i < dataGridView1.Rows.Count; i++)
+                    dataGridView1.Rows[i].DefaultCellStyle.BackColor = Color.White;
+
+                selectedIndex = cell.RowIndex;
+                dataGridView1.Rows[selectedIndex].Selected = true;
+
+                dataGridView1.Rows[selectedIndex].DefaultCellStyle.BackColor = Color.Gray;
+
+                DataRow drow = PossibleSuppliersdataTable.Rows[selectedIndex];
+                order = GenerateOrder(drow);
+            }
+            catch (Exception)
+            {
+                order = null;
+            }
+
         }
 
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs cell)
         {
-            dataGridView1.ClearSelection();
-            selectedIndex = cell.RowIndex;
-            dataGridView1.Rows[selectedIndex].Selected = true;
+            markRow(cell);
+        }
 
-            dataGridView1.Rows[selectedIndex].DefaultCellStyle.BackColor = Color.Red;
+        private Order GenerateOrder(DataRow drow)
+        {
+            Supplier supplier = suppliersList.GetSupplier(drow[SuppliersListForProductTableColumnsNames.Supplier_ID.ToString()].ToString());
+            PriceTable priceTable = new PriceTable(selectectProduct, amount, Convert.ToDouble(drow[SuppliersListForProductTableColumnsNames.Price.ToString()].ToString()));
+            List<PriceTable> pricetableList = new List<PriceTable>() { priceTable };
+            DateTime currentTime = MainController.GetCurrentTime();
+            string orderId = GenerateOrderID(currentTime);
+            Order order = new Order(supplier, Order.OrderTypeEnum.SupplierOrder, orderId, currentTime,
+                currentTime.AddDays(Convert.ToInt32(drow[SuppliersListForProductTableColumnsNames.Lead_Time.ToString()])), pricetableList);
 
-                }
+            return order;
+        }
+
+        private string GenerateOrderID(DateTime currentTime)
+        {
+
+            return "Supp_Order_" + currentTime.ToShortDateString() + currentTime.ToLongTimeString();
+        }
+
+        private void Nextbutton_Click(object sender, EventArgs e)
+        {
+            if (order != null)
+            {
+                orderViewForm = new OrderViewForm(order, OrderViewForm.OrderFormType.newOrder);
+                orderViewForm.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Supplier not chosen", "error");
+            }
+
+        }
+
+        private void back()
+        {
+            orderViewForm.Close();
+        }
+
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs cell)
+        {
+            markRow(cell);
+        }
+
+        private void CencelButton_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
     }//end form
 }

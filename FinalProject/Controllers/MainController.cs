@@ -13,6 +13,7 @@ namespace FinalProject.Controllers
 {
     public static class MainController
     {
+        
         private static MainManager mainManager;
         private static MainForm mainForm;
         public static void Initialize(MainForm mForm)
@@ -22,12 +23,14 @@ namespace FinalProject.Controllers
             mainManager.Event_NewCustomerOrderArrived += NewCustomerOrderArriver;
             mainManager.Event_EndOfTimeTickSchedule += EndOfTimeTickSchedule;
             mainManager.Event_CustomerOrdersListUpdate += CustomerOrdersListUpdate;
+            mainManager.Event_SupplierOrdersListUpdate += Event_SupplierOrdersListUpdate;
         }
 
+        private static void Event_SupplierOrdersListUpdate(object sender, EventArgs e)
+        { mainForm.UpdateGUI(); }
+
         private static void CustomerOrdersListUpdate(object sender, EventArgs e)
-        {
-            mainForm.UpdateGUI();
-        }
+        { mainForm.UpdateGUI(); }
 
         private static void EndOfTimeTickSchedule(object sender, EventArgs e)
         { mainForm.UpdateGUI(); }
@@ -37,18 +40,10 @@ namespace FinalProject.Controllers
 
         public static void NewCustomerOrderArriver(object sender, NewOrderArrivedEventArgs args)
         {
-            OrderViewForm of = new OrderViewForm(args.Order, OrderViewForm.OrderFormType.newOrder);
+            OrderViewForm of = new OrderViewForm(args.Order,OrderViewForm.OrderFormType.newOrder);
             of.ShowDialog();
         }
 
-        //public static void NewOrderArrived(Order order)
-        //{ mainManager.NewCustomerOrderApproved(order); }
-
-        //public static void NewCustomerOrderEventEnd()
-        //{ mainManager.EventEnded(); }
-
-        //public static void test()
-        //{ mainManager.testLogic(); }
 
         public static DataTable GetCustomerOrdersDataTable()
         { return mainManager.GetCustomerOrdersDataTable(); }
@@ -68,15 +63,17 @@ namespace FinalProject.Controllers
         public static ProductClassList GetProductsMetaData()
         { return mainManager.GetProductsMetaData(); }
 
-        public static SuppliersList GetSuppliersList ()
+        public static SuppliersList GetSuppliersList()
         { return mainManager.GetSuppliersList(); }
 
-        public static void NewOrderDecline(Order order)
+        public static void NewCustomerOrderDecline(Order order)
         { mainManager.NewCustomerOrderDecline(order); }
 
-        public static void NewOrderApproved(Order order)
+        public static void NewCustomerOrderApproved(Order order)
         { mainManager.NewCustomerOrderApproved(order); }
 
+        public static void NewSupplierOrderApproved(Order order)
+        { mainManager.NewSupplierOrderApproved(order); }
 
     }//end  MainController
 }

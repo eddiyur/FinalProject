@@ -12,6 +12,8 @@ using System.Windows.Forms;
 
 namespace OperationalTrainer.GUI
 {
+    public delegate void ClickDelegate();
+
     public partial class OrderViewForm : Form
     {
         Order order { get; set; }
@@ -19,6 +21,9 @@ namespace OperationalTrainer.GUI
         public ScreenSettings screenSettings;
         OrderFormType orderFormType;
         private List<ClickableDelegate> click_actions;
+        //private ClickDelegate FirstButtonClick;
+        //private ClickDelegate SecondButtonClick;
+
 
         public enum OrderFormType
         {
@@ -31,12 +36,32 @@ namespace OperationalTrainer.GUI
             public int rowHeight;
         }
 
+        public OrderViewForm(Order order)
+        {
+            this.orderFormType = OrderFormType.ShowOrder;
+            this.order = order;
+            InitializeComponent();
+        }
+
+
         public OrderViewForm(Order order, OrderFormType orderFormType)
         {
             this.orderFormType = orderFormType;
             this.order = order;
             InitializeComponent();
         }
+
+
+
+        //public OrderViewForm(Order order, ClickDelegate firstButtoClick, ClickDelegate secondButtonClick)
+        //{
+        //    this.orderFormType = OrderFormType.newOrder;
+        //    this.order = order;
+        //    FirstButtonClick = firstButtoClick;
+        //    SecondButtonClick = secondButtonClick;
+        //    InitializeComponent();
+        //}
+
 
         private void CustomerOrderForm_Load(object sender, EventArgs e)
         {
@@ -49,7 +74,7 @@ namespace OperationalTrainer.GUI
 
         private void initScreenSetings()
         {
-            Width = 450;
+            Width = 550;
             screenSettings.rowHeight = 25;
         }
 
@@ -172,15 +197,48 @@ namespace OperationalTrainer.GUI
             DTPanel.Controls.Add(GDG);
             GDG.Show();
 
+
             if (orderFormType == OrderFormType.newOrder)
-                newOrderButtons();
+                addNewOrderButtons();
             else
-                ShowOrderButtons();
+                ShowCloseButton();
+
+
+
+
 
 
         }
 
-        private void ShowOrderButtons()
+        private void addNewOrderButtons()
+        {
+            Button approveButton = new Button();
+            approveButton.Left = 10;
+            approveButton.Top = DTPanel.Bottom + 10;
+            approveButton.Text = "Approve";
+            
+            this.Controls.Add(approveButton);
+
+            Button declineButton = new Button();
+            declineButton.Left = approveButton.Right + 10;
+            declineButton.Top = DTPanel.Bottom + 10;
+            declineButton.Text = "Decline";
+            this.Controls.Add(declineButton);
+
+            if (order.OrderType== Order.OrderTypeEnum.CustomerOrder)
+            {
+                approveButton.Click += CustomerNewOrderApproved;
+                declineButton.Click += CustomerNewOrderDecline;
+            }
+            else
+            {
+                approveButton.Click += SupplierNewOrderApproved;
+                declineButton.Click += SupplierNewOrderDecline;
+            }
+
+        }
+
+        private void ShowCloseButton()
         {
             Button closeButton = new Button();
             closeButton.Left = 10;
@@ -188,7 +246,13 @@ namespace OperationalTrainer.GUI
             closeButton.Text = "close";
             closeButton.Click += closeForm;
             this.Controls.Add(closeButton);
+
+            this.ControlBox = true;
+            this.MinimizeBox = false;
+            this.MaximizeBox = false;
         }
+
+
 
         private void newOrderButtons()
         {
@@ -196,26 +260,36 @@ namespace OperationalTrainer.GUI
             approveButton.Left = 10;
             approveButton.Top = DTPanel.Bottom + 10;
             approveButton.Text = "Approve";
-            approveButton.Click += approveNewOrder;
             this.Controls.Add(approveButton);
 
             Button declineButton = new Button();
             declineButton.Left = approveButton.Right + 10;
             declineButton.Top = DTPanel.Bottom + 10;
             declineButton.Text = "Decline";
-            declineButton.Click += declineNewOrder;
             this.Controls.Add(declineButton);
         }
 
-        private void declineNewOrder(object sender, EventArgs e)
+        private void CustomerNewOrderDecline(object sender, EventArgs e)
         {
-            MainController.NewOrderDecline(order);
+            MainController.NewCustomerOrderDecline(order);
             Close();
         }
 
-        private void approveNewOrder(object sender, EventArgs e)
+        private void CustomerNewOrderApproved(object sender, EventArgs e)
         {
-            MainController.NewOrderApproved(order);
+            MainController.NewCustomerOrderApproved(order);
+            Close();
+        }
+
+        private void SupplierNewOrderDecline(object sender, EventArgs e)
+        {
+            //MainController.NewCustomerOrderDecline(order);
+            Close();
+        }
+
+        private void SupplierNewOrderApproved(object sender, EventArgs e)
+        {
+            MainController.NewSupplierOrderApproved(order);
             Close();
         }
 

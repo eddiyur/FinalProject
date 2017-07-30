@@ -29,30 +29,27 @@
         private void InitializeComponent()
         {
             this.menuStrip = new System.Windows.Forms.MenuStrip();
-            this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nextTickToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newSupplierOrderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadScenarioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cSVScenarioToXMLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip
             // 
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.testToolStripMenuItem,
+            this.fileToolStripMenuItem,
             this.nextTickToolStripMenuItem,
-            this.newSupplierOrderToolStripMenuItem});
+            this.newSupplierOrderToolStripMenuItem,
+            this.toolsToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
             this.menuStrip.Size = new System.Drawing.Size(1405, 24);
             this.menuStrip.TabIndex = 0;
             this.menuStrip.Text = "menuStrip";
-            // 
-            // testToolStripMenuItem
-            // 
-            this.testToolStripMenuItem.Name = "testToolStripMenuItem";
-            this.testToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
-            this.testToolStripMenuItem.Text = "test()";
-            this.testToolStripMenuItem.Click += new System.EventHandler(this.testToolStripMenuItem_Click);
             // 
             // nextTickToolStripMenuItem
             // 
@@ -67,6 +64,36 @@
             this.newSupplierOrderToolStripMenuItem.Size = new System.Drawing.Size(117, 20);
             this.newSupplierOrderToolStripMenuItem.Text = "new supplier order";
             this.newSupplierOrderToolStripMenuItem.Click += new System.EventHandler(this.newSupplierOrderToolStripMenuItem_Click);
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.loadScenarioToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Text = "File";
+            // 
+            // loadScenarioToolStripMenuItem
+            // 
+            this.loadScenarioToolStripMenuItem.Name = "loadScenarioToolStripMenuItem";
+            this.loadScenarioToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.loadScenarioToolStripMenuItem.Text = "Load Scenario";
+            this.loadScenarioToolStripMenuItem.Click += new System.EventHandler(this.loadScenarioToolStripMenuItem_Click);
+            // 
+            // toolsToolStripMenuItem
+            // 
+            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cSVScenarioToXMLToolStripMenuItem});
+            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
+            this.toolsToolStripMenuItem.Text = "Tools";
+            // 
+            // cSVScenarioToXMLToolStripMenuItem
+            // 
+            this.cSVScenarioToXMLToolStripMenuItem.Name = "cSVScenarioToXMLToolStripMenuItem";
+            this.cSVScenarioToXMLToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
+            this.cSVScenarioToXMLToolStripMenuItem.Text = "CSV scenario To XML";
+            this.cSVScenarioToXMLToolStripMenuItem.Click += new System.EventHandler(this.cSVScenarioToXMLToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -88,8 +115,11 @@
         #endregion
 
         private System.Windows.Forms.MenuStrip menuStrip;
-        private System.Windows.Forms.ToolStripMenuItem testToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem nextTickToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem newSupplierOrderToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem loadScenarioToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cSVScenarioToXMLToolStripMenuItem;
     }
 }

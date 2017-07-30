@@ -20,14 +20,20 @@ namespace OperationalTrainer.Logic.MainLogic
 
     }
 
-    public class InitOperationalTrainerDataSet
+
+    public class OperationalTrainerInitDataSetStructure
     {
-        //init data
         public DateTime startDate { get; set; }
         public double WarehouseMaxCapacity { get; set; }
         public Double BankCurrentBalance { get; set; }
-        public OperationalTrainerDataSetStructure OperationalTrainerDataSet { get; set; }
+       public Dictionary<ProductClass, double> WarehouseInitInventory { get; set; }
 
+    }
+
+    public class InitOperationalTrainerDataSet
+    {
+        public OperationalTrainerInitDataSetStructure OperationalTrainerInitDataSet { get; set; }
+        public OperationalTrainerDataSetStructure OperationalTrainerDataSet { get; set; }
         public InitOperationalTrainerDataSet()
         { OperationalTrainerDataSet = new OperationalTrainerDataSetStructure(); }
     }
@@ -41,7 +47,7 @@ namespace OperationalTrainer.Logic.MainLogic
         public DataManager(OperationalTrainerDataSetStructure dataSet)
         { DataSet = dataSet; }
 
-                public void UpdateTime(DateTime currnetTime)
+        public void UpdateTime(DateTime currnetTime)
         { CurrnetTime = currnetTime; }
 
         /// <summary>

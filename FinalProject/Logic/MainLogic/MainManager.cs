@@ -5,6 +5,7 @@ using OperationalTrainer.GUI;
 using OperationalTrainer.Logic.Warehouse;
 using System;
 using System.Data;
+using UtilitiesFileManager;
 
 namespace OperationalTrainer.Logic.MainLogic
 {
@@ -21,16 +22,16 @@ namespace OperationalTrainer.Logic.MainLogic
         private Bank bank { get; set; }
         private DateTime CurrnetTime { get; set; }
         private DataSummaryClass DataSummary { get; set; }
-
-        private ProcessesSchedule CurrentProcesses;
+        private ProcessesSchedule CurrentProcesses { get; set; }
 
 
         public EventHandler<NewOrderArrivedEventArgs> Event_NewCustomerOrderArrived;
         public EventHandler Event_CustomerOrdersListUpdate;
         public EventHandler Event_SupplierOrdersListUpdate;
         public EventHandler Event_EndOfTimeTickSchedule;
+        public EventHandler Event_DataLoaded;
 
-            public NewOrderArrivedEventArgs NewOrderArrivedEventArgs { get; set; }
+        public NewOrderArrivedEventArgs NewOrderArrivedEventArgs { get; set; }
 
         enum ProcessesSchedule
         {
@@ -39,13 +40,15 @@ namespace OperationalTrainer.Logic.MainLogic
             SupplierOrdersDelivered,
             EndOfProcess
         }
-
         public MainManager()
+        { }
+
+        private void init(string filePath)
         {
             LoadData ld = new LoadData();
-            InitOperationalTrainerDataSet initOperationalTrainerDataSet = ld.LoadInitData();
+            InitOperationalTrainerDataSet initOperationalTrainerDataSet = ld.LoadInitData(filePath);
 
-            CurrnetTime = initOperationalTrainerDataSet.startDate;
+            CurrnetTime = initOperationalTrainerDataSet.OperationalTrainerInitDataSet.startDate;
 
             dataManager = new DataManager(initOperationalTrainerDataSet.OperationalTrainerDataSet);
             dataManager.UpdateTime(CurrnetTime);
@@ -53,29 +56,15 @@ namespace OperationalTrainer.Logic.MainLogic
             clock = new Clock(CurrnetTime);
             clock.Tick += ClockTick;
 
-            Warehouse = new WarehouseClass(dataManager.DataSet.ProductsMetaDataList, initOperationalTrainerDataSet.WarehouseMaxCapacity);
-            bank = new Bank(initOperationalTrainerDataSet.BankCurrentBalance);
+            Warehouse = new WarehouseClass(initOperationalTrainerDataSet.OperationalTrainerInitDataSet.WarehouseInitInventory, initOperationalTrainerDataSet.OperationalTrainerInitDataSet.WarehouseMaxCapacity);
+
+//            Warehouse = new WarehouseClass(dataManager.DataSet.ProductsMetaDataList, initOperationalTrainerDataSet.OperationalTrainerInitDataSet.WarehouseMaxCapacity);
+            bank = new Bank(initOperationalTrainerDataSet.OperationalTrainerInitDataSet.BankCurrentBalance);
             DataSummary = new DataSummaryClass(Warehouse, dataManager, bank, CurrnetTime);
         }
 
-        /// <summary>
-        /// Return Current Time
-        /// </summary>
-        /// <returns></returns>
-        public DateTime GetCurrentTime()
-        {
-            return CurrnetTime;
-        }
 
         /// <summary>
-        /// Start the Ticker
-        /// </summary>
-        public void StartClock()
-        {
-            clock.nextHour();
-        }
-
-               /// <summary>
         /// Listener  to the Clock
         /// </summary>
         /// <param name="sender"></param>
@@ -88,33 +77,40 @@ namespace OperationalTrainer.Logic.MainLogic
             testLogic();
         }
 
+        public void CreateXMLScenario(CSVScenarioFilePath cSVScenarioFilePath)
+        {
+            LoadData loadData = new LoadData();
+            loadData.CreateXMLScenario(cSVScenarioFilePath);
+        
+            }
+
+        public void LoadScenario()
+        {
+            FileManager fileManager = new FileManager();
+            string filePath = fileManager.openFilePathXML();
+
+            if (!string.IsNullOrEmpty(filePath))
+            {
+                init(filePath);
+                DataLoaded();
+            }
+        }
+
+
+
+        //logic
 
 
 
         public void testLogic()
         {
-
             ProcessesScheduleParser();
-
         }
 
-
-        public DataTable GetCustomerOrdersDataTable()
-        { return DataSummary.GenerateCustomerOrdersDataTable(); }
-
-        public DataTable GetSupplierOrdersDataTable()
-        { return DataSummary.GenerateSupplierOrdersDataTable(); }
-
-        public DataTable GetBankDataTable()
-        { return DataSummary.GenerateBank(); }
-
-        public DataTable GetWarehouseDataTable()
-        { return DataSummary.GenerateWarehouse(); }
 
         private void mainLogic()
         {
             ProcessesScheduleParser();
-
         }
 
         private void ProcessesScheduleParser()
@@ -142,8 +138,7 @@ namespace OperationalTrainer.Logic.MainLogic
 
         }//end ProcessesScheduleParser
 
-        private void TimeTickScheduleEnd()
-        { Event_EndOfTimeTickSchedule(this, null); }
+
 
 
         /// <summary>
@@ -165,13 +160,93 @@ namespace OperationalTrainer.Logic.MainLogic
             ProcessesScheduleParser();
         }
 
+
+
+        //events
+        private void TimeTickScheduleEnd()
+        { Event_EndOfTimeTickSchedule(this, null); }
+        
+        private void DataLoaded()
+        { Event_DataLoaded(this, null); }
+
+        //get partiotion
+
+        /// <summary>
+        /// Return Current Time
+        /// </summary>
+        /// <returns></returns>
+        public DateTime GetCurrentTime()
+        { try { return CurrnetTime; } catch { return new DateTime(); } }
+        public DataTable GetCustomerOrdersDataTable()
+        {
+            try
+            {
+                return DataSummary.GenerateCustomerOrdersDataTable();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+
+        }
+        public DataTable GetSupplierOrdersDataTable()
+        {
+            try
+            {
+                return DataSummary.GenerateSupplierOrdersDataTable();
+            }
+            catch
+            {
+                return null;
+            }
+        }
+        public DataTable GetBankDataTable()
+        {
+            try
+            {
+                return DataSummary.GenerateBank();
+            }
+            catch
+            {
+                return null;
+            }
+        }
+        public DataTable GetWarehouseDataTable()
+        {
+            try
+            {
+                return DataSummary.GenerateWarehouse();
+            }
+            catch
+            {
+                return null;
+            }
+        }
+        /// <summary>
+        /// Return Products MetaData list
+        /// </summary>
+        /// <returns></returns>
+        public ProductClassList GetProductsMetaData()
+        { return dataManager.DataSet.ProductsMetaDataList; }
+
+        /// <summary>
+        /// Return suppliersList
+        /// </summary>
+        /// <returns></returns>
+        public SuppliersList GetSuppliersList()
+        { return dataManager.DataSet.SuppliersList; }
+
+
+
+        //set partiotion
+
+        public void NewCustomerOrderDecline(Order newOrder)
+        { }
         public void NewSupplierOrderApproved(Order order)
         {
             dataManager.DataSet.SupplieOrderList.AddOrder(order);
             Event_SupplierOrdersListUpdate(this, null);
         }
-
-
         /// <summary>
         ///Add new customer order to customer orders list
         /// </summary>
@@ -183,27 +258,16 @@ namespace OperationalTrainer.Logic.MainLogic
         }
 
         /// <summary>
-        /// Return Products MetaData list
+        /// Start the Ticker
         /// </summary>
-        /// <returns></returns>
-        public ProductClassList GetProductsMetaData()
-        { return dataManager.DataSet.ProductsMetaDataList; }
+        public void StartClock()
+        {
+            clock.nextHour();
+        }
 
 
-        /// <summary>
-        /// Return suppliersList
-        /// </summary>
-        /// <returns></returns>
-        public SuppliersList GetSuppliersList()
-        { return dataManager.DataSet.SuppliersList; }
 
 
-        /// <summary>
-        /// Get new order user Decline
-        /// </summary>
-        /// <param name="newOrder"></param>
-        public void NewCustomerOrderDecline(Order newOrder)
-        { }
 
         public void EventEnded()
         { }

@@ -107,9 +107,8 @@ namespace OperationalTrainer.FileManagerFolder
             return ProductTree;
         }
 
-        public static void ProductClassCSVToXML(string SourcefileName,string targetFileName)
+        public static void ProductClassCSVToXML(string SourcefileName, string targetFileName)
         {
-
             string FolderPath = LoadData.getTempFolderPath();
             string filePath = FolderPath + SourcefileName;
             FileManager fm = new FileManager();
@@ -141,12 +140,12 @@ namespace OperationalTrainer.FileManagerFolder
                 product.AppendChild(ProductCapacityTagName);
 
                 var ProductTreeTagName = doc.CreateElement(XMLProductFields.ProductTree.ToString());
-               
+
                 int columnIndex = 3;
                 for (int i = 0; i < 3; i++)
                 {
                     string ProductTree_ProductIDValue = row[columnIndex].ToString();
-                    string ProductTree_AmountValue= row[columnIndex+1].ToString();
+                    string ProductTree_AmountValue = row[columnIndex + 1].ToString();
 
                     if (!string.IsNullOrEmpty(ProductTree_ProductIDValue))
                     {
@@ -165,7 +164,7 @@ namespace OperationalTrainer.FileManagerFolder
 
                 }
                 product.AppendChild(ProductTreeTagName);
-              
+
                 productsList.AppendChild(product);
             }
 
@@ -174,6 +173,66 @@ namespace OperationalTrainer.FileManagerFolder
                 doc.WriteTo(writer);
             }
 
+        }
+
+        public static XmlDocument ProductClassCSVToXML(XmlDocument doc, string SourcefileName)
+        {
+
+            FileManager fm = new FileManager();
+            DataTable dt = fm.GetCSV(SourcefileName);
+
+            var root = doc.GetElementsByTagName(LoadData.XMLMainCategories.dataset.ToString())[0];
+            var productsList = doc.CreateElement(LoadData.XMLMainCategories.ProductsList.ToString());
+
+
+            root.AppendChild(productsList);
+
+            foreach (DataRow row in dt.Rows)
+            {
+                var product = doc.CreateElement(XMLProductFields.Product.ToString());
+
+                var ProductIDTagName = doc.CreateElement(XMLProductFields.ProductID.ToString());
+                ProductIDTagName.InnerText = row[0].ToString();
+                product.AppendChild(ProductIDTagName);
+
+                var ProductNameTagName = doc.CreateElement(XMLProductFields.ProductName.ToString());
+                ProductNameTagName.InnerText = row[1].ToString();
+                product.AppendChild(ProductNameTagName);
+
+                var ProductCapacityTagName = doc.CreateElement(XMLProductFields.ProductCapacity.ToString());
+                ProductCapacityTagName.InnerText = row[2].ToString();
+                product.AppendChild(ProductCapacityTagName);
+
+                var ProductTreeTagName = doc.CreateElement(XMLProductFields.ProductTree.ToString());
+
+                int columnIndex = 3;
+                for (int i = 0; i < 3; i++)
+                {
+                    string ProductTree_ProductIDValue = row[columnIndex].ToString();
+                    string ProductTree_AmountValue = row[columnIndex + 1].ToString();
+
+                    if (!string.IsNullOrEmpty(ProductTree_ProductIDValue))
+                    {
+                        var ProductTreeBranchTagName = doc.CreateElement(XMLProductFields.ProductTreeBranch.ToString());
+                        var ProductTree_ProductIDTagName = doc.CreateElement(XMLProductFields.ProductTree_ProductID.ToString());
+                        ProductTree_ProductIDTagName.InnerText = ProductTree_ProductIDValue;
+                        ProductTreeBranchTagName.AppendChild(ProductTree_ProductIDTagName);
+                        var ProductTree_AmountTagName = doc.CreateElement(XMLProductFields.ProductTree_Amount.ToString());
+                        ProductTree_AmountTagName.InnerText = ProductTree_AmountValue;
+                        ProductTreeBranchTagName.AppendChild(ProductTree_AmountTagName);
+
+                        ProductTreeTagName.AppendChild(ProductTreeBranchTagName);
+                    }
+
+                    columnIndex = columnIndex + 2;
+
+                }
+                product.AppendChild(ProductTreeTagName);
+
+                productsList.AppendChild(product);
+            }
+
+            return doc;
         }
 
     }//end class

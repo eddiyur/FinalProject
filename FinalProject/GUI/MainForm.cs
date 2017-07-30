@@ -52,7 +52,7 @@ namespace FinalProject.GUI
 
 
 
-      
+
 
         public MainForm()
         {
@@ -72,6 +72,7 @@ namespace FinalProject.GUI
         {
             setScreenSize();
             setPanelsPosition();
+            UpdateGUI();
         }
 
         /// <summary>
@@ -114,10 +115,16 @@ namespace FinalProject.GUI
 
         }//end setScreenSize
 
+        public void GuiParameters()
+        {
+            nextTickToolStripMenuItem.Enabled = MainParameters.GameStarted;
+        }
+
         public void UpdateGUI()
         {
+            GuiParameters();
             formVisualElements.TimeLabel.Text = transferToTimeLabel(MainController.GetCurrentTime());
-            //CustomerMainForm.UpdateData(MainController.GetCustomerOrdersDataTable());
+
             foreach (var form in updatebleForms)
                 form.UpdateData();
 
@@ -198,7 +205,7 @@ namespace FinalProject.GUI
             updatebleForms.Add(CustomerMainForm);
             CustomerMainForm.Show();
 
-           // SupplierMainForm = new OrdersMainForm(MainController.GetSupplierOrdersDataTable(), formVisualElements.SupplierOrderPanel.Width, formVisualElements.SupplierOrderPanel.Height);
+            // SupplierMainForm = new OrdersMainForm(MainController.GetSupplierOrdersDataTable(), formVisualElements.SupplierOrderPanel.Width, formVisualElements.SupplierOrderPanel.Height);
             SupplierMainForm = new GeneralDataGridForm(MainController.GetSupplierOrdersDataTable, formVisualElements.SupplierOrderPanel.Width, formVisualElements.SupplierOrderPanel.Height, new List<int>(), new List<ClickableDelegate>());
             formVisualElements.SupplierOrderPanel.Controls.Add(SupplierMainForm);
             updatebleForms.Add(SupplierMainForm);
@@ -220,8 +227,19 @@ namespace FinalProject.GUI
 
         private void newSupplierOrderToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            NewSupplierOrder newSupplierOrder = new NewSupplierOrder(MainController.GetProductsMetaData,MainController.GetSuppliersList);
+            NewSupplierOrder newSupplierOrder = new NewSupplierOrder(MainController.GetProductsMetaData, MainController.GetSuppliersList);
             newSupplierOrder.ShowDialog();
+        }
+
+        private void loadScenarioToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MainController.LoadScenario();
+        }
+
+        private void cSVScenarioToXMLToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CSVScenarioToXMLForm f = new CSVScenarioToXMLForm();
+            f.ShowDialog();
         }
     }//end form
 

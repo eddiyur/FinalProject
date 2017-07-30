@@ -11,20 +11,33 @@ using System.Threading.Tasks;
 
 namespace FinalProject.Controllers
 {
+    public  static class MainParameters
+    {
+        public static  bool GameStarted { get; set; }
+    }
+
     public static class MainController
     {
         
+
+
         private static MainManager mainManager;
         private static MainForm mainForm;
         public static void Initialize(MainForm mForm)
         {
+            MainParameters.GameStarted = false;
+
             mainManager = new MainManager();
             mainForm = mForm;
             mainManager.Event_NewCustomerOrderArrived += NewCustomerOrderArriver;
             mainManager.Event_EndOfTimeTickSchedule += EndOfTimeTickSchedule;
             mainManager.Event_CustomerOrdersListUpdate += CustomerOrdersListUpdate;
             mainManager.Event_SupplierOrdersListUpdate += Event_SupplierOrdersListUpdate;
+            mainManager.Event_DataLoaded += Event_DataLoaded;
         }
+
+        private static void Event_DataLoaded(object sender, EventArgs e)
+        { mainForm.UpdateGUI(); }
 
         private static void Event_SupplierOrdersListUpdate(object sender, EventArgs e)
         { mainForm.UpdateGUI(); }
@@ -57,6 +70,11 @@ namespace FinalProject.Controllers
         public static DataTable GetWarehouseDataTable()
         { return mainManager.GetWarehouseDataTable(); }
 
+        internal static void CreateXMLScenario(CSVScenarioFilePath cSVScenarioFilePath)
+        {
+            mainManager.CreateXMLScenario(cSVScenarioFilePath);
+        }
+
         public static DateTime GetCurrentTime()
         { return mainManager.GetCurrentTime(); }
 
@@ -75,5 +93,9 @@ namespace FinalProject.Controllers
         public static void NewSupplierOrderApproved(Order order)
         { mainManager.NewSupplierOrderApproved(order); }
 
+        public static void LoadScenario()
+        {
+            mainManager.LoadScenario();
+        }
     }//end  MainController
 }

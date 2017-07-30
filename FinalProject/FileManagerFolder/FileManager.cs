@@ -146,7 +146,21 @@ namespace UtilitiesFileManager
         //}
 
 
-        public string openFilePath()
+        public string openFilePathXML()
+        {
+            OpenFileDialog openFileDialogWindow = new OpenFileDialog();
+            openFileDialogWindow.FileName = "*.XML";
+            openFileDialogWindow.Filter = "XML files(*.XML) |*.XML| All files(*.*) |*.*";
+            openFileDialogWindow.FilterIndex = 1;
+            openFileDialogWindow.ShowDialog();
+
+            string fileName = openFileDialogWindow.FileName;
+            if (fileName.Equals("*.XML"))
+                return null;
+            return fileName;
+        }
+
+        public string openFilePathCSV()
         {
             OpenFileDialog openFileDialogWindow = new OpenFileDialog();
             openFileDialogWindow.FileName = "*.csv";
@@ -160,13 +174,12 @@ namespace UtilitiesFileManager
             return fileName;
         }
 
-
         public string saveFilePath()
         {
-            return saveFilePath("");
+            return saveFilePathCSV("");
         }
 
-        public string saveFilePath(string fileNameExm)
+        public string saveFilePathCSV(string fileNameExm)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.FileName = "*.csv";
@@ -184,6 +197,23 @@ namespace UtilitiesFileManager
             return fileName;
         }
 
+        public string saveFilePathXML(string fileNameExm)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.FileName = "*.XML";
+            saveFileDialog.Filter = "XML files(*.XML) |*.XML| All files(*.*) |*.*";
+            saveFileDialog.FilterIndex = 1;
+            saveFileDialog.FileName = fileNameExm;
+            saveFileDialog.ShowDialog();
+
+
+            string fileName = "";
+            fileName = saveFileDialog.FileName;
+
+            if (fileName.Equals("*.XML"))
+                return null;
+            return fileName;
+        }
 
     }//end class
 

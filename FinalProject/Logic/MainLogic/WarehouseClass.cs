@@ -81,7 +81,7 @@ namespace OperationalTrainer.Logic.Warehouse
 
             Capacity = capacity;
             if (Capacity > MaxCapacity)
-                MessageBox.Show("Error");
+                MessageBox.Show("Out of capacity Error");
         }
 
         /// <summary>

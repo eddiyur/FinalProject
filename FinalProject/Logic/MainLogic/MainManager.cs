@@ -30,6 +30,8 @@ namespace OperationalTrainer.Logic.MainLogic
         public EventHandler Event_SupplierOrdersListUpdate;
         public EventHandler Event_EndOfTimeTickSchedule;
         public EventHandler Event_DataLoaded;
+        public EventHandler Event_cantDeliverOrder;
+
 
         public NewOrderArrivedEventArgs NewOrderArrivedEventArgs { get; set; }
 
@@ -62,6 +64,23 @@ namespace OperationalTrainer.Logic.MainLogic
         }
 
 
+        private void CustomerOrderDelivery(string orderID)
+        {
+            Order order = dataManager.DataSet.CustomersOrderList.GetOrder(orderID);
+            bool canGetOrder = Warehouse.CanGetOrder(order);
+
+            if (!canGetOrder)
+                cantDeliverOrder();
+            else
+            {
+                Warehouse.GetOrder(order);
+                dataManager.DataSet.CustomersOrderList.RemoveOrder(order);
+                Event_CustomerOrdersListUpdate(this, null);
+            }
+
+
+        }
+
         /// <summary>
         /// Listener  to the Clock
         /// </summary>
@@ -79,8 +98,8 @@ namespace OperationalTrainer.Logic.MainLogic
         {
             LoadData loadData = new LoadData();
             loadData.CreateXMLScenario(cSVScenarioFilePath);
-        
-            }
+
+        }
 
         public void LoadScenario()
         {
@@ -163,9 +182,13 @@ namespace OperationalTrainer.Logic.MainLogic
         //events
         private void TimeTickScheduleEnd()
         { Event_EndOfTimeTickSchedule(this, null); }
-        
+
         private void DataLoaded()
         { Event_DataLoaded(this, null); }
+
+        private void cantDeliverOrder()
+        { Event_cantDeliverOrder(this, null); }
+
 
         //get partiotion
 
@@ -263,7 +286,8 @@ namespace OperationalTrainer.Logic.MainLogic
             clock.nextHour();
         }
 
-
+        public void CustomerOrderDeliveryApproved(string orderID)
+        { CustomerOrderDelivery(orderID); }
 
 
 

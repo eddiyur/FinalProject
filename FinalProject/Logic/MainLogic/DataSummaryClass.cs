@@ -34,6 +34,7 @@ namespace FinalProject.Logic.MainLogic
         {
             Customer_Name,
             Customer_ID,
+            Order_ID,
             Delivery_Date,
             Total_Order_Price,
             Possible_To_Deliver
@@ -55,6 +56,7 @@ namespace FinalProject.Logic.MainLogic
                 DataRow drow = customerOrdersTable.NewRow();
                 drow[CustomerOrderColumnsNames.Customer_Name.ToString()] = order.Person.Name;
                 drow[CustomerOrderColumnsNames.Customer_ID.ToString()] = order.Person.ID;
+                drow[CustomerOrderColumnsNames.Order_ID.ToString()] = order.OrderID;
                 drow[CustomerOrderColumnsNames.Delivery_Date.ToString()] = order.OrderDeliveryDate.ToShortDateString();
                 drow[CustomerOrderColumnsNames.Total_Order_Price.ToString()] = order.GetOrderAmount().ToString();
                 drow[CustomerOrderColumnsNames.Possible_To_Deliver.ToString()] = Warehouse.CanGetOrder(order).ToString();

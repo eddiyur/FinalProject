@@ -8,17 +8,18 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace FinalProject.Controllers
 {
-    public  static class MainParameters
+    public static class MainParameters
     {
-        public static  bool GameStarted { get; set; }
+        public static bool GameStarted { get; set; }
     }
 
     public static class MainController
     {
-        
+
 
 
         private static MainManager mainManager;
@@ -34,10 +35,17 @@ namespace FinalProject.Controllers
             mainManager.Event_CustomerOrdersListUpdate += CustomerOrdersListUpdate;
             mainManager.Event_SupplierOrdersListUpdate += Event_SupplierOrdersListUpdate;
             mainManager.Event_DataLoaded += Event_DataLoaded;
+            mainManager.Event_cantDeliverOrder += cantDeliverOrder;
         }
 
+        private static void cantDeliverOrder(object sender, EventArgs e)
+        { MessageBox.Show("can't deliver this order", "Error"); }
+
         private static void Event_DataLoaded(object sender, EventArgs e)
-        { mainForm.UpdateGUI(); }
+        {
+            MainParameters.GameStarted = true;
+            mainForm.UpdateGUI();
+        }
 
         private static void Event_SupplierOrdersListUpdate(object sender, EventArgs e)
         { mainForm.UpdateGUI(); }
@@ -53,10 +61,14 @@ namespace FinalProject.Controllers
 
         public static void NewCustomerOrderArriver(object sender, NewOrderArrivedEventArgs args)
         {
-            OrderViewForm of = new OrderViewForm(args.Order,OrderViewForm.OrderFormType.newOrder);
+            OrderViewForm of = new OrderViewForm(args.Order, OrderViewForm.OrderFormType.newOrder);
             of.ShowDialog();
         }
 
+        internal static void CustomerOrderDeliveryApproved(string orderID)
+        {
+            mainManager.CustomerOrderDeliveryApproved(orderID);
+        }
 
         public static DataTable GetCustomerOrdersDataTable()
         { return mainManager.GetCustomerOrdersDataTable(); }

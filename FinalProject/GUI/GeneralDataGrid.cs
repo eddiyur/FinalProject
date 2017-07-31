@@ -1,4 +1,5 @@
-﻿using FinalProject.GUI;
+﻿using FinalProject.Controllers;
+using FinalProject.GUI;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -43,6 +44,16 @@ namespace OperationalTrainer.GUI
             int cellColIdx = cell.ColumnIndex;
             if (clickable_cols.Contains(cellColIdx))
                 click_col_actions[cellColIdx].Invoke();
+
+
+            string Possible_To_Deliver = "Possible_To_Deliver";
+            string orderID = "Order_Id";
+
+            string columnName = dataGridView1.Columns[cellColIdx].Name;
+
+            if (columnName.Equals(Possible_To_Deliver))
+                MainController.CustomerOrderDeliveryApproved(dataGridView1.Rows[cellRowIdx].Cells[orderID].FormattedValue.ToString());
+
         }
 
         private void updateDataSet()

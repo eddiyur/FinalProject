@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using OperationalTrainer.Data_Structures;
 
 namespace FinalProject.GUI
 {
@@ -184,7 +185,7 @@ namespace FinalProject.GUI
             createSubForms();
         }//end setPanelsPosition
 
-
+       
         private void createSubForms()
         {
             //  bankMainForm = new OrdersMainForm(MainController.GetBankDataTable(), formVisualElements.BankPanel.Width, formVisualElements.BankPanel.Height);

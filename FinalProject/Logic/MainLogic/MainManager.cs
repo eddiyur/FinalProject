@@ -9,7 +9,7 @@ using UtilitiesFileManager;
 
 namespace OperationalTrainer.Logic.MainLogic
 {
-    public class NewOrderArrivedEventArgs : EventArgs
+    public class OrderEventArgs : EventArgs
     {
         public Order Order { get; set; }
     }
@@ -25,15 +25,16 @@ namespace OperationalTrainer.Logic.MainLogic
         private ProcessesSchedule CurrentProcesses { get; set; }
 
 
-        public EventHandler<NewOrderArrivedEventArgs> Event_NewCustomerOrderArrived;
+        public EventHandler<OrderEventArgs> Event_NewCustomerOrderArrived;
+        public EventHandler<OrderEventArgs> Event_NewSupplierOrderDelivered;
+
         public EventHandler Event_CustomerOrdersListUpdate;
         public EventHandler Event_SupplierOrdersListUpdate;
         public EventHandler Event_EndOfTimeTickSchedule;
         public EventHandler Event_DataLoaded;
         public EventHandler Event_cantDeliverOrder;
 
-
-        public NewOrderArrivedEventArgs NewOrderArrivedEventArgs { get; set; }
+        public OrderEventArgs NewOrderArrivedEventArgs { get; set; }
 
         enum ProcessesSchedule
         {
@@ -143,7 +144,8 @@ namespace OperationalTrainer.Logic.MainLogic
                     NewCustomerOrder();
                     break;
                 case ProcessesSchedule.SupplierOrdersDelivered:
-                    ProcessesScheduleParser();
+                    SupplierOrderDeliver();
+                    //ProcessesScheduleParser();
                     break;
                 case ProcessesSchedule.EndOfProcess:
                     TimeTickScheduleEnd();
@@ -157,6 +159,21 @@ namespace OperationalTrainer.Logic.MainLogic
 
 
 
+        private void SupplierOrderDeliver()
+        {
+            OrdersList newOrders = dataManager.getSupplierOrderDelivered(CurrnetTime);
+            if (newOrders.OrderList.Count > 0)
+            {
+                foreach (Order order in newOrders.OrderList)
+                {
+                    var args = new OrderEventArgs();
+                    args.Order = order;
+                    Event_NewSupplierOrderDelivered(this, args);
+                }
+            }
+            ProcessesScheduleParser();
+        }
+
 
         /// <summary>
         /// Checks if new customer orders arrived
@@ -169,7 +186,7 @@ namespace OperationalTrainer.Logic.MainLogic
             {
                 foreach (Order order in newOrders.OrderList)
                 {
-                    var args = new NewOrderArrivedEventArgs();
+                    var args = new OrderEventArgs();
                     args.Order = order;
                     Event_NewCustomerOrderArrived(this, args);
                 }
@@ -289,7 +306,12 @@ namespace OperationalTrainer.Logic.MainLogic
         public void CustomerOrderDeliveryApproved(string orderID)
         { CustomerOrderDelivery(orderID); }
 
-
+        public void SupplierOrderDeliveredAproved(Order order)
+        {
+            Warehouse.AddOrder(order);
+            bank.UpdateBalance(order);
+            Event_SupplierOrdersListUpdate(this, null);
+        }
 
         public void EventEnded()
         { }

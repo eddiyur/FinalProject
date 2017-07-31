@@ -36,8 +36,10 @@ namespace FinalProject.Controllers
             mainManager.Event_SupplierOrdersListUpdate += Event_SupplierOrdersListUpdate;
             mainManager.Event_DataLoaded += Event_DataLoaded;
             mainManager.Event_cantDeliverOrder += cantDeliverOrder;
+            mainManager.Event_NewSupplierOrderDelivered += NewSupplierOrderDelivered;
         }
 
+      
         private static void cantDeliverOrder(object sender, EventArgs e)
         { MessageBox.Show("can't deliver this order", "Error"); }
 
@@ -59,13 +61,19 @@ namespace FinalProject.Controllers
         public static void StartClock()
         { mainManager.StartClock(); }
 
-        public static void NewCustomerOrderArriver(object sender, NewOrderArrivedEventArgs args)
+        public static void NewCustomerOrderArriver(object sender, OrderEventArgs args)
         {
             OrderViewForm of = new OrderViewForm(args.Order, OrderViewForm.OrderFormType.newOrder);
             of.ShowDialog();
         }
 
-        internal static void CustomerOrderDeliveryApproved(string orderID)
+        private static void NewSupplierOrderDelivered(object sender, OrderEventArgs args)
+        {
+            OrderViewForm of = new OrderViewForm(args.Order, OrderViewForm.OrderFormType.SupplierOrderDelivered);
+            of.ShowDialog();
+        }
+
+        public static void CustomerOrderDeliveryApproved(string orderID)
         {
             mainManager.CustomerOrderDeliveryApproved(orderID);
         }
@@ -83,9 +91,7 @@ namespace FinalProject.Controllers
         { return mainManager.GetWarehouseDataTable(); }
 
         internal static void CreateXMLScenario(CSVScenarioFilePath cSVScenarioFilePath)
-        {
-            mainManager.CreateXMLScenario(cSVScenarioFilePath);
-        }
+        {            mainManager.CreateXMLScenario(cSVScenarioFilePath);        }
 
         public static DateTime GetCurrentTime()
         { return mainManager.GetCurrentTime(); }
@@ -106,8 +112,11 @@ namespace FinalProject.Controllers
         { mainManager.NewSupplierOrderApproved(order); }
 
         public static void LoadScenario()
+        {            mainManager.LoadScenario();        }
+
+        internal static void SupplierOrderDeliveredAproved(Order order)
         {
-            mainManager.LoadScenario();
+            mainManager.SupplierOrderDeliveredAproved(order);
         }
     }//end  MainController
 }

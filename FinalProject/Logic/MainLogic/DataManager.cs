@@ -57,9 +57,16 @@ namespace OperationalTrainer.Logic.MainLogic
         /// <returns></returns>
         public OrdersList getNewCustomerOrdersList(DateTime date)
         {
-            OrdersList newCustomerOrdersList = DataSet.futureCustomersOrderList.GetOrders(date);
+            OrdersList newCustomerOrdersList = DataSet.futureCustomersOrderList.GetOrdersByOrderDate(date);
             DataSet.futureCustomersOrderList.RemoveOrders(newCustomerOrdersList);
             return newCustomerOrdersList;
+        }
+
+        public OrdersList getSupplierOrderDelivered(DateTime date)
+        {
+            OrdersList newOrdersList = DataSet.SupplieOrderList.GetOrdersByOrderDeliveryDate(date);
+            DataSet.SupplieOrderList.RemoveOrders(newOrdersList);
+            return newOrdersList;
         }
 
         /// <summary>

@@ -32,7 +32,6 @@ namespace OperationalTrainer.Data_Structures
 
     public class LoadData
     {
-
         public LoadData() { }
 
         public enum XMLMainCategories
@@ -51,13 +50,6 @@ namespace OperationalTrainer.Data_Structures
         {
             InitOperationalTrainerDataSet operationalTrainerData = new InitOperationalTrainerDataSet();
             XmlDocument xmldoc = getXmldoc(filePath);
-            //    XmlDocument xmldoc = getXMlFile("TestScenario1.xml");
-
-            //    XmlNodeList productsNodeList = getXmlNodeList("ProductList.xml", XMLMainCategories.ProductsList);
-            //XmlNodeList suppliersNodeList = getXmlNodeList("SuppliersList.xml", XMLMainCategories.SuppliersList);
-            //XmlNodeList customerOrderNodeList = getXmlNodeList("CustomerOrderList.xml", XMLMainCategories.CustomersOrderList);
-            //XmlNodeList fucureCustomerOrderNodeList = getXmlNodeList("futureCustomersOrderList.xml", XMLMainCategories.FutureCustomersOrderList);
-            //XmlNodeList supploersOrderNodeList = getXmlNodeList("SuppliersOrderList.xml", XMLMainCategories.SuppliersOrderList);
 
             XmlNodeList initNodeList = getXmlNodeList(xmldoc, XMLMainCategories.InitData);
             XmlNodeList productsNodeList = getXmlNodeList(xmldoc, XMLMainCategories.ProductsList);
@@ -97,7 +89,6 @@ namespace OperationalTrainer.Data_Structures
             FileManager fileManager = new FileManager();
             string fileResultpath = fileManager.saveFilePathXML();
 
-            //string fileResultpath = @"C:\Users\eyurkovs\Desktop\final progect\FinalProject\FinalProject\FinalProject\dataSets\testresult.xml";
             if (!string.IsNullOrEmpty(fileResultpath))
             {
                 using (var writer = new XmlTextWriter(fileResultpath, Encoding.UTF8) { Formatting = Formatting.Indented })
@@ -117,64 +108,9 @@ namespace OperationalTrainer.Data_Structures
         }
 
 
-        //public void LoadLists()
-        //{
-        //    //XmlNodeList productsNodeList = getXmlNodeList("ProductList.xml", XMLMainCategories.ProductsList);
-        //    //XmlNodeList suppliersNodeList = getXmlNodeList("SuppliersList.xml", XMLMainCategories.SuppliersList);
-        //    //XmlNodeList CustomerOrderNodeList = getXmlNodeList("CustomerOrderList.xml", XMLMainCategories.CustomerOrderList);
-
-        //    //productsList = ProductParser.Parse(productsNodeList);
-        //    //suppliersList = SuppliersParser.Parse(suppliersNodeList, productsList);
-        //    //customerOrderList = CustomerOrderParser.Parse(CustomerOrderNodeList, productsList);
-
-        //    //////csv to xml test
-        //    ////XmlNodeList edduNodeList = getXmlNodeList("eddi.xml", XMLMainCategories.ProductsList);
-        //    ////productsList = ProductParser.Parse(edduNodeList);
-
-        //}
-
-
-        private XmlNodeList getXmlNodeList(string fileName, XMLMainCategories XMLMainField)
-        {
-            string folderPath = getTempFolderPath();
-
-            string filePath = folderPath + fileName;
-            XmlDocument xmldoc = new XmlDocument();
-            FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read);
-            xmldoc.Load(fs);
-
-            XmlNodeList xmlNodeList = xmldoc.GetElementsByTagName(XMLMainField.ToString())[0].ChildNodes;
-            return xmlNodeList;
-        }
 
         private XmlNodeList getXmlNodeList(XmlDocument xmldoc, XMLMainCategories XMLMainField)
         { return xmldoc.GetElementsByTagName(XMLMainField.ToString())[0].ChildNodes; }
-
-        public XmlDocument getXMlFile(string fileName)
-        {
-            string folderPath = getTempFolderPath();
-
-            string filePath = folderPath + fileName;
-            XmlDocument xmldoc = new XmlDocument();
-            FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read);
-            xmldoc.Load(fs);
-            return xmldoc;
-        }
-
-
-        public static string getTempFolderPath()
-        {
-            UtilitiesFileManager.FileManager fileManager = new UtilitiesFileManager.FileManager();
-            string folderPath = fileManager.ExePath();
-            string[] pathParts = folderPath.Split('\\');
-
-            folderPath = pathParts[0];
-            for (int i = 1; i < pathParts.Count() - 3; i++)
-            {
-                folderPath = folderPath + "\\" + pathParts[i];
-            }
-            return folderPath + "\\dataSets\\";
-        }
 
         public static string transfareDate(string dateString)
         {
@@ -187,7 +123,7 @@ namespace OperationalTrainer.Data_Structures
             //date = @"" + month + "/" + day + "/" + year;
             DateTime result;
 
-            if (!DateTime.TryParse(dateString, out result)) 
+            if (!DateTime.TryParse(dateString, out result))
             {
                 MessageBox.Show(dateString + "wrong date", "error");
             }
@@ -195,11 +131,43 @@ namespace OperationalTrainer.Data_Structures
         }
 
 
+        //public XmlDocument getXMlFile(string fileName)
+        //{
+        //    string folderPath = getTempFolderPath();
 
+        //    string filePath = folderPath + fileName;
+        //    XmlDocument xmldoc = new XmlDocument();
+        //    FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read);
+        //    xmldoc.Load(fs);
+        //    return xmldoc;
+        //}
 
+        //private XmlNodeList getXmlNodeList(string fileName, XMLMainCategories XMLMainField)
+        //{
+        //    string folderPath = getTempFolderPath();
 
+        //    string filePath = folderPath + fileName;
+        //    XmlDocument xmldoc = new XmlDocument();
+        //    FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read);
+        //    xmldoc.Load(fs);
 
+        //    XmlNodeList xmlNodeList = xmldoc.GetElementsByTagName(XMLMainField.ToString())[0].ChildNodes;
+        //    return xmlNodeList;
+        //}
 
+        //public static string getTempFolderPath()
+        //{
+        //    UtilitiesFileManager.FileManager fileManager = new UtilitiesFileManager.FileManager();
+        //    string folderPath = fileManager.ExePath();
+        //    string[] pathParts = folderPath.Split('\\');
+
+        //    folderPath = pathParts[0];
+        //    for (int i = 1; i < pathParts.Count() - 3; i++)
+        //    {
+        //        folderPath = folderPath + "\\" + pathParts[i];
+        //    }
+        //    return folderPath + "\\dataSets\\";
+        //}
 
 
     }//end class loadData

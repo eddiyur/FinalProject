@@ -190,7 +190,7 @@ namespace OperationalTrainer.Data_Structures
         /// </summary>
         /// <param name="orderStatus"></param>
         /// <returns></returns>
-        public List<Order> GetOrders(OrderStatusEnum orderStatus)
+        public List<Order> GetOrdersByStatus(OrderStatusEnum orderStatus)
         {
             List<Order> result = new List<Order>();
             foreach (Order order in OrderList)
@@ -204,12 +204,21 @@ namespace OperationalTrainer.Data_Structures
         /// </summary>
         /// <param name="orderDate"></param>
         /// <returns></returns>
-        public OrdersList GetOrders(DateTime orderDate)
+        public OrdersList GetOrdersByOrderDate(DateTime orderDate)
         {
-
             OrdersList result = new OrdersList();
             foreach (Order order in OrderList)
                 if (order.OrderDate.Date <= orderDate.Date)
+                    result.AddOrder(order);
+
+            return result;
+        }
+
+        public OrdersList GetOrdersByOrderDeliveryDate(DateTime orderDeliveryDate)
+        {
+            OrdersList result = new OrdersList();
+            foreach (Order order in OrderList)
+                if (order.OrderDeliveryDate.Date <= orderDeliveryDate.Date)
                     result.AddOrder(order);
 
             return result;

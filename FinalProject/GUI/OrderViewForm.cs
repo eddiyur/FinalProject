@@ -28,7 +28,8 @@ namespace OperationalTrainer.GUI
         public enum OrderFormType
         {
             ShowOrder,
-            newOrder
+            newOrder,
+            SupplierOrderDelivered
         }
 
         public struct ScreenSettings
@@ -198,16 +199,34 @@ namespace OperationalTrainer.GUI
             GDG.Show();
 
 
-            if (orderFormType == OrderFormType.newOrder)
-                addNewOrderButtons();
-            else
-                ShowCloseButton();
+            switch (orderFormType)
+            {
+                case OrderFormType.ShowOrder:
+                    ShowCloseButton();
+                    break;
+                case OrderFormType.newOrder:
+                    addNewOrderButtons();
+                    break;
+                case OrderFormType.SupplierOrderDelivered:
+                    SupplierOrderDeliveredButtons();
+                    break;
+                default:
+                    break;
+            }
+        }
 
+        private void SupplierOrderDeliveredButtons()
+        {
+            Button closeButton = new Button();
+            closeButton.Left = 10;
+            closeButton.Top = DTPanel.Bottom + 10;
+            closeButton.Text = "Aproved";
+            closeButton.Click += SupplierOrderDeliveredAproved;
+            this.Controls.Add(closeButton);
 
-
-
-
-
+            this.ControlBox = true;
+            this.MinimizeBox = false;
+            this.MaximizeBox = false;
         }
 
         private void addNewOrderButtons()
@@ -216,7 +235,7 @@ namespace OperationalTrainer.GUI
             approveButton.Left = 10;
             approveButton.Top = DTPanel.Bottom + 10;
             approveButton.Text = "Approve";
-            
+
             this.Controls.Add(approveButton);
 
             Button declineButton = new Button();
@@ -225,7 +244,7 @@ namespace OperationalTrainer.GUI
             declineButton.Text = "Decline";
             this.Controls.Add(declineButton);
 
-            if (order.OrderType== Order.OrderTypeEnum.CustomerOrder)
+            if (order.OrderType == Order.OrderTypeEnum.CustomerOrder)
             {
                 approveButton.Click += CustomerNewOrderApproved;
                 declineButton.Click += CustomerNewOrderDecline;
@@ -269,6 +288,11 @@ namespace OperationalTrainer.GUI
             this.Controls.Add(declineButton);
         }
 
+        private void SupplierOrderDeliveredAproved(object sender, EventArgs e)
+        {
+            MainController.SupplierOrderDeliveredAproved(order);
+            Close();
+        }
         private void CustomerNewOrderDecline(object sender, EventArgs e)
         {
             MainController.NewCustomerOrderDecline(order);

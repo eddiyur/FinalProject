@@ -57,8 +57,6 @@ namespace OperationalTrainer.Logic.MainLogic
             clock.Tick += ClockTick;
 
             Warehouse = new WarehouseClass(initOperationalTrainerDataSet.OperationalTrainerInitDataSet.WarehouseInitInventory, initOperationalTrainerDataSet.OperationalTrainerInitDataSet.WarehouseMaxCapacity);
-
-//            Warehouse = new WarehouseClass(dataManager.DataSet.ProductsMetaDataList, initOperationalTrainerDataSet.OperationalTrainerInitDataSet.WarehouseMaxCapacity);
             bank = new Bank(initOperationalTrainerDataSet.OperationalTrainerInitDataSet.BankCurrentBalance);
             DataSummary = new DataSummaryClass(Warehouse, dataManager, bank, CurrnetTime);
         }

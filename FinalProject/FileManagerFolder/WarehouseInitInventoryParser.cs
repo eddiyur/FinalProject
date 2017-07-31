@@ -1,10 +1,12 @@
 ﻿using OperationalTrainer.Data_Structures;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using UtilitiesFileManager;
 
 namespace FinalProject.FileManagerFolder
 {
@@ -53,5 +55,40 @@ namespace FinalProject.FileManagerFolder
             { }
             return new KeyValuePair<ProductClass, double>();
         }
-    }
+
+        public static XmlDocument WarehouseInitInventoryCSVToXML(XmlDocument doc, string SourcefileName)
+        {
+
+            FileManager fm = new FileManager();
+            DataTable dt = fm.GetCSV(SourcefileName);
+
+            var root = doc.GetElementsByTagName(LoadData.XMLMainCategories.dataset.ToString())[0];
+            var initInventory = doc.CreateElement(LoadData.XMLMainCategories.WarehouseInitInventory.ToString());
+
+
+            root.AppendChild(initInventory);
+
+            foreach (DataRow row in dt.Rows)
+            {
+                var product = doc.CreateElement(WarehouseInventoryFields.ProductBranch.ToString());
+
+                var ProductIDTagName = doc.CreateElement(WarehouseInventoryFields.ProductID.ToString());
+                ProductIDTagName.InnerText = row[0].ToString();
+                product.AppendChild(ProductIDTagName);
+
+                var productInitInventory = doc.CreateElement(WarehouseInventoryFields.ProductInitInventory.ToString());
+                productInitInventory.InnerText = row[1].ToString();
+                product.AppendChild(productInitInventory);
+
+
+                initInventory.AppendChild(product);
+            }
+
+            return doc;
+        }
+
+
+
+    }//end class
+
 }

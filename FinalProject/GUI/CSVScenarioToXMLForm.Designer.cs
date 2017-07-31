@@ -287,6 +287,7 @@
             this.Controls.Add(this.label1);
             this.Name = "CSVScenarioToXMLForm";
             this.Text = "Create XML Scenario";
+            this.Load += new System.EventHandler(this.CSVScenarioToXMLForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -1,11 +1,13 @@
 ﻿using OperationalTrainer.Data_Structures;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
+using UtilitiesFileManager;
 
 namespace OperationalTrainer.FileManagerFolder
 {
@@ -13,7 +15,7 @@ namespace OperationalTrainer.FileManagerFolder
     {
         enum XMLSuppliersListFields
         {
-            SuppliersList,
+            Supplier,
             SupplierID,
             SupplierName,
             SupplierReliability,
@@ -104,7 +106,71 @@ namespace OperationalTrainer.FileManagerFolder
             return priceMatrix;
         }
 
+        public static XmlDocument SuppliersCSVToXML(XmlDocument doc, string SourcefileName)
+        {
+            FileManager fm = new FileManager();
+            DataTable dt = fm.GetCSV(SourcefileName);
 
+            var root = doc.GetElementsByTagName(LoadData.XMLMainCategories.dataset.ToString())[0];
+            var suppliersList = doc.CreateElement(LoadData.XMLMainCategories.SuppliersList.ToString());
 
-    }
+            root.AppendChild(suppliersList);
+
+            foreach (DataRow row in dt.Rows)
+            {
+                var supplier = doc.CreateElement(XMLSuppliersListFields.Supplier.ToString());
+
+                var supplierIDTagName = doc.CreateElement(XMLSuppliersListFields.SupplierID.ToString());
+                supplierIDTagName.InnerText = row[0].ToString();
+                supplier.AppendChild(supplierIDTagName);
+
+                var supplierNameTagName = doc.CreateElement(XMLSuppliersListFields.SupplierName.ToString());
+                supplierNameTagName.InnerText = row[1].ToString();
+                supplier.AppendChild(supplierNameTagName);
+
+                var SupplierReliabilityTagName = doc.CreateElement(XMLSuppliersListFields.SupplierReliability.ToString());
+                SupplierReliabilityTagName.InnerText = row[2].ToString();
+                supplier.AppendChild(SupplierReliabilityTagName);
+
+                var SupplierPriceMatrix = doc.CreateElement(XMLSuppliersListFields.SupplierPriceMatrix.ToString());
+
+                int columnIndex = 3;
+                int maxSons = 3;
+
+                for (int i = 0; i < maxSons; i++)
+                {
+                    string SupplierPriceMatrixBranch_ProductIDValue = row[columnIndex].ToString();
+                    string ProductTree_UnitPriceValue = row[columnIndex + 1].ToString();
+                    string ProductTree_LeadTimeValue = row[columnIndex + 2].ToString();
+
+                    if (!string.IsNullOrEmpty(SupplierPriceMatrixBranch_ProductIDValue))
+                    {
+                        var SupplierPriceMatrixBranch = doc.CreateElement(XMLSuppliersListFields.SupplierPriceMatrixBranch.ToString());
+
+                        var SupplierPriceMatrixBranch_ProductIDTagName = doc.CreateElement(XMLSuppliersListFields.SupplierPriceMatrixBranch_ProductID.ToString());
+                        SupplierPriceMatrixBranch_ProductIDTagName.InnerText = SupplierPriceMatrixBranch_ProductIDValue;
+                        SupplierPriceMatrixBranch.AppendChild(SupplierPriceMatrixBranch_ProductIDTagName);
+
+                        var SupplierPriceMatrixBranch_UnitPriceTagName = doc.CreateElement(XMLSuppliersListFields.SupplierPriceMatrixBranch_UnitPrice.ToString());
+                        SupplierPriceMatrixBranch_UnitPriceTagName.InnerText = ProductTree_UnitPriceValue;
+                        SupplierPriceMatrixBranch.AppendChild(SupplierPriceMatrixBranch_UnitPriceTagName);
+
+                        var SupplierPriceMatrixBranch_LeadTimeTagName = doc.CreateElement(XMLSuppliersListFields.SupplierPriceMatrixBranch_LeadTime.ToString());
+                        SupplierPriceMatrixBranch_LeadTimeTagName.InnerText = ProductTree_LeadTimeValue;
+                        SupplierPriceMatrixBranch.AppendChild(SupplierPriceMatrixBranch_LeadTimeTagName);
+
+                        SupplierPriceMatrix.AppendChild(SupplierPriceMatrixBranch);
+                    }
+
+                    columnIndex = columnIndex + 3;
+                }
+
+                supplier.AppendChild(SupplierPriceMatrix);
+
+                suppliersList.AppendChild(supplier);
+            }
+            return doc;
+        }
+
+    }//end class
 }

@@ -70,7 +70,7 @@ namespace FinalProject.FileManagerFolder
                 initData.AppendChild(WarehouseMaxCapacityTagName);
 
                 var StartDateTagName = doc.CreateElement(XMLiInitFields.StartDate.ToString());
-                StartDateTagName.InnerText = row[2].ToString();
+                StartDateTagName.InnerText = LoadData.transfareDate(row[2].ToString());
                 initData.AppendChild(StartDateTagName);
             }
             return doc;

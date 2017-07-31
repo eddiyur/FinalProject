@@ -1,0 +1,3 @@
+SupplierID,SupplierName,SupplierReliability,SupplierPriceMatrixBranch_ProductID_1,SupplierPriceMatrixBranch_UnitPrice_1,SupplierPriceMatrixBranch_LeadTime_1,SupplierPriceMatrixBranch_ProductID_2,SupplierPriceMatrixBranch_UnitPrice_2,SupplierPriceMatrixBranch_LeadTime_2,SupplierPriceMatrixBranch_ProductID_3,SupplierPriceMatrixBranch_UnitPrice_3,SupplierPriceMatrixBranch_LeadTime_3
+su_01,Eddie,0.8,Product_01,10,3,,,,,,
+su_02,Ron,1,Product_01,15,4,,,,,,

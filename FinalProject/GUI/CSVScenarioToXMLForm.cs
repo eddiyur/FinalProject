@@ -25,13 +25,31 @@ namespace FinalProject.GUI
             fileManager = new FileManager();
 
             InitializeComponent();
+
+
         }
+
+        void readyFiles()
+        {
+            cSVScenarioFilePath.InitData = @"C:\Users\eyurkovs\Desktop\final progect\FinalProject\FinalProject\FinalProject\dataSets\testScenario\initData.csv";
+            cSVScenarioFilePath.ProductsList = @"C:\Users\eyurkovs\Desktop\final progect\FinalProject\FinalProject\FinalProject\dataSets\testScenario\Product.csv";
+            cSVScenarioFilePath.WarehouseInitInventory = @"C:\Users\eyurkovs\Desktop\final progect\FinalProject\FinalProject\FinalProject\dataSets\testScenario\Warehouse.csv";
+            cSVScenarioFilePath.CustomersOrderList = @"C:\Users\eyurkovs\Desktop\final progect\FinalProject\FinalProject\FinalProject\dataSets\testScenario\Customer_Order_List.csv";
+            cSVScenarioFilePath.FutureCustomersOrderList = @"C:\Users\eyurkovs\Desktop\final progect\FinalProject\FinalProject\FinalProject\dataSets\testScenario\Future_Customer_Order_List.csv";
+            cSVScenarioFilePath.SuppliersOrderList = @"C:\Users\eyurkovs\Desktop\final progect\FinalProject\FinalProject\FinalProject\dataSets\testScenario\Supplier_Orders_List.csv";
+            cSVScenarioFilePath.SuppliersList = @"C:\Users\eyurkovs\Desktop\final progect\FinalProject\FinalProject\FinalProject\dataSets\testScenario\Suppliers_List.csv";
+        }
+
 
         private void updateGUi()
         {
             label2.Text = cSVScenarioFilePath.InitData;
             label3.Text = cSVScenarioFilePath.ProductsList;
-            label7.Text= cSVScenarioFilePath.WarehouseInitInventory;
+            label7.Text = cSVScenarioFilePath.WarehouseInitInventory;
+            label5.Text = cSVScenarioFilePath.SuppliersList;
+            label13.Text = cSVScenarioFilePath.CustomersOrderList;
+            label11.Text = cSVScenarioFilePath.FutureCustomersOrderList;
+            label9.Text = cSVScenarioFilePath.SuppliersOrderList;
         }
 
         private void button_InitData_Click(object sender, EventArgs e)
@@ -80,6 +98,12 @@ namespace FinalProject.GUI
         {
             MainController.CreateXMLScenario(cSVScenarioFilePath);
 
+        }
+
+        private void CSVScenarioToXMLForm_Load(object sender, EventArgs e)
+        {
+            readyFiles();
+            updateGUi();
         }
     }
 }

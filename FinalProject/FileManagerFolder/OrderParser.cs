@@ -1,11 +1,13 @@
 ﻿using OperationalTrainer.Data_Structures;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
+using UtilitiesFileManager;
 
 namespace FinalProject.FileManagerFolder
 {
@@ -13,6 +15,7 @@ namespace FinalProject.FileManagerFolder
     {
         enum XMLOrderFields
         {
+            Order,
             PersonName,
             PersonID,
             OrderID,
@@ -75,7 +78,7 @@ namespace FinalProject.FileManagerFolder
                     order.Person = customer;
                 else
                     order.Person = suppliersList.GetSupplier(customer.ID);
-                
+
                 orderList.AddOrder(order);
             }//end orders level
 
@@ -102,7 +105,7 @@ namespace FinalProject.FileManagerFolder
                         switch (XMLSuppliersListField)
                         {
                             case XMLOrderFields.OrderProductsListBranch_ProductID:
-                                {
+                                {                               
                                     ProductClass product = productsList.GetProduct(orderProductRowParameter.InnerText);
                                     if (product == null)
                                         MessageBox.Show("Wrong Product in Supplier Matrix", "Error");
@@ -130,5 +133,84 @@ namespace FinalProject.FileManagerFolder
             return priceMatrix;
         }
 
-    }
+        public static XmlDocument OrderCSVToXML(XmlDocument doc, string SourcefileName, LoadData.XMLMainCategories xMLMainCategories)
+        {
+
+            FileManager fm = new FileManager();
+            DataTable dt = fm.GetCSV(SourcefileName);
+
+            var root = doc.GetElementsByTagName(LoadData.XMLMainCategories.dataset.ToString())[0];
+            var OrderList = doc.CreateElement(xMLMainCategories.ToString());
+
+            root.AppendChild(OrderList);
+
+            foreach (DataRow row in dt.Rows)
+            {
+                var order = doc.CreateElement(XMLOrderFields.Order.ToString());
+
+                var personNameTagName = doc.CreateElement(XMLOrderFields.PersonName.ToString());
+                personNameTagName.InnerText = row[0].ToString();
+                order.AppendChild(personNameTagName);
+
+                var personIdTagName = doc.CreateElement(XMLOrderFields.PersonID.ToString());
+                personIdTagName.InnerText = row[1].ToString();
+                order.AppendChild(personIdTagName);
+
+                var OrderIDTagName = doc.CreateElement(XMLOrderFields.OrderID.ToString());
+                OrderIDTagName.InnerText = row[2].ToString();
+                order.AppendChild(OrderIDTagName);
+
+                var OrderDateTagName = doc.CreateElement(XMLOrderFields.OrderDate.ToString());
+                OrderDateTagName.InnerText = LoadData.transfareDate(row[3].ToString());
+                order.AppendChild(OrderDateTagName);
+
+                var OrderDeliveryDateTagName = doc.CreateElement(XMLOrderFields.OrderDeliveryDate.ToString());
+                OrderDeliveryDateTagName.InnerText = LoadData.transfareDate(row[4].ToString());
+                order.AppendChild(OrderDeliveryDateTagName);
+
+                var Order_StatusTagName = doc.CreateElement(XMLOrderFields.Order_Status.ToString());
+                Order_StatusTagName.InnerText = row[5].ToString();
+                order.AppendChild(Order_StatusTagName);
+
+                var ProductTreeTagName = doc.CreateElement(XMLOrderFields.OrderProductsList.ToString());
+
+                int maxSons = 3;
+                if (xMLMainCategories == LoadData.XMLMainCategories.SuppliersOrderList)
+                    maxSons = 1;
+
+                int columnIndex = 6;
+                for (int i = 0; i < maxSons; i++)
+                {
+                    string ProductTree_ProductIDValue = row[columnIndex].ToString();
+                    string ProductTree_AmountValue = row[columnIndex + 1].ToString();
+                    string ProductTree_pricetValue = row[columnIndex + 2].ToString();
+
+                    if (!string.IsNullOrEmpty(ProductTree_ProductIDValue))
+                    {
+                        var ProductTreeBranchTagName = doc.CreateElement(XMLOrderFields.OrderProductsListBranch.ToString());
+                        var OrderProductsListBranch_ProductIDTagName = doc.CreateElement(XMLOrderFields.OrderProductsListBranch_ProductID.ToString());
+                        OrderProductsListBranch_ProductIDTagName.InnerText = ProductTree_ProductIDValue;
+                        ProductTreeBranchTagName.AppendChild(OrderProductsListBranch_ProductIDTagName);
+
+                        var OrderProductsListBranch_AmountTagName = doc.CreateElement(XMLOrderFields.OrderProductsListBranch_Amount.ToString());
+                        OrderProductsListBranch_AmountTagName.InnerText = ProductTree_AmountValue;
+                        ProductTreeBranchTagName.AppendChild(OrderProductsListBranch_AmountTagName);
+
+                        var OrderProductsListBranch_PriceTagName = doc.CreateElement(XMLOrderFields.OrderProductsListBranch_Price.ToString());
+                        OrderProductsListBranch_PriceTagName.InnerText = ProductTree_pricetValue;
+                        ProductTreeBranchTagName.AppendChild(OrderProductsListBranch_PriceTagName);
+
+                        ProductTreeTagName.AppendChild(ProductTreeBranchTagName);
+                    }
+
+                    columnIndex = columnIndex + 3;
+                }
+                order.AppendChild(ProductTreeTagName);
+
+                OrderList.AppendChild(order);
+            }
+            return doc;
+        }
+
+    }//end class
 }

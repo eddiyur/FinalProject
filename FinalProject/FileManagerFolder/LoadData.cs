@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
+using UtilitiesFileManager;
 using static OperationalTrainer.Logic.MainLogic.DataManager;
 using static OperationalTrainer.Logic.MainLogic.MainManager;
 
@@ -87,14 +88,24 @@ namespace OperationalTrainer.Data_Structures
 
             doc = InitDataParser.InitDataCSVToXML(doc, cSVScenarioFilePath.InitData);
             doc = ProductParser.ProductClassCSVToXML(doc, cSVScenarioFilePath.ProductsList);
+            doc = WarehouseInitInventoryParser.WarehouseInitInventoryCSVToXML(doc, cSVScenarioFilePath.WarehouseInitInventory);
+            doc = SuppliersParser.SuppliersCSVToXML(doc, cSVScenarioFilePath.SuppliersList);
+            doc = OrderParser.OrderCSVToXML(doc, cSVScenarioFilePath.CustomersOrderList, XMLMainCategories.CustomersOrderList);
+            doc = OrderParser.OrderCSVToXML(doc, cSVScenarioFilePath.FutureCustomersOrderList, XMLMainCategories.FutureCustomersOrderList);
+            doc = OrderParser.OrderCSVToXML(doc, cSVScenarioFilePath.SuppliersOrderList, XMLMainCategories.SuppliersOrderList);
 
+            FileManager fileManager = new FileManager();
+            string fileResultpath = fileManager.saveFilePathXML();
 
-            string fileResultpath = @"C:\Users\eyurkovs\Desktop\final progect\FinalProject\FinalProject\FinalProject\dataSets\testresult.xml";
-
-            using (var writer = new XmlTextWriter(fileResultpath, Encoding.UTF8) { Formatting = Formatting.Indented })
+            //string fileResultpath = @"C:\Users\eyurkovs\Desktop\final progect\FinalProject\FinalProject\FinalProject\dataSets\testresult.xml";
+            if (!string.IsNullOrEmpty(fileResultpath))
             {
-                doc.WriteTo(writer);
+                using (var writer = new XmlTextWriter(fileResultpath, Encoding.UTF8) { Formatting = Formatting.Indented })
+                {
+                    doc.WriteTo(writer);
+                }
             }
+
         }
 
         private XmlDocument getXmldoc(string filePath)
@@ -165,7 +176,23 @@ namespace OperationalTrainer.Data_Structures
             return folderPath + "\\dataSets\\";
         }
 
+        public static string transfareDate(string dateString)
+        {
+            //string date;
 
+            //string year = dateString.Substring(0, 4);
+            //string month = dateString.Substring(5, 2);
+            //string day = dateString.Substring(8, 2);
+
+            //date = @"" + month + "/" + day + "/" + year;
+            DateTime result;
+
+            if (!DateTime.TryParse(dateString, out result)) 
+            {
+                MessageBox.Show(dateString + "wrong date", "error");
+            }
+            return dateString;
+        }
 
 
 

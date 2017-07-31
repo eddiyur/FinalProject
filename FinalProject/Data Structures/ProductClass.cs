@@ -102,6 +102,7 @@ namespace OperationalTrainer.Data_Structures
             }
             catch (Exception)
             {
+                MessageBox.Show(productID + " not found");
                 return null;
             }
         }

@@ -197,13 +197,12 @@ namespace UtilitiesFileManager
             return fileName;
         }
 
-        public string saveFilePathXML(string fileNameExm)
+        public string saveFilePathXML()
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.FileName = "*.XML";
             saveFileDialog.Filter = "XML files(*.XML) |*.XML| All files(*.*) |*.*";
             saveFileDialog.FilterIndex = 1;
-            saveFileDialog.FileName = fileNameExm;
             saveFileDialog.ShowDialog();
 
 

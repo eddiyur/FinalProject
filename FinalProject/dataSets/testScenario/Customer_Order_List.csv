@@ -1,0 +1,5 @@
+CustomerName,CustomerID,CustomerOrderID,CustomerOrderDate,CustomerOrderDeliveryDate,CustomerOrder_Status,CustomerOrderProductsListBranch_ProductID_1,CustomerOrderProductsListBranch_Amount_1,CustomerOrderProductsListBranch_Price_1,CustomerOrderProductsListBranch_ProductID_2,CustomerOrderProductsListBranch_Amount_2,CustomerOrderProductsListBranch_Price_2,CustomerOrderProductsListBranch_ProductID_3,CustomerOrderProductsListBranch_Amount_3,CustomerOrderProductsListBranch_Price_3
+doron,cu01,co01,2017-02-20,2017-03-02,open,Product_01,2,20,,,,,,
+ran,cu02,co02,2017-02-22,2017-03-02,open,Product_01,3,20,,,,,,
+rami,cu03,co03,2017-02-25,2017-03-03,open,Product_01,2,20,,,,,,
+maor,cu04,co04,2017-02-24,2017-03-04,open,Product_01,3,20,,,,,,

@@ -1,3 +1,0 @@
-CustomerName,CustomerID,CustomerOrderID,CustomerOrderDate,CustomerOrderDeliveryDate,CustomerOrder_Status,CustomerOrderProductsListBranch_ProductID_1,CustomerOrderProductsListBranch_Amount_1,CustomerOrderProductsListBranch_Price_1,CustomerOrderProductsListBranch_ProductID_2,CustomerOrderProductsListBranch_Amount_2,CustomerOrderProductsListBranch_Price_2,CustomerOrderProductsListBranch_ProductID_3,CustomerOrderProductsListBranch_Amount_3,CustomerOrderProductsListBranch_Price_3
-Yael,cu05,co05,3/2/2017,3/6/2017,Open,Product_01,10,17,,,,,,
-Sasha,cu06,co06,3/3/2017,3/6/2017,Open,Product_01,10,17,,,,,,

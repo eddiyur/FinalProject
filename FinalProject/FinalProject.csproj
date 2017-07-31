@@ -130,13 +130,13 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Include="dataSets\testSenerio\Customer_Order_List.csv" />
-    <None Include="dataSets\testSenerio\Future_Customer_Order_List.csv" />
-    <None Include="dataSets\testSenerio\initData.csv" />
-    <None Include="dataSets\testSenerio\Product.csv" />
-    <None Include="dataSets\testSenerio\Suppliers_List.csv" />
-    <None Include="dataSets\testSenerio\Supplier_Orders_List.csv" />
-    <None Include="dataSets\testSenerio\Warehouse.csv" />
+    <None Include="dataSets\Scenario1\Customer_Order_List.csv" />
+    <None Include="dataSets\Scenario1\Future_Customer_Order_List.csv" />
+    <None Include="dataSets\Scenario1\initData.csv" />
+    <None Include="dataSets\Scenario1\Product.csv" />
+    <None Include="dataSets\Scenario1\Suppliers_List.csv" />
+    <None Include="dataSets\Scenario1\Supplier_Orders_List.csv" />
+    <None Include="dataSets\Scenario1\Warehouse.csv" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -151,7 +151,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="dataSets\testSenerio\ScenarioTest.XML" />
+    <Content Include="dataSets\Scenario1\ScenarioTest.XML" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

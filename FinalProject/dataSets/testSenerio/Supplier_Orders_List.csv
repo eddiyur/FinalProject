@@ -1,4 +1,0 @@
-SupplierName,SupplierID,SupplierOrderID,SupplierOrderDate,SupplierOrderDeliveryDate,SupplierOrder_Status,SupplierOrderProductsListBranch_ProductID_1,SupplierOrderProductsListBranch_Amount_1,SupplierOrderProductsListBranch_Price_1
-su_01,su_01,SO_01,2/26/2017,3/1/2017,Open,Product_01,5,10
-su_02,su_02,SO_02,2/26/2017,3/2/2017,Open,Product_01,5,15
-su_02,su_02,SO_03,2/27/2017,3/3/2017,Open,Product_01,5,15

@@ -1,4 +1,0 @@
-ProductID,ProductName,ProductCapacity,ProductTree_ProductID_1,ProductTree_Amount_1,ProductTree_ProductID_2,ProductTree_Amount_2,ProductTree_ProductID_3,ProductTree_Amount_3
-Product_A,Product_A,1,Product_B,3,Product_C,5,,
-Product_B,Product_B,1,Product_C,5,,,,
-Product_C,Product_C,1,,,,,,

@@ -9,7 +9,7 @@ using UtilitiesFileManager;
 
 namespace OperationalTrainer.Data_Structures
 {
-    public class ToolTypeClass
+     public class ToolTypeClass
     {
         public string ToolTypeID { get; set; }
         public string ToolTypeName { get; set; }

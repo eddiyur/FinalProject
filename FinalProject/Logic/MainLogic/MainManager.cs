@@ -17,6 +17,7 @@ namespace OperationalTrainer.Logic.MainLogic
     public class MainManager
     {
         public DataManager dataManager { get; set; }
+        private ProductionManager productionManager { get; set; }
         private Clock clock { get; set; }
         private WarehouseClass Warehouse { get; set; }
         private Bank bank { get; set; }
@@ -49,19 +50,20 @@ namespace OperationalTrainer.Logic.MainLogic
         private void init(string filePath)
         {
             LoadData ld = new LoadData();
-            InitDataLoad initOperationalTrainerDataSet = ld.LoadInitData(filePath);
+            InitDataLoad initDataSet = ld.LoadInitData(filePath);
 
-            CurrnetTime = initOperationalTrainerDataSet.InitDataStructure.startDate;
+            CurrnetTime = initDataSet.InitDataStructure.startDate;
 
-            dataManager = new DataManager(initOperationalTrainerDataSet.DataStructure);
+            dataManager = new DataManager(initDataSet.DataStructure);
             dataManager.UpdateTime(CurrnetTime);
 
             clock = new Clock(CurrnetTime);
             clock.Tick += ClockTick;
 
-            Warehouse = new WarehouseClass(initOperationalTrainerDataSet.InitDataStructure.WarehouseInitInventory, initOperationalTrainerDataSet.InitDataStructure.WarehouseMaxCapacity);
-            bank = new Bank(initOperationalTrainerDataSet.InitDataStructure.BankCurrentBalance);
+            Warehouse = new WarehouseClass(initDataSet.InitDataStructure.WarehouseInitInventory, initDataSet.InitDataStructure.WarehouseMaxCapacity);
+            bank = new Bank(initDataSet.InitDataStructure.BankCurrentBalance);
             DataSummary = new DataSummaryClass(Warehouse, dataManager, bank, CurrnetTime);
+            productionManager = new ProductionManager(initDataSet.InitDataStructure.ToolList);
         }
 
 

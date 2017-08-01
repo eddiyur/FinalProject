@@ -99,6 +99,7 @@
     <Compile Include="Logic\MainLogic\DataManager.cs" />
     <Compile Include="Logic\MainLogic\DataSummaryClass.cs" />
     <Compile Include="Logic\MainLogic\MainManager.cs" />
+    <Compile Include="Logic\MainLogic\ProductionManager.cs" />
     <Compile Include="Logic\Prediction\ExponentialSmootingPrediction.cs" />
     <Compile Include="Logic\Prediction\Prediction.cs" />
     <Compile Include="Logic\Prediction\PredictionClass.cs" />

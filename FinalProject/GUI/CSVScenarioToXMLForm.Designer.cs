@@ -53,6 +53,9 @@
             this.label15 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.label16 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.button3 = new System.Windows.Forms.Button();
+            this.label18 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -289,11 +292,42 @@
             this.label16.TabIndex = 22;
             this.label16.Text = "Tool type list";
             // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(237, 331);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(47, 13);
+            this.label17.TabIndex = 27;
+            this.label17.Text = "File path";
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(184, 325);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(37, 19);
+            this.button3.TabIndex = 26;
+            this.button3.Text = "...";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(48, 331);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(48, 13);
+            this.label18.TabIndex = 25;
+            this.label18.Text = "Tools list";
+            // 
             // CSVScenarioToXMLForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(681, 527);
+            this.Controls.Add(this.label17);
+            this.Controls.Add(this.button3);
+            this.Controls.Add(this.label18);
             this.Controls.Add(this.label15);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.label16);
@@ -354,5 +388,8 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Label label18;
     }
 }

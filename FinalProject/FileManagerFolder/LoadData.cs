@@ -29,6 +29,7 @@ namespace OperationalTrainer.Data_Structures
         public string FutureCustomersOrderList;
         public string SuppliersOrderList;
         public string ToolTypeList;
+        public string ToolList;
     }
 
     public class LoadData
@@ -75,7 +76,7 @@ namespace OperationalTrainer.Data_Structures
 
 
             /////rebuild parser
-            initDataLoad.DataStructure.ToolList = loadTool(initDataLoad);
+            initDataLoad.InitDataStructure.ToolList = loadTool(initDataLoad);
             //////
 
                ProductionOrderList productionOrderList = generateProductionOrderList(initDataLoad);

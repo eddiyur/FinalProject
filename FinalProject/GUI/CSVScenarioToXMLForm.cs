@@ -49,6 +49,7 @@ namespace FinalProject.GUI
             label11.Text = cSVScenarioFilePath.FutureCustomersOrderList;
             label9.Text = cSVScenarioFilePath.SuppliersOrderList;
             label15.Text = cSVScenarioFilePath.ToolTypeList;
+            label17.Text = cSVScenarioFilePath.ToolList;
         }
 
         private void button_InitData_Click(object sender, EventArgs e)
@@ -105,6 +106,12 @@ namespace FinalProject.GUI
         private void button2_Click(object sender, EventArgs e)
         {
             cSVScenarioFilePath.ToolTypeList = fileManager.openFilePathCSV();
+            updateGUi();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            cSVScenarioFilePath.ToolList= fileManager.openFilePathCSV(); ;
             updateGUi();
         }
     }

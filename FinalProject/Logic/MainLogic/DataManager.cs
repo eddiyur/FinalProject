@@ -22,7 +22,7 @@ namespace OperationalTrainer.Logic.MainLogic
 
         public ToolTypeClassList ToolTypelist { get; set; }
 
-        public ToolsList ToolList { get; set; }
+       
 
     }
 
@@ -32,6 +32,7 @@ namespace OperationalTrainer.Logic.MainLogic
         public DateTime startDate { get; set; }
         public double WarehouseMaxCapacity { get; set; }
         public Double BankCurrentBalance { get; set; }
+        public ToolsList ToolList { get; set; }
         public Dictionary<ProductClass, double> WarehouseInitInventory { get; set; }
 
     }

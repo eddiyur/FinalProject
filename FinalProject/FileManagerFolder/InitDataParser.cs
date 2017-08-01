@@ -21,9 +21,9 @@ namespace FinalProject.FileManagerFolder
             StartDate
         }
 
-        public static OperationalTrainerInitDataSetStructure Parse(XmlNodeList initNodeList)
+        public static InitDataStructureClass Parse(XmlNodeList initNodeList)
         {
-            OperationalTrainerInitDataSetStructure OperationalTrainerInitDataSet = new OperationalTrainerInitDataSetStructure();
+            InitDataStructureClass OperationalTrainerInitDataSet = new InitDataStructureClass();
 
             foreach (XmlNode initParameter in initNodeList)
             {

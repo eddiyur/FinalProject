@@ -1,4 +1,5 @@
 ﻿using OperationalTrainer.Data_Structures;
+using OperationalTrainer.Logic.MainLogic;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -26,8 +27,9 @@ namespace OperationalTrainer.FileManagerFolder
             SupplierPriceMatrixBranch_LeadTime
         }
 
-        public static SuppliersList Parse(XmlNodeList suppliersNodeList, ProductClassList productsList)
+        public static SuppliersList Parse(XmlNodeList suppliersNodeList, InitDataLoad initdataLoad)
         {
+            ProductClassList productsList = initdataLoad.DataStructure.ProductsMetaDataList;
             SuppliersList suppliersList = new SuppliersList();
 
             foreach (XmlNode supplierNode in suppliersNodeList)

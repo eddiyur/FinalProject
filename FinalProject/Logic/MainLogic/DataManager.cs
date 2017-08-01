@@ -7,44 +7,51 @@ using System.Threading.Tasks;
 
 namespace OperationalTrainer.Logic.MainLogic
 {
-    public class OperationalTrainerDataSetStructure
+    public class DataStructureClass
     {
-
-        //    public DateTime CurrentDateTime { get; set; }
 
         public ProductClassList ProductsMetaDataList { get; set; }
         public SuppliersList SuppliersList { get; set; }
+
         public OrdersList CustomersOrderList { get; set; }
+
         public OrdersList SupplieOrderList { get; set; }
-        public OrdersList futureCustomersOrderList { get; set; }
+        public int LastSupplierOrderIndex { get; set; }
+
+        public OrdersList FutureCustomersOrderList { get; set; }
+
+        public ToolTypeClassList ToolTypelist { get; set; }
+
+        public ToolsList ToolList { get; set; }
 
     }
 
 
-    public class OperationalTrainerInitDataSetStructure
+    public class InitDataStructureClass
     {
         public DateTime startDate { get; set; }
         public double WarehouseMaxCapacity { get; set; }
         public Double BankCurrentBalance { get; set; }
-       public Dictionary<ProductClass, double> WarehouseInitInventory { get; set; }
+        public Dictionary<ProductClass, double> WarehouseInitInventory { get; set; }
 
     }
 
-    public class InitOperationalTrainerDataSet
+    public class InitDataLoad
     {
-        public OperationalTrainerInitDataSetStructure OperationalTrainerInitDataSet { get; set; }
-        public OperationalTrainerDataSetStructure OperationalTrainerDataSet { get; set; }
-        public InitOperationalTrainerDataSet()
-        { OperationalTrainerDataSet = new OperationalTrainerDataSetStructure(); }
+        public InitDataStructureClass InitDataStructure { get; set; }
+        public DataStructureClass DataStructure { get; set; }
+
+        public InitDataLoad()
+        { DataStructure = new DataStructureClass(); }
     }
 
     public class DataManager
     {
         //   private Clock _clock;
-        public OperationalTrainerDataSetStructure DataSet { get; set; }
+        public DataStructureClass DataSet { get; set; }
         public DateTime CurrnetTime { get; set; }
 
-        public DataManager(OperationalTrainerDataSetStructure dataSet)
+        public DataManager(DataStructureClass dataSet)
         { DataSet = dataSet; }
 
         public void UpdateTime(DateTime currnetTime)
@@ -57,8 +64,8 @@ namespace OperationalTrainer.Logic.MainLogic
         /// <returns></returns>
         public OrdersList getNewCustomerOrdersList(DateTime date)
         {
-            OrdersList newCustomerOrdersList = DataSet.futureCustomersOrderList.GetOrdersByOrderDate(date);
-            DataSet.futureCustomersOrderList.RemoveOrders(newCustomerOrdersList);
+            OrdersList newCustomerOrdersList = DataSet.FutureCustomersOrderList.GetOrdersByOrderDate(date);
+            DataSet.FutureCustomersOrderList.RemoveOrders(newCustomerOrdersList);
             return newCustomerOrdersList;
         }
 

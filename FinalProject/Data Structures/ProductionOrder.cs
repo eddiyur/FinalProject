@@ -10,18 +10,13 @@ namespace OperationalTrainer.Data_Structures
     public class ProductionOrder
     {
         public string OrderID { get; set; }
-        public DateTime OrderDate { get; set; }
-        public DateTime OrderDeliveryDate { get; set; }
         public ProductClass Product { get; set; }
-        public OrderStatusEnum OrderStatus;
-
-        public ProductionOrder(string orderID, DateTime orderDate, DateTime orderDeliveryDate, ProductClass product)
+        public DateTime OrderDate { get; set; }
+        public DateTime orderPullTime { get; set; }
+        public DateTime OrderDeliveryDate { get; set; }
+        
+        public ProductionOrder()
         {
-            OrderID = orderID;
-            OrderDate = orderDate;
-            OrderDeliveryDate = OrderDeliveryDate;
-            Product = product;
-            OrderStatus = OrderStatusEnum.Approved;
         }
 
 
@@ -33,8 +28,34 @@ namespace OperationalTrainer.Data_Structures
 
 
         public override int GetHashCode()
-        {
-            return OrderID.GetHashCode();
-        }
+        { return OrderID.GetHashCode(); }
     }//end class ProductionOrder
-}
+
+    public class ProductionOrderList
+    {
+        List<ProductionOrder> productionOrderList { get; set; }
+
+        public ProductionOrderList()
+        {
+            productionOrderList = new List<ProductionOrder>();
+        }
+
+        public ProductionOrder getTopOrder()
+        {
+            try
+            {
+                ProductionOrder productionOrder = productionOrderList[0];
+                productionOrderList.Remove(productionOrder);
+                return productionOrder;
+            }
+            catch { return null; }
+        }
+
+
+        public void AddOrder(ProductionOrder ProductionOrder)
+        {
+            productionOrderList.Add(ProductionOrder);
+        }
+    }//end class production order
+
+    }//end nameSpace

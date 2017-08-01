@@ -48,9 +48,9 @@ namespace OperationalTrainer.Data_Structures
             ToolTypeList
         }
 
-        public InitOperationalTrainerDataSet LoadInitData(string filePath)
+        public InitDataLoad LoadInitData(string filePath)
         {
-            InitOperationalTrainerDataSet operationalTrainerData = new InitOperationalTrainerDataSet();
+            InitDataLoad initDataLoad = new InitDataLoad();
             XmlDocument xmldoc = getXmldoc(filePath);
 
             XmlNodeList initNodeList = getXmlNodeList(xmldoc, XMLMainCategories.InitData);
@@ -63,35 +63,63 @@ namespace OperationalTrainer.Data_Structures
             XmlNodeList tooltypeyNodeList = getXmlNodeList(xmldoc, XMLMainCategories.ToolTypeList);
 
 
-            operationalTrainerData.OperationalTrainerInitDataSet = InitDataParser.Parse(initNodeList);
-            ToolTypeClassList toolTypelist = ToolTypeParser.parse(tooltypeyNodeList);
-            operationalTrainerData.OperationalTrainerDataSet.ProductsMetaDataList = ProductParser.Parse(productsNodeList, toolTypelist);
-            operationalTrainerData.OperationalTrainerDataSet.SuppliersList = SuppliersParser.Parse(suppliersNodeList, operationalTrainerData.OperationalTrainerDataSet.ProductsMetaDataList);
+            initDataLoad.InitDataStructure = InitDataParser.Parse(initNodeList);
+            initDataLoad.DataStructure.ToolTypelist = ToolTypeParser.parse(tooltypeyNodeList);
+            initDataLoad.DataStructure.ProductsMetaDataList = ProductParser.Parse(productsNodeList, initDataLoad);
+            initDataLoad.DataStructure.SuppliersList = SuppliersParser.Parse(suppliersNodeList, initDataLoad);
 
-            operationalTrainerData.OperationalTrainerDataSet.CustomersOrderList = OrderParser.Parse(customerOrderNodeList, operationalTrainerData.OperationalTrainerDataSet.ProductsMetaDataList, Order.OrderTypeEnum.CustomerOrder);
-            operationalTrainerData.OperationalTrainerDataSet.futureCustomersOrderList = OrderParser.Parse(fucureCustomerOrderNodeList, operationalTrainerData.OperationalTrainerDataSet.ProductsMetaDataList, Order.OrderTypeEnum.CustomerOrder);
-            operationalTrainerData.OperationalTrainerDataSet.SupplieOrderList = OrderParser.Parse(supploersOrderNodeList, operationalTrainerData.OperationalTrainerDataSet.ProductsMetaDataList, Order.OrderTypeEnum.SupplierOrder, operationalTrainerData.OperationalTrainerDataSet.SuppliersList);
-            operationalTrainerData.OperationalTrainerInitDataSet.WarehouseInitInventory = WarehouseInitInventoryParser.Parse(WarehouseInitInventoryNodeList, operationalTrainerData.OperationalTrainerDataSet.ProductsMetaDataList);
-
-
-            /////test
+            initDataLoad.DataStructure.CustomersOrderList = OrderParser.Parse(customerOrderNodeList, initDataLoad, Order.OrderTypeEnum.CustomerOrder);
+            initDataLoad.DataStructure.FutureCustomersOrderList = OrderParser.Parse(fucureCustomerOrderNodeList, initDataLoad, Order.OrderTypeEnum.CustomerOrder);
+            initDataLoad.DataStructure.SupplieOrderList = OrderParser.Parse(supploersOrderNodeList, initDataLoad, Order.OrderTypeEnum.SupplierOrder);
+            initDataLoad.InitDataStructure.WarehouseInitInventory = WarehouseInitInventoryParser.Parse(WarehouseInitInventoryNodeList, initDataLoad);
 
 
+            /////rebuild parser
+            initDataLoad.DataStructure.ToolList = loadTool(initDataLoad);
+            //////
 
+               ProductionOrderList productionOrderList = generateProductionOrderList(initDataLoad);
 
             ////
 
 
 
-            return operationalTrainerData;
+            return initDataLoad;
         }
 
-        public ToolsList loadTool(ToolTypeClassList toolTypeClassList, ProductClassList productslist)
+        private ProductionOrderList generateProductionOrderList(InitDataLoad initDataLoad)
         {
+            ProductionOrderList productionOrderList = new ProductionOrderList();
+
+            for (int i = 0; i < 5; i++)
+            {
+                ProductionOrder productionOrder = generateProductionOrder(initDataLoad, "orderID"+i.ToString());
+                productionOrderList.AddOrder(productionOrder);
+            }
+            
+
+            return productionOrderList;
+        }
+
+        private ProductionOrder generateProductionOrder(InitDataLoad initDataLoad,string orderid)
+        {
+            ProductionOrder productionOrder = new ProductionOrder();
+            productionOrder.OrderID = orderid;
+            productionOrder.Product = initDataLoad.DataStructure.ProductsMetaDataList.GetProduct("Product_01");
+            productionOrder.OrderDate = new DateTime(2017, 01, 01);
+            productionOrder.OrderDeliveryDate= new DateTime(2017, 02, 01);
+            return productionOrder;
+        }
+
+        public ToolsList loadTool(InitDataLoad initDataLoad)
+        {
+            ToolTypeClassList toolTypeClassList = initDataLoad.DataStructure.ToolTypelist;
+            ProductClassList productslist = initDataLoad.DataStructure.ProductsMetaDataList;
+
             FileManager fileManger = new FileManager();
             string filePath = @"C:\Users\eyurkovs\Desktop\final progect\FinalProject\FinalProject\FinalProject\dataSets\Scenario1\ToolList.csv";
             DataTable toolTable = fileManger.GetCSV(filePath);
-            
+
             ToolsList toollist = new ToolsList();
 
             foreach (DataRow row in toolTable.Rows)
@@ -100,10 +128,15 @@ namespace OperationalTrainer.Data_Structures
                 tool.ToolID = row[0].ToString();
                 tool.ToolName = row[1].ToString();
                 tool.ToolType = toolTypeClassList.GetToolType(row[2].ToString());
+                tool.ShiftStartTime = Convert.ToInt16(row[3].ToString());
+                tool.ShiftStartTime = Convert.ToInt16(row[4].ToString());
+                ProductClass product = productslist.GetProduct(row[5].ToString());
+                int productionTime = Convert.ToInt16(row[6].ToString());
+                tool.ProcessingTime.Add(product, productionTime);
+                toollist.AddTool(tool);
             }
 
             return toollist;
-
         }
 
 

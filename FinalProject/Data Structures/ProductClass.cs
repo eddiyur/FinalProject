@@ -51,7 +51,7 @@ namespace OperationalTrainer.Data_Structures
             product.ProductName = this.ProductName;
             product.ProductCapacity = this.ProductCapacity;
             product.ProductTree = this.ProductTree;
-            product.ToolTypeList = this.ToolTypeList;
+            product.ToolTypeList = this.ToolTypeList.copy();
             return product;
         }
 

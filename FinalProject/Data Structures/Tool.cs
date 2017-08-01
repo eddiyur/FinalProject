@@ -59,6 +59,16 @@ namespace OperationalTrainer.Data_Structures
             }
         }
 
+        public ToolTypeClassList copy()
+        {
+            ToolTypeClassList NewtoolTypeClassList = new ToolTypeClassList();
+            foreach (ToolTypeClass tooltype in this.ToolTypeList)
+            {
+                ToolTypeClass newtoolType = new ToolTypeClass(tooltype.ToolTypeID);
+                NewtoolTypeClassList.AddToolType(newtoolType);
+            }
+            return NewtoolTypeClassList;
+        }
     }//end class
 
     public class SetupTimeStructure
@@ -113,10 +123,14 @@ namespace OperationalTrainer.Data_Structures
 
         public Tool()
         {
-            
+            ProcessingTime = new Dictionary<ProductClass, int>();
+            ToolStatus = ToolStatuses.Idle;
+            ProductionMethod = ProductionMethods.FIFO;
+            SetUpTimes = new List<SetupTimeStructure>();
+            productionStatistics = new ProductionStatistics();
         }
 
-       
+
     }//end class Tool
 
     public class ToolsList
@@ -124,10 +138,13 @@ namespace OperationalTrainer.Data_Structures
         List<Tool> toolList { get; set; }
         public ToolsList()
         {
-
+            toolList = new List<Tool>();
         }
 
-
+        public void AddTool(Tool tool)
+        {
+            toolList.Add(tool);
+        }
 
     }
 }

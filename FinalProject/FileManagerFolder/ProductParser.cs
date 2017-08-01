@@ -1,4 +1,5 @@
 ﻿using OperationalTrainer.Data_Structures;
+using OperationalTrainer.Logic.MainLogic;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -27,8 +28,9 @@ namespace OperationalTrainer.FileManagerFolder
             ToolBranchID
         }
 
-        public static ProductClassList Parse(XmlNodeList productsNodeList, ToolTypeClassList toolTypeClassList)
+        public static ProductClassList Parse(XmlNodeList productsNodeList, InitDataLoad initDataLoad)
         {
+            ToolTypeClassList toolTypeClassList = initDataLoad.DataStructure.ToolTypelist;
             ProductClassList productClassList = new ProductClassList();
             foreach (XmlNode productNode in productsNodeList)
             {

@@ -1,4 +1,5 @@
 ﻿using OperationalTrainer.Data_Structures;
+using OperationalTrainer.Logic.MainLogic;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -29,13 +30,15 @@ namespace FinalProject.FileManagerFolder
             OrderProductsListBranch_Price
         };
 
-        public static OrdersList Parse(XmlNodeList OrderNodeList, ProductClassList productsList, Order.OrderTypeEnum orderType)
-        {
-            return Parse(OrderNodeList, productsList, orderType, null);
-        }
+        //public static OrdersList Parse(XmlNodeList OrderNodeList, InitDataLoad initDataLoad, Order.OrderTypeEnum orderType)
+        //{
+        //    return Parse(OrderNodeList, initDataLoad, orderType);
+        //}
 
-        public static OrdersList Parse(XmlNodeList OrderNodeList, ProductClassList productsList, Order.OrderTypeEnum orderType, SuppliersList suppliersList)
+        public static OrdersList Parse(XmlNodeList OrderNodeList, InitDataLoad initDataLoad, Order.OrderTypeEnum orderType)
         {
+            ProductClassList productsList = initDataLoad.DataStructure.ProductsMetaDataList;
+            SuppliersList suppliersList = initDataLoad.DataStructure.SuppliersList;
             OrdersList orderList = new OrdersList();
 
             foreach (XmlNode customerOrderNode in OrderNodeList)//orders level
@@ -105,7 +108,7 @@ namespace FinalProject.FileManagerFolder
                         switch (XMLSuppliersListField)
                         {
                             case XMLOrderFields.OrderProductsListBranch_ProductID:
-                                {                               
+                                {
                                     ProductClass product = productsList.GetProduct(orderProductRowParameter.InnerText);
                                     if (product == null)
                                         MessageBox.Show("Wrong Product in Supplier Matrix", "Error");

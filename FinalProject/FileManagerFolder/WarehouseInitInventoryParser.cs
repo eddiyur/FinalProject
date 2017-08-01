@@ -1,4 +1,5 @@
 ﻿using OperationalTrainer.Data_Structures;
+using OperationalTrainer.Logic.MainLogic;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -20,8 +21,9 @@ namespace FinalProject.FileManagerFolder
         }
 
 
-        public static Dictionary<ProductClass, double> Parse(XmlNodeList InventoryNodeList, ProductClassList productsList)
+        public static Dictionary<ProductClass, double> Parse(XmlNodeList InventoryNodeList, InitDataLoad initDataLoad)
         {
+            ProductClassList productsList = initDataLoad.DataStructure.ProductsMetaDataList;
             Dictionary<ProductClass, double> Inventory = new Dictionary<ProductClass, double>();
 
             foreach (XmlNode inventoryParameter in InventoryNodeList)

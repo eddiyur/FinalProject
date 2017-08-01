@@ -49,18 +49,18 @@ namespace OperationalTrainer.Logic.MainLogic
         private void init(string filePath)
         {
             LoadData ld = new LoadData();
-            InitOperationalTrainerDataSet initOperationalTrainerDataSet = ld.LoadInitData(filePath);
+            InitDataLoad initOperationalTrainerDataSet = ld.LoadInitData(filePath);
 
-            CurrnetTime = initOperationalTrainerDataSet.OperationalTrainerInitDataSet.startDate;
+            CurrnetTime = initOperationalTrainerDataSet.InitDataStructure.startDate;
 
-            dataManager = new DataManager(initOperationalTrainerDataSet.OperationalTrainerDataSet);
+            dataManager = new DataManager(initOperationalTrainerDataSet.DataStructure);
             dataManager.UpdateTime(CurrnetTime);
 
             clock = new Clock(CurrnetTime);
             clock.Tick += ClockTick;
 
-            Warehouse = new WarehouseClass(initOperationalTrainerDataSet.OperationalTrainerInitDataSet.WarehouseInitInventory, initOperationalTrainerDataSet.OperationalTrainerInitDataSet.WarehouseMaxCapacity);
-            bank = new Bank(initOperationalTrainerDataSet.OperationalTrainerInitDataSet.BankCurrentBalance);
+            Warehouse = new WarehouseClass(initOperationalTrainerDataSet.InitDataStructure.WarehouseInitInventory, initOperationalTrainerDataSet.InitDataStructure.WarehouseMaxCapacity);
+            bank = new Bank(initOperationalTrainerDataSet.InitDataStructure.BankCurrentBalance);
             DataSummary = new DataSummaryClass(Warehouse, dataManager, bank, CurrnetTime);
         }
 

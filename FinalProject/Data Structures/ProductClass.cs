@@ -14,20 +14,10 @@ namespace OperationalTrainer.Data_Structures
         public double ProductCapacity { get; set; }
         public Dictionary<string, int> InitProductTree { get; set; }
         public Dictionary<ProductClass, int> ProductTree { get; set; }
-        public List<Tool> ProductionToolList { get; set; }
-        public Dictionary<Tool, ProductionStatusEnum> ProductionProgress { get; set; }
-
-        public enum ProductionStatusEnum
-        {
-            NotStarted,
-            InProgress,
-            Ready
-        }
+        public ToolTypeClassList ToolTypeList { get; set; }
 
         public ProductClass(string productID)
-        {
-            ProductID = productID;
-        }
+        { ProductID = productID; }
 
         public ProductClass()
         { }
@@ -38,17 +28,10 @@ namespace OperationalTrainer.Data_Structures
             ProductName = productName;
             ProductCapacity = productCapacity;
             InitProductTree = new Dictionary<string, int>();
-            ProductionToolList = new List<Tool>();
-            setInitProductionProgress();
-            //ProductionProgress = new Dictionary<Tool, ProductionStatusEnum>();
+            ToolTypeList = new ToolTypeClassList();
         }
 
-        private void setInitProductionProgress()
-        {
-            ProductionProgress = new Dictionary<Tool, ProductionStatusEnum>();
-            foreach (Tool tool in ProductionToolList)
-                ProductionProgress.Add(tool, ProductionStatusEnum.NotStarted);
-        }
+
 
         public override bool Equals(object obj)
         {
@@ -68,7 +51,7 @@ namespace OperationalTrainer.Data_Structures
             product.ProductName = this.ProductName;
             product.ProductCapacity = this.ProductCapacity;
             product.ProductTree = this.ProductTree;
-            product.ProductionToolList = this.ProductionToolList;
+            product.ToolTypeList = this.ToolTypeList;
             return product;
         }
 

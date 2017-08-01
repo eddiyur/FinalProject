@@ -20,8 +20,6 @@ namespace FinalProject.Controllers
     public static class MainController
     {
 
-
-
         private static MainManager mainManager;
         private static MainForm mainForm;
         public static void Initialize(MainForm mForm)
@@ -39,7 +37,7 @@ namespace FinalProject.Controllers
             mainManager.Event_NewSupplierOrderDelivered += NewSupplierOrderDelivered;
         }
 
-      
+
         private static void cantDeliverOrder(object sender, EventArgs e)
         { MessageBox.Show("can't deliver this order", "Error"); }
 
@@ -74,9 +72,7 @@ namespace FinalProject.Controllers
         }
 
         public static void CustomerOrderDeliveryApproved(string orderID)
-        {
-            mainManager.CustomerOrderDeliveryApproved(orderID);
-        }
+        { mainManager.CustomerOrderDeliveryApproved(orderID); }
 
         public static DataTable GetCustomerOrdersDataTable()
         { return mainManager.GetCustomerOrdersDataTable(); }
@@ -91,7 +87,7 @@ namespace FinalProject.Controllers
         { return mainManager.GetWarehouseDataTable(); }
 
         internal static void CreateXMLScenario(CSVScenarioFilePath cSVScenarioFilePath)
-        {            mainManager.CreateXMLScenario(cSVScenarioFilePath);        }
+        { mainManager.CreateXMLScenario(cSVScenarioFilePath); }
 
         public static DateTime GetCurrentTime()
         { return mainManager.GetCurrentTime(); }
@@ -112,11 +108,9 @@ namespace FinalProject.Controllers
         { mainManager.NewSupplierOrderApproved(order); }
 
         public static void LoadScenario()
-        {            mainManager.LoadScenario();        }
+        { mainManager.LoadScenario(); }
 
-        internal static void SupplierOrderDeliveredAproved(Order order)
-        {
-            mainManager.SupplierOrderDeliveredAproved(order);
-        }
+        public static void SupplierOrderDeliveredAproved(Order order)
+        { mainManager.SupplierOrderDeliveredAproved(order); }
     }//end  MainController
 }

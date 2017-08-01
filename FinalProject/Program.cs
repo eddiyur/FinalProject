@@ -17,7 +17,6 @@ namespace OperationalTrainer
         [STAThread]
         static void Main()
         {
-           
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             MainForm mf = new MainForm();
@@ -25,9 +24,5 @@ namespace OperationalTrainer
             Application.Run(mf);
         }
     }
-
-    //manager to deside what product will go to what machin
-    //managment of products by name (same name- same machin type- soft codedd)
-    //
 
 }

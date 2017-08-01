@@ -1,0 +1,3 @@
+ToolID,ToolName,ToolType,ShiftStartTime,ShiftEndTime,ProductionProduct1,ProductionTime1,ProductionProduct2,ProductionTime2,ProductionProduct3,ProductionTime3,SetupProductsource1,SetupPoductTarget1,SetupTime1,SetupProductsource2,SetupPoductTarget2,SetupTime2,SetupProductsource3,SetupPoductTarget3,SetupTime3
+toolID1,mahreta,ToolType1,0,24,Product_01,8,,,,,,,,,,,,,
+toolid2,zaiar,ToolTyp21,0,24,Product_01,8,,,,,,,,,,,,,

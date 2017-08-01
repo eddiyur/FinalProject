@@ -120,26 +120,26 @@ namespace OperationalTrainer.Data_Structures
         /// /not ready
         /// </summary>
         /// <returns></returns>
-        public List<ProductionOrder> generateProductionOrdersFromCustomerOrder()
-        {
-            ///to develop//
-            string productOrderId = "";
-            ////    
+     //   public List<ProductionOrder> generateProductionOrdersFromCustomerOrder()
+        //{
+        //    ///to develop//
+        //    string productOrderId = "";
+        //    ////    
 
-            List<ProductionOrder> productionOrderList = new List<ProductionOrder>();
+        //    List<ProductionOrder> productionOrderList = new List<ProductionOrder>();
 
-            foreach (PriceTable priceTable in OrderProductsList)
-            {
-                int amount = priceTable.Amount;
-                for (int i = 0; i < amount; i++)
-                {
-                    ProductionOrder productionOrder = new ProductionOrder(productOrderId, OrderDate, OrderDeliveryDate, priceTable.Product);
-                    productionOrderList.Add(productionOrder);
-                }
+        //    foreach (PriceTable priceTable in OrderProductsList)
+        //    {
+        //        int amount = priceTable.Amount;
+        //        for (int i = 0; i < amount; i++)
+        //        {
+        //            ProductionOrder productionOrder = new ProductionOrder(productOrderId, OrderDate, OrderDeliveryDate, priceTable.Product);
+        //            productionOrderList.Add(productionOrder);
+        //        }
 
-            }
-            return productionOrderList;
-        }
+        //    }
+        //    return productionOrderList;
+        //}
 
 
     }//end OrderClass

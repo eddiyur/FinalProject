@@ -22,10 +22,12 @@ namespace OperationalTrainer.FileManagerFolder
             ProductTree,
             ProductTreeBranch,
             ProductTree_ProductID,
-            ProductTree_Amount
+            ProductTree_Amount,
+            ToolList,
+            ToolBranchID
         }
 
-        public static ProductClassList Parse(XmlNodeList productsNodeList)
+        public static ProductClassList Parse(XmlNodeList productsNodeList, ToolTypeClassList toolTypeClassList)
         {
             ProductClassList productClassList = new ProductClassList();
             foreach (XmlNode productNode in productsNodeList)
@@ -50,6 +52,9 @@ namespace OperationalTrainer.FileManagerFolder
                         case XMLProductFields.ProductTree:
                             product.InitProductTree = getProductTree(productparameter);
                             break;
+                        case XMLProductFields.ToolList:
+                            product.ToolTypeList = getToolTypeList(productparameter, toolTypeClassList);
+                            break;
                         default:
                             break;
                     }
@@ -60,6 +65,19 @@ namespace OperationalTrainer.FileManagerFolder
             productClassList = GenerateProductTree(productClassList);
 
             return productClassList;
+        }
+
+        private static ToolTypeClassList getToolTypeList(XmlNode productparameter, ToolTypeClassList toolTypeClassList)
+        {
+            ToolTypeClassList toolTypeList = new ToolTypeClassList();
+            XmlNodeList toolTypes = productparameter.ChildNodes;
+            foreach (XmlNode tooType in toolTypes)
+            {
+                string toolTypeID = tooType.InnerText;
+                ToolTypeClass toolType = toolTypeClassList.GetToolType(tooType.InnerText);
+                toolTypeList.AddToolType(toolType);
+            }
+            return toolTypeList;
         }
 
         private static ProductClassList GenerateProductTree(ProductClassList productClassList)
@@ -135,6 +153,8 @@ namespace OperationalTrainer.FileManagerFolder
                 ProductCapacityTagName.InnerText = row[2].ToString();
                 product.AppendChild(ProductCapacityTagName);
 
+
+                //ProductTree
                 var ProductTreeTagName = doc.CreateElement(XMLProductFields.ProductTree.ToString());
 
                 int columnIndex = 3;
@@ -146,20 +166,38 @@ namespace OperationalTrainer.FileManagerFolder
                     if (!string.IsNullOrEmpty(ProductTree_ProductIDValue))
                     {
                         var ProductTreeBranchTagName = doc.CreateElement(XMLProductFields.ProductTreeBranch.ToString());
+
                         var ProductTree_ProductIDTagName = doc.CreateElement(XMLProductFields.ProductTree_ProductID.ToString());
                         ProductTree_ProductIDTagName.InnerText = ProductTree_ProductIDValue;
                         ProductTreeBranchTagName.AppendChild(ProductTree_ProductIDTagName);
+
                         var ProductTree_AmountTagName = doc.CreateElement(XMLProductFields.ProductTree_Amount.ToString());
                         ProductTree_AmountTagName.InnerText = ProductTree_AmountValue;
                         ProductTreeBranchTagName.AppendChild(ProductTree_AmountTagName);
 
                         ProductTreeTagName.AppendChild(ProductTreeBranchTagName);
                     }
-
                     columnIndex = columnIndex + 2;
                 }
                 product.AppendChild(ProductTreeTagName);
 
+                //ToolList
+                var ToolListTagName = doc.CreateElement(XMLProductFields.ToolList.ToString());
+
+                columnIndex = 9;
+                for (int i = 0; i < 3; i++)
+                {
+                    string ToolID = row[columnIndex + i].ToString();
+
+                    if (!string.IsNullOrEmpty(ToolID))
+                    {
+                        var ToolBranchIDTagName = doc.CreateElement(XMLProductFields.ToolBranchID.ToString());
+                        ToolBranchIDTagName.InnerText = ToolID;
+                        ToolListTagName.AppendChild(ToolBranchIDTagName);
+
+                    }
+                }
+                product.AppendChild(ToolListTagName);
                 productsList.AppendChild(product);
             }
             return doc;

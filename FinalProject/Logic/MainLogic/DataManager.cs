@@ -76,7 +76,6 @@ namespace OperationalTrainer.Logic.MainLogic
         public OrdersList getNewCustomerOrdersList(Clock clock)
         {
             return getNewCustomerOrdersList(clock.ClockTime.Time);
-            // return getNewCustomerOrdersList(DataSet.CurrentDateTime);
         }
     }
 }

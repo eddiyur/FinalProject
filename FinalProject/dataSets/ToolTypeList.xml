@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<dataset>
+  <ToolTypeList>
+    <ToolTypeBranch>
+      <ToolTypeID>ToolType1</ToolTypeID>
+      <ToolTypeName>ToolTypeName1</ToolTypeName>
+    </ToolTypeBranch>
+    <ToolTypeBranch>
+      <ToolTypeID>ToolType2</ToolTypeID>
+      <ToolTypeName>ToolTypeName2</ToolTypeName>
+    </ToolTypeBranch>
+  </ToolTypeList>
+</dataset>

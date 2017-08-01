@@ -16,7 +16,6 @@ namespace FinalProject.GUI
 
     public partial class CSVScenarioToXMLForm : Form
     {
-
         FileManager fileManager;
         CSVScenarioFilePath cSVScenarioFilePath;
         public CSVScenarioToXMLForm()
@@ -25,19 +24,18 @@ namespace FinalProject.GUI
             fileManager = new FileManager();
 
             InitializeComponent();
-
-
         }
 
         void readyFiles()
         {
-            cSVScenarioFilePath.InitData = @"C:\Users\eyurkovs\Desktop\final progect\FinalProject\FinalProject\FinalProject\dataSets\testScenario\initData.csv";
-            cSVScenarioFilePath.ProductsList = @"C:\Users\eyurkovs\Desktop\final progect\FinalProject\FinalProject\FinalProject\dataSets\testScenario\Product.csv";
-            cSVScenarioFilePath.WarehouseInitInventory = @"C:\Users\eyurkovs\Desktop\final progect\FinalProject\FinalProject\FinalProject\dataSets\testScenario\Warehouse.csv";
-            cSVScenarioFilePath.CustomersOrderList = @"C:\Users\eyurkovs\Desktop\final progect\FinalProject\FinalProject\FinalProject\dataSets\testScenario\Customer_Order_List.csv";
-            cSVScenarioFilePath.FutureCustomersOrderList = @"C:\Users\eyurkovs\Desktop\final progect\FinalProject\FinalProject\FinalProject\dataSets\testScenario\Future_Customer_Order_List.csv";
-            cSVScenarioFilePath.SuppliersOrderList = @"C:\Users\eyurkovs\Desktop\final progect\FinalProject\FinalProject\FinalProject\dataSets\testScenario\Supplier_Orders_List.csv";
-            cSVScenarioFilePath.SuppliersList = @"C:\Users\eyurkovs\Desktop\final progect\FinalProject\FinalProject\FinalProject\dataSets\testScenario\Suppliers_List.csv";
+            cSVScenarioFilePath.InitData = @"C:\Users\eyurkovs\Desktop\final progect\FinalProject\FinalProject\FinalProject\dataSets\Scenario1\initData.csv";
+            cSVScenarioFilePath.ProductsList = @"C:\Users\eyurkovs\Desktop\final progect\FinalProject\FinalProject\FinalProject\dataSets\Scenario1\Product.csv";
+            cSVScenarioFilePath.WarehouseInitInventory = @"C:\Users\eyurkovs\Desktop\final progect\FinalProject\FinalProject\FinalProject\dataSets\Scenario1\Warehouse.csv";
+            cSVScenarioFilePath.CustomersOrderList = @"C:\Users\eyurkovs\Desktop\final progect\FinalProject\FinalProject\FinalProject\dataSets\Scenario1\Customer_Order_List.csv";
+            cSVScenarioFilePath.FutureCustomersOrderList = @"C:\Users\eyurkovs\Desktop\final progect\FinalProject\FinalProject\FinalProject\dataSets\Scenario1\Future_Customer_Order_List.csv";
+            cSVScenarioFilePath.SuppliersOrderList = @"C:\Users\eyurkovs\Desktop\final progect\FinalProject\FinalProject\FinalProject\dataSets\Scenario1\Supplier_Orders_List.csv";
+            cSVScenarioFilePath.SuppliersList = @"C:\Users\eyurkovs\Desktop\final progect\FinalProject\FinalProject\FinalProject\dataSets\Scenario1\Suppliers_List.csv";
+            cSVScenarioFilePath.ToolTypeList = @"C:\Users\eyurkovs\Desktop\final progect\FinalProject\FinalProject\FinalProject\dataSets\Scenario1\ToolTypelist.csv";
         }
 
 
@@ -50,6 +48,7 @@ namespace FinalProject.GUI
             label13.Text = cSVScenarioFilePath.CustomersOrderList;
             label11.Text = cSVScenarioFilePath.FutureCustomersOrderList;
             label9.Text = cSVScenarioFilePath.SuppliersOrderList;
+            label15.Text = cSVScenarioFilePath.ToolTypeList;
         }
 
         private void button_InitData_Click(object sender, EventArgs e)
@@ -95,14 +94,17 @@ namespace FinalProject.GUI
         }
 
         private void button1_Click(object sender, EventArgs e)
-        {
-            MainController.CreateXMLScenario(cSVScenarioFilePath);
-
-        }
+        { MainController.CreateXMLScenario(cSVScenarioFilePath); }
 
         private void CSVScenarioToXMLForm_Load(object sender, EventArgs e)
         {
             readyFiles();
+            updateGUi();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            cSVScenarioFilePath.ToolTypeList = fileManager.openFilePathCSV();
             updateGUi();
         }
     }

@@ -57,6 +57,7 @@
     <Compile Include="Data Structures\ProductionOrder.cs" />
     <Compile Include="Data Structures\Tool.cs" />
     <Compile Include="FileManagerFolder\OrderParser.cs" />
+    <Compile Include="FileManagerFolder\ToolTypeParser.cs" />
     <Compile Include="FileManagerFolder\WarehouseInitInventoryParser.cs" />
     <Compile Include="GUI\CSVScenarioToXMLForm.cs">
       <SubType>Form</SubType>
@@ -152,6 +153,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="dataSets\Scenario1\ScenarioTest.XML" />
+    <Content Include="dataSets\ToolTypeList.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

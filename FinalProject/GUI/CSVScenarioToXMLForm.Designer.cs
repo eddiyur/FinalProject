@@ -50,6 +50,9 @@
             this.button_Customer_Order_List = new System.Windows.Forms.Button();
             this.label14 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
+            this.label15 = new System.Windows.Forms.Label();
+            this.button2 = new System.Windows.Forms.Button();
+            this.label16 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -167,7 +170,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(237, 273);
+            this.label9.Location = new System.Drawing.Point(237, 192);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(47, 13);
             this.label9.TabIndex = 20;
@@ -175,7 +178,7 @@
             // 
             // button_Supplier_Orders_List
             // 
-            this.button_Supplier_Orders_List.Location = new System.Drawing.Point(184, 267);
+            this.button_Supplier_Orders_List.Location = new System.Drawing.Point(184, 186);
             this.button_Supplier_Orders_List.Name = "button_Supplier_Orders_List";
             this.button_Supplier_Orders_List.Size = new System.Drawing.Size(37, 19);
             this.button_Supplier_Orders_List.TabIndex = 19;
@@ -186,7 +189,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(48, 273);
+            this.label10.Location = new System.Drawing.Point(48, 192);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(98, 13);
             this.label10.TabIndex = 18;
@@ -195,7 +198,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(237, 234);
+            this.label11.Location = new System.Drawing.Point(237, 263);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(47, 13);
             this.label11.TabIndex = 17;
@@ -203,7 +206,7 @@
             // 
             // button_Future_Customer_Order_List
             // 
-            this.button_Future_Customer_Order_List.Location = new System.Drawing.Point(184, 228);
+            this.button_Future_Customer_Order_List.Location = new System.Drawing.Point(184, 257);
             this.button_Future_Customer_Order_List.Name = "button_Future_Customer_Order_List";
             this.button_Future_Customer_Order_List.Size = new System.Drawing.Size(37, 19);
             this.button_Future_Customer_Order_List.TabIndex = 16;
@@ -214,7 +217,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(48, 234);
+            this.label12.Location = new System.Drawing.Point(48, 263);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(132, 13);
             this.label12.TabIndex = 15;
@@ -223,7 +226,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(237, 197);
+            this.label13.Location = new System.Drawing.Point(237, 226);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(47, 13);
             this.label13.TabIndex = 14;
@@ -231,7 +234,7 @@
             // 
             // button_Customer_Order_List
             // 
-            this.button_Customer_Order_List.Location = new System.Drawing.Point(184, 191);
+            this.button_Customer_Order_List.Location = new System.Drawing.Point(184, 220);
             this.button_Customer_Order_List.Name = "button_Customer_Order_List";
             this.button_Customer_Order_List.Size = new System.Drawing.Size(37, 19);
             this.button_Customer_Order_List.TabIndex = 13;
@@ -242,7 +245,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(48, 197);
+            this.label14.Location = new System.Drawing.Point(48, 226);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(99, 13);
             this.label14.TabIndex = 12;
@@ -250,7 +253,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(219, 336);
+            this.button1.Location = new System.Drawing.Point(209, 385);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 21;
@@ -258,11 +261,42 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(237, 300);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(47, 13);
+            this.label15.TabIndex = 24;
+            this.label15.Text = "File path";
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(184, 294);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(37, 19);
+            this.button2.TabIndex = 23;
+            this.button2.Text = "...";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(48, 300);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(66, 13);
+            this.label16.TabIndex = 22;
+            this.label16.Text = "Tool type list";
+            // 
             // CSVScenarioToXMLForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(681, 400);
+            this.ClientSize = new System.Drawing.Size(681, 527);
+            this.Controls.Add(this.label15);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.label16);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.button_Supplier_Orders_List);
@@ -317,5 +351,8 @@
         private System.Windows.Forms.Button button_Customer_Order_List;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Label label16;
     }
 }

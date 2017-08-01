@@ -42,9 +42,8 @@ namespace OperationalTrainer.GUI
         {
             int cellRowIdx = cell.RowIndex;
             int cellColIdx = cell.ColumnIndex;
-            if (clickable_cols.Contains(cellColIdx))
-                click_col_actions[cellColIdx].Invoke();
-
+            //if (clickable_cols.Contains(cellColIdx))
+            //    click_col_actions[cellColIdx].Invoke();
 
             string Possible_To_Deliver = "Possible_To_Deliver";
             string orderID = "Order_Id";
@@ -53,7 +52,6 @@ namespace OperationalTrainer.GUI
 
             if (columnName.Equals(Possible_To_Deliver))
                 MainController.CustomerOrderDeliveryApproved(dataGridView1.Rows[cellRowIdx].Cells[orderID].FormattedValue.ToString());
-
         }
 
         private void updateDataSet()
@@ -63,9 +61,7 @@ namespace OperationalTrainer.GUI
         { updateDataSet(); }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
+        { }
 
         public void UpdateData()
         { updateDataSet(); }

@@ -39,8 +39,8 @@ namespace OperationalTrainer.Logic.MainLogic
         enum ProcessesSchedule
         {
             BeginningOfTheTimeTick,
-            NewCustomerOrdersArrived,
             SupplierOrdersDelivered,
+            NewCustomerOrdersArrived,
             EndOfProcess
         }
         public MainManager()
@@ -78,8 +78,6 @@ namespace OperationalTrainer.Logic.MainLogic
                 dataManager.DataSet.CustomersOrderList.RemoveOrder(order);
                 Event_CustomerOrdersListUpdate(this, null);
             }
-
-
         }
 
         /// <summary>

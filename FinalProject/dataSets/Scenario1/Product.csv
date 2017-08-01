@@ -1,2 +1,2 @@
-ProductID,ProductName,ProductCapacity,ProductTree_ProductID_1,ProductTree_Amount_1,ProductTree_ProductID_2,ProductTree_Amount_2,ProductTree_ProductID_3,ProductTree_Amount_3
-Product_01,bottle,10,,,,,,
+ProductID,ProductName,ProductCapacity,ProductTree_ProductID_1,ProductTree_Amount_1,ProductTree_ProductID_2,ProductTree_Amount_2,ProductTree_ProductID_3,ProductTree_Amount_3,Tool1,Tool2,Tool3
+Product_01,bottle,10,,,,,,,ToolType1,ToolType2,

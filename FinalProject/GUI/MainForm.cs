@@ -51,10 +51,6 @@ namespace FinalProject.GUI
             public Panel ProductionPanel;
         }
 
-
-
-
-
         public MainForm()
         {
             InitializeComponent();
@@ -66,7 +62,6 @@ namespace FinalProject.GUI
         private void MainForm_Load(object sender, EventArgs e)
         {
             initialFormSetings();
-
         }
 
         private void initialFormSetings()
@@ -117,9 +112,7 @@ namespace FinalProject.GUI
         }//end setScreenSize
 
         public void GuiParameters()
-        {
-            nextTickToolStripMenuItem.Enabled = MainParameters.GameStarted;
-        }
+        { nextTickToolStripMenuItem.Enabled = MainParameters.GameStarted; }
 
         public void UpdateGUI()
         {
@@ -128,7 +121,6 @@ namespace FinalProject.GUI
 
             foreach (var form in updatebleForms)
                 form.UpdateData();
-
         }
 
         /// <summary>
@@ -185,7 +177,7 @@ namespace FinalProject.GUI
             createSubForms();
         }//end setPanelsPosition
 
-       
+
         private void createSubForms()
         {
             //  bankMainForm = new OrdersMainForm(MainController.GetBankDataTable(), formVisualElements.BankPanel.Width, formVisualElements.BankPanel.Height);
@@ -194,13 +186,13 @@ namespace FinalProject.GUI
             updatebleForms.Add(bankMainForm);
             bankMainForm.Show();
 
-            //   WarehouseMainForm = new OrdersMainForm(MainController.GetWarehouseDataTable(), formVisualElements.WarehousePanel.Width, formVisualElements.WarehousePanel.Height);
+            //  WarehouseMainForm = new OrdersMainForm(MainController.GetWarehouseDataTable(), formVisualElements.WarehousePanel.Width, formVisualElements.WarehousePanel.Height);
             WarehouseMainForm = new GeneralDataGridForm(MainController.GetWarehouseDataTable, formVisualElements.WarehousePanel.Width, formVisualElements.WarehousePanel.Height, new List<int>(), new List<ClickableDelegate>());
             formVisualElements.WarehousePanel.Controls.Add(WarehouseMainForm);
             updatebleForms.Add(WarehouseMainForm);
             WarehouseMainForm.Show();
 
-            //            CustomerMainForm = new OrdersMainForm(MainController.GetCustomerOrdersDataTable(), formVisualElements.CustomerOrderPanel.Width, formVisualElements.CustomerOrderPanel.Height);
+            //  CustomerMainForm = new OrdersMainForm(MainController.GetCustomerOrdersDataTable(), formVisualElements.CustomerOrderPanel.Width, formVisualElements.CustomerOrderPanel.Height);
             CustomerMainForm = new GeneralDataGridForm(MainController.GetCustomerOrdersDataTable, formVisualElements.CustomerOrderPanel.Width, formVisualElements.CustomerOrderPanel.Height, new List<int>(), new List<ClickableDelegate>());
             formVisualElements.CustomerOrderPanel.Controls.Add(CustomerMainForm);
             updatebleForms.Add(CustomerMainForm);
@@ -216,15 +208,9 @@ namespace FinalProject.GUI
         private string transferToTimeLabel(DateTime currentTime)
         { return currentTime.ToShortDateString() + " " + currentTime.ToShortTimeString(); }
 
-        private void testToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            //test();
-        }
 
         private void nextTickToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            MainController.StartClock();
-        }
+        { MainController.StartClock(); }
 
         private void newSupplierOrderToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -233,9 +219,7 @@ namespace FinalProject.GUI
         }
 
         private void loadScenarioToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            MainController.LoadScenario();
-        }
+        { MainController.LoadScenario(); }
 
         private void cSVScenarioToXMLToolStripMenuItem_Click(object sender, EventArgs e)
         {

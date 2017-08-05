@@ -64,10 +64,10 @@ namespace OperationalTrainer.Logic.MainLogic
 
             WarehouseManager = new WarehouseManager(initDataSet.InitDataStructure.InitWarehouseInventory, initDataSet.InitDataStructure.WarehouseMaxCapacity);
             financeManager = new FinanceManager(initDataSet.InitDataStructure.InitBankCurrentBalance);
-            DataSummary = new DataSummaryClass(WarehouseManager, dataManager, financeManager, CurrnetTime,marketingManager,purchaseManager);
+            DataSummary = new DataSummaryClass(WarehouseManager, dataManager, financeManager, CurrnetTime, marketingManager, purchaseManager);
             productionManager = new ProductionManager(initDataSet.DataStructure.ToolsMetaDataList, initDataSet.DataStructure.ToolTypeMetaDataList);
             purchaseManager = new PurchaseManager(initDataSet.InitDataStructure.InitPurchaseOrders, initDataSet.InitDataStructure.InitSuppliersMetaData);
-            marketingManager = new MarketingManager(initDataSet.InitDataStructure.CustomersOrderList);
+            marketingManager = new MarketingManager(initDataSet.InitDataStructure.CustomersOrderList, initDataSet.InitDataStructure.FutureCustomersOrderList);
         }
 
 
@@ -145,7 +145,7 @@ namespace OperationalTrainer.Logic.MainLogic
                     ProcessesScheduleParser();
                     break;
                 case ProcessesSchedule.NewCustomerOrdersArrived:
-                    NewCustomerOrder();
+                    NewCustomerOrders();
                     break;
                 case ProcessesSchedule.SupplierOrdersDelivered:
                     SupplierOrderDeliver();
@@ -182,9 +182,9 @@ namespace OperationalTrainer.Logic.MainLogic
         /// <summary>
         /// Checks if new customer orders arrived
         /// </summary>
-        private void NewCustomerOrder()
+        private void NewCustomerOrders()
         {
-            OrdersList newOrders = dataManager.getNewCustomerOrdersList(CurrnetTime);
+            OrdersList newOrders = marketingManager.GetFutureCustomersOrder(CurrnetTime);
 
             if (newOrders.OrderList.Count > 0)
             {
@@ -219,11 +219,12 @@ namespace OperationalTrainer.Logic.MainLogic
         /// <returns></returns>
         public DateTime GetCurrentTime()
         { try { return CurrnetTime; } catch { return new DateTime(); } }
+
         public DataTable GetCustomerOrdersDataTable()
         {
             try
             {
-                return DataSummary.GenerateCustomerOrdersDataTable();
+                return DataSummary.GenerateCustomerOrdersDataTable(marketingManager.GetCustomersOrdersList());
             }
             catch (Exception)
             {
@@ -235,7 +236,7 @@ namespace OperationalTrainer.Logic.MainLogic
         {
             try
             {
-                return DataSummary.GenerateSupplierOrdersDataTable();
+                return DataSummary.GenerateSupplierOrdersDataTable(purchaseManager.GetPurchaseOrders());
             }
             catch
             {
@@ -246,7 +247,7 @@ namespace OperationalTrainer.Logic.MainLogic
         {
             try
             {
-                return DataSummary.GenerateBank();
+                return DataSummary.GenerateBank(purchaseManager.GetPurchaseOrders(),marketingManager.GetCustomersOrdersList(),financeManager.CurrentBalance);
             }
             catch
             {
@@ -257,7 +258,7 @@ namespace OperationalTrainer.Logic.MainLogic
         {
             try
             {
-                return DataSummary.GenerateWarehouse();
+                return DataSummary.GenerateWarehouse(purchaseManager.GetPurchaseOrders(),marketingManager.GetCustomersOrdersList());
             }
             catch
             {

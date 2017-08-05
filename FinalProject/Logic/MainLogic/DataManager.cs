@@ -12,10 +12,6 @@ namespace OperationalTrainer.Logic.MainLogic
     {
 
         public ProductClassList ProductsMetaDataList { get; set; }
-    //    public SuppliersList SuppliersList { get; set; }
-        //public OrdersList CustomersOrderList { get; set; }
-     //   public OrdersList SupplieOrderList { get; set; }
-        //public OrdersList FutureCustomersOrderList { get; set; }
 
         public ToolTypeClassList ToolTypeMetaDataList { get; set; }
         public ToolsList ToolsMetaDataList { get; set; }
@@ -59,19 +55,6 @@ namespace OperationalTrainer.Logic.MainLogic
         public void UpdateTime(DateTime currnetTime)
         { CurrnetTime = currnetTime; }
 
-        /// <summary>
-        /// Extract Orders with given date from future Customers Order List
-        /// </summary>
-        /// <param name="date"></param>
-        /// <returns></returns>
-        public OrdersList getNewCustomerOrdersList(DateTime date)
-        {
-            OrdersList newCustomerOrdersList = DataSet.FutureCustomersOrderList.GetOrdersByOrderDate(date);
-            DataSet.FutureCustomersOrderList.RemoveOrders(newCustomerOrdersList);
-            return newCustomerOrdersList;
-        }
-
-        
 
     }
 }

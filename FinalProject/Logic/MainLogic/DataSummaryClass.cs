@@ -13,20 +13,22 @@ namespace FinalProject.Logic.MainLogic
     public class DataSummaryClass
     {
         private WarehouseManager Warehouse;
-        private MarketingManager marketingManager;
+        //private MarketingManager marketingManager;
         private DataManager dataManager;
-        private FinanceManager bank;
+        //private FinanceManager bank;
         private DateTime CurrnetTime;
-        private PurchaseManager purchaseManager;
+        //private PurchaseManager purchaseManager;
         public DataSummaryClass(WarehouseManager warehouse, DataManager dataManager, FinanceManager bank, DateTime currnetTime, MarketingManager marketingManager, PurchaseManager purchaseManager)
         {
             Warehouse = warehouse;
             this.dataManager = dataManager;
-            this.marketingManager = marketingManager;
-            this.purchaseManager = purchaseManager;
-            this.bank = bank;
+            //this.marketingManager = marketingManager;
+            //this.purchaseManager = purchaseManager;
+            //this.bank = bank;
             CurrnetTime = currnetTime;
         }
+
+
         private DataTable sortDataTable(DataTable dt, string columnName)
         {
             DataView dv = new DataView(dt);
@@ -43,8 +45,8 @@ namespace FinalProject.Logic.MainLogic
             Possible_To_Deliver
         }
 
-        public DataTable GenerateCustomerOrdersDataTable()
-        { return GenerateCustomerOrdersDataTable(marketingManager.GetCustomersOrdersList()); }
+        //public DataTable GenerateCustomerOrdersDataTable()
+        //{ return GenerateCustomerOrdersDataTable(marketingManager.GetCustomersOrdersList()); }
 
         public DataTable GenerateCustomerOrdersDataTable(OrdersList customerOrderList)
         {
@@ -76,8 +78,8 @@ namespace FinalProject.Logic.MainLogic
             Delivery_Date,
             Total_Order_Price
         }
-        public DataTable GenerateSupplierOrdersDataTable()
-        { return GenerateSupplierOrdersDataTable(purchaseManager.GetPurchaseOrders()); }
+        //public DataTable GenerateSupplierOrdersDataTable()
+        //{ return GenerateSupplierOrdersDataTable(purchaseManager.GetPurchaseOrders()); }
 
 
         public DataTable GenerateSupplierOrdersDataTable(OrdersList supplierOrderList)
@@ -111,11 +113,11 @@ namespace FinalProject.Logic.MainLogic
             Total
         }
 
-        public DataTable GenerateBank()
+        public DataTable GenerateBank(OrdersList purchaseOrders, OrdersList customersOrderList, double bankCurrentBalance)
         {
-            OrdersList supplierOrderList = purchaseManager.GetPurchaseOrders();
-            OrdersList customersOrderList = marketingManager.GetCustomersOrdersList();
-            double bankCurrentBalance = bank.CurrentBalance;
+            //OrdersList purchaseOrders = purchaseManager.GetPurchaseOrders();
+            //OrdersList customersOrderList = marketingManager.GetCustomersOrdersList();
+            // double bankCurrentBalance = bank.CurrentBalance;
 
 
             DataTable BankDataTable = new DataTable();
@@ -124,9 +126,9 @@ namespace FinalProject.Logic.MainLogic
 
             BankDataTable.Columns[BankColumnNames.Date.ToString()].DataType = typeof(DateTime);
 
-            BankDataTable = bankInitRow(BankDataTable);
+            BankDataTable = bankInitRow(BankDataTable, bankCurrentBalance);
             BankDataTable = BankOrdersToTable(BankDataTable, customersOrderList);
-            BankDataTable = BankOrdersToTable(BankDataTable, supplierOrderList);
+            BankDataTable = BankOrdersToTable(BankDataTable, purchaseOrders);
 
             BankDataTable = sortDataTable(BankDataTable, BankColumnNames.Date.ToString());
 
@@ -140,11 +142,11 @@ namespace FinalProject.Logic.MainLogic
             return BankDataTable;
         }
 
-        private DataTable bankInitRow(DataTable dt)
+        private DataTable bankInitRow(DataTable dt, double currentBalance)
         {
             DataRow drow = dt.NewRow();
             drow[BankColumnNames.Date.ToString()] = CurrnetTime;
-            drow[BankColumnNames.Total.ToString()] = bank.CurrentBalance;
+            drow[BankColumnNames.Total.ToString()] = currentBalance;
             dt.Rows.Add(drow);
             return dt;
         }
@@ -178,11 +180,8 @@ namespace FinalProject.Logic.MainLogic
             Total_Capacity
         }
 
-        public DataTable GenerateWarehouse()
+        public DataTable GenerateWarehouse(OrdersList supplierOrderList, OrdersList customersOrderList)
         {
-            OrdersList supplierOrderList = purchaseManager.GetPurchaseOrders();
-            OrdersList customersOrderList = marketingManager.GetCustomersOrdersList();
-
             DataTable WarehouseDataTable = new DataTable();
 
             WarehouseDataTable.Columns.Add(WarehouseCulumnsNames.Date.ToString());

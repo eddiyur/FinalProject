@@ -33,9 +33,9 @@ namespace FinalProject.Logic.MainLogic
         /// <returns></returns>
         public OrdersList GetPurchaseOrders(DateTime date)
         {
-            OrdersList newOrdersList = PurchaseOrders.GetOrdersByOrderDeliveryDate(date);
-            PurchaseOrders.RemoveOrders(newOrdersList);
-            return newOrdersList;
+            //OrdersList newOrdersList = PurchaseOrders.GetOrdersByOrderDeliveryDate(date);
+            //PurchaseOrders.RemoveOrders(newOrdersList);
+            return PurchaseOrders.ExtractOrdersByOrderDeliveryDate(date);
         }
 
         /// <summary>

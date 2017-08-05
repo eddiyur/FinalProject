@@ -192,7 +192,7 @@ namespace OperationalTrainer.Data_Structures
                 MessageBox.Show(" Order " + orderID + "  not found", "Error");
                 return null;
             }
-          
+
         }
 
         /// <summary>
@@ -224,6 +224,21 @@ namespace OperationalTrainer.Data_Structures
             return result;
         }
 
+        /// <summary>
+        /// Extract Order with given Order Date
+        /// </summary>
+        /// <param name="orderDate"></param>
+        /// <returns></returns>
+        public OrdersList ExtractOrdersByOrderDate(DateTime orderDate)
+        {
+            OrdersList result = new OrdersList();
+            foreach (Order order in OrderList)
+                if (order.OrderDate.Date <= orderDate.Date)
+                    result.AddOrder(order);
+            RemoveOrders(result);
+            return result;
+        }
+
         public OrdersList GetOrdersByOrderDeliveryDate(DateTime orderDeliveryDate)
         {
             OrdersList result = new OrdersList();
@@ -231,6 +246,17 @@ namespace OperationalTrainer.Data_Structures
                 if (order.OrderDeliveryDate.Date <= orderDeliveryDate.Date)
                     result.AddOrder(order);
 
+            return result;
+        }
+
+
+        public OrdersList ExtractOrdersByOrderDeliveryDate(DateTime orderDeliveryDate)
+        {
+            OrdersList result = new OrdersList();
+            foreach (Order order in OrderList)
+                if (order.OrderDeliveryDate.Date <= orderDeliveryDate.Date)
+                    result.AddOrder(order);
+            RemoveOrders(result);
             return result;
         }
 

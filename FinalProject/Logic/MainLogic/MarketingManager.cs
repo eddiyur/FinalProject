@@ -48,5 +48,16 @@ namespace FinalProject.Logic.MainLogic
         { CustomersOrdersList.RemoveOrder(order); }
 
 
+        /// <summary>
+        /// Extract orders with earlier order date than given date
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns></returns>
+        public OrdersList GetFutureCustomersOrder(DateTime date)
+        {
+            OrdersList newOrdersList = FutureCustomersOrdersList.ExtractOrdersByOrderDate(date);
+            return newOrdersList;
+        }
+
     }
 }

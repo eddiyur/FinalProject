@@ -1,4 +1,5 @@
-﻿using OperationalTrainer.Data_Structures;
+﻿using FinalProject.Data_Structures;
+using OperationalTrainer.Data_Structures;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +14,14 @@ namespace FinalProject.Logic.MainLogic
 
         public ToolsList ToolList;
 
-        public ProductionManager(ToolsList toolList)
+        public ProductionManager(ToolsList toolList, ToolTypeClassList ToolTypeList)
         {
-            ToolList = new ToolsList();
+            ToolList = toolList;
             ProductionQueue = new Dictionary<ToolTypeClass, ProductionOrderList>();
+
+            foreach (var toolType in ToolTypeList.ToolTypeList)
+                ProductionQueue.Add(toolType, new ProductionOrderList());
+
         }
 
     }

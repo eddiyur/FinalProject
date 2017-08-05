@@ -1,4 +1,5 @@
-﻿using OperationalTrainer.Data_Structures;
+﻿using FinalProject.Data_Structures;
+using OperationalTrainer.Data_Structures;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,18 +13,12 @@ namespace OperationalTrainer.Logic.MainLogic
 
         public ProductClassList ProductsMetaDataList { get; set; }
         public SuppliersList SuppliersList { get; set; }
-
         public OrdersList CustomersOrderList { get; set; }
-
         public OrdersList SupplieOrderList { get; set; }
-        public int LastSupplierOrderIndex { get; set; }
-
         public OrdersList FutureCustomersOrderList { get; set; }
 
-        public ToolTypeClassList ToolTypelist { get; set; }
-
-       
-
+        public ToolTypeClassList ToolTypeMetaDataList { get; set; }
+        public ToolsList ToolsMetaDataList { get; set; }
     }
 
 
@@ -31,10 +26,10 @@ namespace OperationalTrainer.Logic.MainLogic
     {
         public DateTime startDate { get; set; }
         public double WarehouseMaxCapacity { get; set; }
-        public Double BankCurrentBalance { get; set; }
-        public ToolsList ToolList { get; set; }
-        public Dictionary<ProductClass, double> WarehouseInitInventory { get; set; }
 
+        public Dictionary<ProductClass, double> InitWarehouseInventory { get; set; }
+        public double InitBankCurrentBalance { get; set; }
+        public ProductionOrderList InitProductionOrderList { get; set; }
     }
 
     public class InitDataLoad
@@ -48,7 +43,6 @@ namespace OperationalTrainer.Logic.MainLogic
 
     public class DataManager
     {
-        //   private Clock _clock;
         public DataStructureClass DataSet { get; set; }
         public DateTime CurrnetTime { get; set; }
 
@@ -59,7 +53,7 @@ namespace OperationalTrainer.Logic.MainLogic
         { CurrnetTime = currnetTime; }
 
         /// <summary>
-        /// Removes from future_Customers_Order_List Orders with given date and return them
+        /// Extract Orders with given date from future Customers Order List
         /// </summary>
         /// <param name="date"></param>
         /// <returns></returns>
@@ -77,13 +71,5 @@ namespace OperationalTrainer.Logic.MainLogic
             return newOrdersList;
         }
 
-        /// <summary>
-        /// Removes from future_Customers_Order_List Orders with CurrentDate and return them
-        /// </summary>
-        /// <returns></returns>
-        public OrdersList getNewCustomerOrdersList(Clock clock)
-        {
-            return getNewCustomerOrdersList(clock.ClockTime.Time);
-        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using FinalProject.FileManagerFolder;
+﻿using FinalProject.Data_Structures;
+using FinalProject.FileManagerFolder;
 using OperationalTrainer.Data_Structures;
 using OperationalTrainer.FileManagerFolder;
 using OperationalTrainer.Logic.MainLogic;
@@ -65,23 +66,21 @@ namespace OperationalTrainer.Data_Structures
 
 
             initDataLoad.InitDataStructure = InitDataParser.Parse(initNodeList);
-            initDataLoad.DataStructure.ToolTypelist = ToolTypeParser.parse(tooltypeyNodeList);
+            initDataLoad.DataStructure.ToolTypeMetaDataList = ToolTypeParser.parse(tooltypeyNodeList);
             initDataLoad.DataStructure.ProductsMetaDataList = ProductParser.Parse(productsNodeList, initDataLoad);
             initDataLoad.DataStructure.SuppliersList = SuppliersParser.Parse(suppliersNodeList, initDataLoad);
 
             initDataLoad.DataStructure.CustomersOrderList = OrderParser.Parse(customerOrderNodeList, initDataLoad, Order.OrderTypeEnum.CustomerOrder);
             initDataLoad.DataStructure.FutureCustomersOrderList = OrderParser.Parse(fucureCustomerOrderNodeList, initDataLoad, Order.OrderTypeEnum.CustomerOrder);
             initDataLoad.DataStructure.SupplieOrderList = OrderParser.Parse(supploersOrderNodeList, initDataLoad, Order.OrderTypeEnum.SupplierOrder);
-            initDataLoad.InitDataStructure.WarehouseInitInventory = WarehouseInitInventoryParser.Parse(WarehouseInitInventoryNodeList, initDataLoad);
+            initDataLoad.InitDataStructure.InitWarehouseInventory = WarehouseInitInventoryParser.Parse(WarehouseInitInventoryNodeList, initDataLoad);
 
 
-            /////rebuild parser
-            initDataLoad.InitDataStructure.ToolList = loadTool(initDataLoad);
-            //////
-
-               ProductionOrderList productionOrderList = generateProductionOrderList(initDataLoad);
-
+            ///rebuild parser
+            initDataLoad.DataStructure.ToolsMetaDataList = loadTool(initDataLoad);
+            initDataLoad.InitDataStructure.InitProductionOrderList = generateProductionOrderList(initDataLoad);
             ////
+
 
 
 
@@ -94,33 +93,43 @@ namespace OperationalTrainer.Data_Structures
 
             for (int i = 0; i < 5; i++)
             {
-                ProductionOrder productionOrder = generateProductionOrder(initDataLoad, "orderID"+i.ToString());
+                ProductionOrder productionOrder = generateProductionOrder(initDataLoad, "orderID" + i.ToString());
                 productionOrderList.AddOrder(productionOrder);
             }
-            
+
 
             return productionOrderList;
         }
 
-        private ProductionOrder generateProductionOrder(InitDataLoad initDataLoad,string orderid)
+        private ProductionOrder generateProductionOrder(InitDataLoad initDataLoad, string orderid)
         {
-            ProductionOrder productionOrder = new ProductionOrder();
-            productionOrder.OrderID = orderid;
-            productionOrder.Product = initDataLoad.DataStructure.ProductsMetaDataList.GetProduct("Product_01");
-            productionOrder.OrderDate = new DateTime(2017, 01, 01);
-            productionOrder.OrderDeliveryDate= new DateTime(2017, 02, 01);
+            ProductionOrder productionOrder = new ProductionOrder(orderid,
+                initDataLoad.DataStructure.ProductsMetaDataList.GetProduct("Product_01"),
+                new DateTime(2017, 01, 01),
+               new DateTime(2017, 01, 01));
+
             return productionOrder;
         }
 
         public ToolsList loadTool(InitDataLoad initDataLoad)
         {
-            ToolTypeClassList toolTypeClassList = initDataLoad.DataStructure.ToolTypelist;
+            ToolTypeClassList toolTypeClassList = initDataLoad.DataStructure.ToolTypeMetaDataList;
             ProductClassList productslist = initDataLoad.DataStructure.ProductsMetaDataList;
 
             FileManager fileManger = new FileManager();
-            string filePath = @"C:\Users\eyurkovs\Desktop\final progect\FinalProject\FinalProject\FinalProject\dataSets\Scenario1\ToolList.csv";
-            DataTable toolTable = fileManger.GetCSV(filePath);
+            string filePath;
+            filePath = @"C:\Users\eyurkovs\Desktop\final progect\FinalProject\FinalProject\FinalProject\dataSets\Scenario1\ToolList.csv";
+            DataTable toolTable;
+            try
+            {
+                toolTable = fileManger.GetCSV(filePath);
+            }
+            catch (Exception)
+            {
 
+                filePath = fileManger.openFilePathCSV();
+                toolTable = fileManger.GetCSV(filePath);
+            }
             ToolsList toollist = new ToolsList();
 
             foreach (DataRow row in toolTable.Rows)

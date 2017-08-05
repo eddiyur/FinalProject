@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 
 namespace FinalProject.Logic
 {
-    public class Bank
+    public class FinanceManager
     {
         // how update data manager- direct or thru main manager
 
         public double CurrentBalance { get; set; }
 
-        public Bank()
+        public FinanceManager()
         { CurrentBalance = 0; }
 
-        public Bank(double currentBalance)
+        public FinanceManager(double currentBalance)
         { CurrentBalance = currentBalance; }
 
         public double UpdateBalance(Order order)

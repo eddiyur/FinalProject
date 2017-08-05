@@ -30,7 +30,7 @@ namespace OperationalTrainer.FileManagerFolder
 
         public static ProductClassList Parse(XmlNodeList productsNodeList, InitDataLoad initDataLoad)
         {
-            ToolTypeClassList toolTypeClassList = initDataLoad.DataStructure.ToolTypelist;
+            ToolTypeClassList toolTypeClassList = initDataLoad.DataStructure.ToolTypeMetaDataList;
             ProductClassList productClassList = new ProductClassList();
             foreach (XmlNode productNode in productsNodeList)
             {
@@ -55,7 +55,7 @@ namespace OperationalTrainer.FileManagerFolder
                             product.InitProductTree = getProductTree(productparameter);
                             break;
                         case XMLProductFields.ToolList:
-                            product.ToolTypeList = getToolTypeList(productparameter, toolTypeClassList);
+                            product.ToolsTypeList = getToolTypeList(productparameter, toolTypeClassList);
                             break;
                         default:
                             break;

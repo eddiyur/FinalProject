@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FinalProject.Data_Structures;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,11 +15,22 @@ namespace OperationalTrainer.Data_Structures
         public DateTime OrderDate { get; set; }
         public DateTime orderPullTime { get; set; }
         public DateTime OrderDeliveryDate { get; set; }
-        
+        public ToolTypeClassList ProductionProgress { get; set; }
+
         public ProductionOrder()
         {
         }
 
+
+        public ProductionOrder(string orderID, ProductClass product, DateTime orderDate, DateTime orderDeliveryDate)
+        {
+            OrderID = orderID;
+            Product = product;
+            OrderDate = orderDate;
+            OrderDeliveryDate = orderDeliveryDate;
+            ProductionProgress = Product.GetCopyToolTypeList();
+
+        }
 
         public override bool Equals(object obj)
         {
@@ -58,4 +70,4 @@ namespace OperationalTrainer.Data_Structures
         }
     }//end class production order
 
-    }//end nameSpace
+}//end nameSpace

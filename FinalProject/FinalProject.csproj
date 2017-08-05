@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\MainController.cs" />
+    <Compile Include="Data Structures\ToolTypeClass.cs" />
     <Compile Include="FileManagerFolder\InitDataParser.cs" />
     <Compile Include="FileManagerFolder\LoadData.cs" />
     <Compile Include="Data Structures\Order.cs" />
@@ -79,7 +80,7 @@
     <Compile Include="GUI\NewSupplierOrder.Designer.cs">
       <DependentUpon>NewSupplierOrder.cs</DependentUpon>
     </Compile>
-    <Compile Include="Logic\MainLogic\Bank.cs" />
+    <Compile Include="Logic\MainLogic\FinanceManager.cs" />
     <Compile Include="FileManagerFolder\FileManager.cs" />
     <Compile Include="FileManagerFolder\ProductParser.cs" />
     <Compile Include="FileManagerFolder\SuppliersParser.cs" />
@@ -105,7 +106,7 @@
     <Compile Include="Logic\Prediction\PredictionClass.cs" />
     <Compile Include="Logic\Prediction\SimpleAveragePrediction.cs" />
     <Compile Include="Logic\Prediction\WeightedAveragePrediction.cs" />
-    <Compile Include="Logic\MainLogic\WarehouseClass.cs" />
+    <Compile Include="Logic\MainLogic\WarehouseManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="GUI\CSVScenarioToXMLForm.resx">

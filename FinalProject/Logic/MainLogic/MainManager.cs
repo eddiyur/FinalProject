@@ -19,8 +19,8 @@ namespace OperationalTrainer.Logic.MainLogic
         public DataManager dataManager { get; set; }
         private ProductionManager productionManager { get; set; }
         private Clock clock { get; set; }
-        private WarehouseClass Warehouse { get; set; }
-        private Bank bank { get; set; }
+        private WarehouseManager Warehouse { get; set; }
+        private FinanceManager bank { get; set; }
         private DateTime CurrnetTime { get; set; }
         private DataSummaryClass DataSummary { get; set; }
         private ProcessesSchedule CurrentProcesses { get; set; }
@@ -60,23 +60,23 @@ namespace OperationalTrainer.Logic.MainLogic
             clock = new Clock(CurrnetTime);
             clock.Tick += ClockTick;
 
-            Warehouse = new WarehouseClass(initDataSet.InitDataStructure.WarehouseInitInventory, initDataSet.InitDataStructure.WarehouseMaxCapacity);
-            bank = new Bank(initDataSet.InitDataStructure.BankCurrentBalance);
+            Warehouse = new WarehouseManager(initDataSet.InitDataStructure.InitWarehouseInventory, initDataSet.InitDataStructure.WarehouseMaxCapacity);
+            bank = new FinanceManager(initDataSet.InitDataStructure.InitBankCurrentBalance);
             DataSummary = new DataSummaryClass(Warehouse, dataManager, bank, CurrnetTime);
-            productionManager = new ProductionManager(initDataSet.InitDataStructure.ToolList);
+            productionManager = new ProductionManager(initDataSet.DataStructure.ToolsMetaDataList, initDataSet.DataStructure.ToolTypeMetaDataList);
         }
 
 
         private void CustomerOrderDelivery(string orderID)
         {
             Order order = dataManager.DataSet.CustomersOrderList.GetOrder(orderID);
-            bool canGetOrder = Warehouse.CanGetOrder(order);
+            bool canGetOrder = Warehouse.CanGetProducts(order);
 
             if (!canGetOrder)
                 cantDeliverOrder();
             else
             {
-                Warehouse.GetOrder(order);
+                Warehouse.GetProducts(order);
                 dataManager.DataSet.CustomersOrderList.RemoveOrder(order);
                 Event_CustomerOrdersListUpdate(this, null);
             }
@@ -308,7 +308,7 @@ namespace OperationalTrainer.Logic.MainLogic
 
         public void SupplierOrderDeliveredAproved(Order order)
         {
-            Warehouse.AddOrder(order);
+            Warehouse.AddProducts(order);
             bank.UpdateBalance(order);
             Event_SupplierOrdersListUpdate(this, null);
         }

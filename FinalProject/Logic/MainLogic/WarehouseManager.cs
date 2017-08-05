@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace OperationalTrainer.Logic.Warehouse
 {
-    public class WarehouseClass
+    public class WarehouseManager
     {
         //event out of stouck
         //event out of capasity
@@ -16,9 +16,9 @@ namespace OperationalTrainer.Logic.Warehouse
 
         private Dictionary<ProductClass, double> Inventory { get; }
         public double MaxCapacity { get; }
-        public double Capacity { get; set; }
+        public double CurrentCapacity { get; set; }
 
-        public WarehouseClass(ProductClassList ProductsList, double maxCapacity)
+        public WarehouseManager(ProductClassList ProductsList, double maxCapacity)
         {
             Inventory = new Dictionary<ProductClass, double>();
             foreach (ProductClass product in ProductsList.ProductList)
@@ -27,8 +27,7 @@ namespace OperationalTrainer.Logic.Warehouse
             updateCapacity();
         }
 
-
-        public WarehouseClass(Dictionary<ProductClass, double> ProductsList, double maxCapacity)
+        public WarehouseManager(Dictionary<ProductClass, double> ProductsList, double maxCapacity)
         {
             Inventory = ProductsList;
             MaxCapacity = maxCapacity;
@@ -59,15 +58,18 @@ namespace OperationalTrainer.Logic.Warehouse
 
             if (Inventory[product] < 0)
                 //event
-                MessageBox.Show("Error");
+                MessageBox.Show("Warehouse Manager: " + product.ProductID + " out of stock", "Error");
             updateCapacity();
         }
 
-
+        /// <summary>
+        /// return true if amount smaller than product inventory
+        /// </summary>
+        /// <param name="product"></param>
+        /// <param name="amount"></param>
+        /// <returns></returns>
         private bool CanGetProduct(ProductClass product, int amount)
-        {
-            return Inventory[product] >= amount;
-        }
+        { return Inventory[product] >= amount; }
 
         /// <summary>
         ///Calculate the capacity of the inventory
@@ -79,16 +81,19 @@ namespace OperationalTrainer.Logic.Warehouse
             foreach (KeyValuePair<ProductClass, double> product in Inventory)
                 capacity = capacity + product.Key.ProductCapacity * product.Value;
 
-            Capacity = capacity;
-            if (Capacity > MaxCapacity)
-                MessageBox.Show("Out of capacity Error");
+            CurrentCapacity = capacity;
+            if (CurrentCapacity > MaxCapacity)
+            {
+                //event
+                MessageBox.Show("Warehouse Manager: out of Capacity", "Error");
+            }
         }
 
         /// <summary>
-        ///Extract products form order
+        ///Extract products from inventory
         /// </summary>
         /// <param name="order"></param>
-        public void GetOrder(Order order)
+        public void GetProducts(Order order)
         {
             foreach (PriceTable priceTable in order.OrderProductsList)
                 GetProduct(priceTable.Product, priceTable.Amount);
@@ -96,17 +101,21 @@ namespace OperationalTrainer.Logic.Warehouse
 
 
         /// <summary>
-        ///Add products from order
+        ///Add products to inventory
         /// </summary>
         /// <param name="order"></param>
-        public void AddOrder(Order order)
+        public void AddProducts(Order order)
         {
             foreach (PriceTable priceTable in order.OrderProductsList)
                 AddProduct(priceTable.Product, priceTable.Amount);
         }
 
-
-        public bool CanGetOrder(Order order)
+        /// <summary>
+        /// Check if can get products from inventory
+        /// </summary>
+        /// <param name="order"></param>
+        /// <returns></returns>
+        public bool CanGetProducts(Order order)
         {
             foreach (PriceTable priceTable in order.OrderProductsList)
                 if (!CanGetProduct(priceTable.Product, priceTable.Amount))
@@ -114,6 +123,11 @@ namespace OperationalTrainer.Logic.Warehouse
             return true;
         }
 
+        /// <summary>
+        /// Return the Amount of product in inventory
+        /// </summary>
+        /// <param name="product"></param>
+        /// <returns></returns>
         public double GetAmount(ProductClass product)
         { return Inventory[product]; }
 

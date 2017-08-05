@@ -31,7 +31,7 @@ namespace FinalProject.FileManagerFolder
                 switch (XMLProductField)
                 {
                     case XMLiInitFields.Bank:
-                        OperationalTrainerInitDataSet.BankCurrentBalance = Convert.ToDouble(initParameter.InnerText);
+                        OperationalTrainerInitDataSet.InitBankCurrentBalance = Convert.ToDouble(initParameter.InnerText);
                         break;
                     case XMLiInitFields.WarehouseMaxCapacity:
                         OperationalTrainerInitDataSet.WarehouseMaxCapacity = Convert.ToDouble(initParameter.InnerText);

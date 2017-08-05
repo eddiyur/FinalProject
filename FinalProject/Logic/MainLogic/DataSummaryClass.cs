@@ -12,12 +12,12 @@ namespace FinalProject.Logic.MainLogic
 {
     public class DataSummaryClass
     {
-        private WarehouseClass Warehouse;
+        private WarehouseManager Warehouse;
         private DataManager dataManager;
-        private Bank bank;
+        private FinanceManager bank;
         private DateTime CurrnetTime;
 
-        public DataSummaryClass(WarehouseClass warehouse, DataManager dataManager, Bank bank, DateTime currnetTime)
+        public DataSummaryClass(WarehouseManager warehouse, DataManager dataManager, FinanceManager bank, DateTime currnetTime)
         {
             Warehouse = warehouse;
             this.dataManager = dataManager;
@@ -59,7 +59,7 @@ namespace FinalProject.Logic.MainLogic
                 drow[CustomerOrderColumnsNames.Order_ID.ToString()] = order.OrderID;
                 drow[CustomerOrderColumnsNames.Delivery_Date.ToString()] = order.OrderDeliveryDate.ToShortDateString();
                 drow[CustomerOrderColumnsNames.Total_Order_Price.ToString()] = order.GetOrderAmount().ToString();
-                drow[CustomerOrderColumnsNames.Possible_To_Deliver.ToString()] = Warehouse.CanGetOrder(order).ToString();
+                drow[CustomerOrderColumnsNames.Possible_To_Deliver.ToString()] = Warehouse.CanGetProducts(order).ToString();
                 customerOrdersTable.Rows.Add(drow);
             }
             customerOrdersTable = sortDataTable(customerOrdersTable, CustomerOrderColumnsNames.Delivery_Date.ToString());

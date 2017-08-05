@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FinalProject.Data_Structures;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -9,68 +10,7 @@ using UtilitiesFileManager;
 
 namespace OperationalTrainer.Data_Structures
 {
-     public class ToolTypeClass
-    {
-        public string ToolTypeID { get; set; }
-        public string ToolTypeName { get; set; }
-
-        public ToolTypeClass() { }
-        public ToolTypeClass(string toolTypeID, string toolTypeName)
-        {
-            ToolTypeID = toolTypeID;
-            ToolTypeName = toolTypeName;
-        }
-
-        public ToolTypeClass(string toolTypeID)
-        { ToolTypeID = toolTypeID; }
-
-        public override bool Equals(object obj)
-        {
-            ToolTypeClass toolClass = (ToolTypeClass)obj;
-            return toolClass.ToolTypeID.Equals(toolClass.ToolTypeID);
-        }
-
-        public override int GetHashCode()
-        { return ToolTypeID.GetHashCode(); }
-    }//end ToolTypeClass
-
-
-    public class ToolTypeClassList
-    {
-        public List<ToolTypeClass> ToolTypeList { get; set; }
-        public ToolTypeClassList() { ToolTypeList = new List<ToolTypeClass>(); }
-        public ToolTypeClassList(List<ToolTypeClass> toolTypeList)
-        { ToolTypeList = toolTypeList; }
-
-        public void AddToolType(ToolTypeClass toolType)
-        { ToolTypeList.Add(toolType); }
-
-        public ToolTypeClass GetToolType(string toolTypeID)
-        {
-            try
-            {
-                ToolTypeClass toolType = new ToolTypeClass(toolTypeID);
-                return ToolTypeList[ToolTypeList.IndexOf(toolType)];
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("ToolType ID " + toolTypeID + " not found");
-                return null;
-            }
-        }
-
-        public ToolTypeClassList copy()
-        {
-            ToolTypeClassList NewtoolTypeClassList = new ToolTypeClassList();
-            foreach (ToolTypeClass tooltype in this.ToolTypeList)
-            {
-                ToolTypeClass newtoolType = new ToolTypeClass(tooltype.ToolTypeID);
-                NewtoolTypeClassList.AddToolType(newtoolType);
-            }
-            return NewtoolTypeClassList;
-        }
-    }//end class
-
+   
     public class SetupTimeStructure
     {
         public ProductClass SourceProduct { get; set; }
@@ -135,7 +75,7 @@ namespace OperationalTrainer.Data_Structures
 
     public class ToolsList
     {
-        List<Tool> toolList { get; set; }
+        public List<Tool> toolList { get; set; }
         public ToolsList()
         {
             toolList = new List<Tool>();

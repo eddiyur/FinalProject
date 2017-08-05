@@ -5,12 +5,26 @@
     <WarehouseMaxCapacity>300</WarehouseMaxCapacity>
     <StartDate>2017-03-01</StartDate>
   </InitData>
+  <ToolTypeList>
+    <ToolTypeBranch>
+      <ToolTypeID>ToolType1</ToolTypeID>
+      <ToolTypeName>ToolType1</ToolTypeName>
+    </ToolTypeBranch>
+    <ToolTypeBranch>
+      <ToolTypeID>ToolTyp21</ToolTypeID>
+      <ToolTypeName>ToolTyp21</ToolTypeName>
+    </ToolTypeBranch>
+  </ToolTypeList>
   <ProductsList>
     <Product>
       <ProductID>Product_01</ProductID>
       <ProductName>bottle</ProductName>
       <ProductCapacity>10</ProductCapacity>
       <ProductTree />
+      <ToolList>
+        <ToolBranchID>ToolType1</ToolBranchID>
+        <ToolBranchID>ToolType2</ToolBranchID>
+      </ToolList>
     </Product>
   </ProductsList>
   <WarehouseInitInventory>
@@ -150,7 +164,7 @@
       <OrderProductsList>
         <OrderProductsListBranch>
           <OrderProductsListBranch_ProductID>Product_01</OrderProductsListBranch_ProductID>
-          <OrderProductsListBranch_Amount>5</OrderProductsListBranch_Amount>
+          <OrderProductsListBranch_Amount>500</OrderProductsListBranch_Amount>
           <OrderProductsListBranch_Price>10</OrderProductsListBranch_Price>
         </OrderProductsListBranch>
       </OrderProductsList>

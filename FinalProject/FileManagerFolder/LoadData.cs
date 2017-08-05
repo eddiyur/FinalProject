@@ -68,11 +68,11 @@ namespace OperationalTrainer.Data_Structures
             initDataLoad.InitDataStructure = InitDataParser.Parse(initNodeList);
             initDataLoad.DataStructure.ToolTypeMetaDataList = ToolTypeParser.parse(tooltypeyNodeList);
             initDataLoad.DataStructure.ProductsMetaDataList = ProductParser.Parse(productsNodeList, initDataLoad);
-            initDataLoad.DataStructure.SuppliersList = SuppliersParser.Parse(suppliersNodeList, initDataLoad);
+            initDataLoad.InitDataStructure.InitSuppliersMetaData = SuppliersParser.Parse(suppliersNodeList, initDataLoad);
 
-            initDataLoad.DataStructure.CustomersOrderList = OrderParser.Parse(customerOrderNodeList, initDataLoad, Order.OrderTypeEnum.CustomerOrder);
-            initDataLoad.DataStructure.FutureCustomersOrderList = OrderParser.Parse(fucureCustomerOrderNodeList, initDataLoad, Order.OrderTypeEnum.CustomerOrder);
-            initDataLoad.DataStructure.SupplieOrderList = OrderParser.Parse(supploersOrderNodeList, initDataLoad, Order.OrderTypeEnum.SupplierOrder);
+            initDataLoad.InitDataStructure.CustomersOrderList = OrderParser.Parse(customerOrderNodeList, initDataLoad, Order.OrderTypeEnum.CustomerOrder);
+            initDataLoad.InitDataStructure.FutureCustomersOrderList = OrderParser.Parse(fucureCustomerOrderNodeList, initDataLoad, Order.OrderTypeEnum.CustomerOrder);
+            initDataLoad.InitDataStructure.InitPurchaseOrders = OrderParser.Parse(supploersOrderNodeList, initDataLoad, Order.OrderTypeEnum.SupplierOrder);
             initDataLoad.InitDataStructure.InitWarehouseInventory = WarehouseInitInventoryParser.Parse(WarehouseInitInventoryNodeList, initDataLoad);
 
 

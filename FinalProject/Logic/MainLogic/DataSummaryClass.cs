@@ -13,14 +13,17 @@ namespace FinalProject.Logic.MainLogic
     public class DataSummaryClass
     {
         private WarehouseManager Warehouse;
+        private MarketingManager marketingManager;
         private DataManager dataManager;
         private FinanceManager bank;
         private DateTime CurrnetTime;
-
-        public DataSummaryClass(WarehouseManager warehouse, DataManager dataManager, FinanceManager bank, DateTime currnetTime)
+        private PurchaseManager purchaseManager;
+        public DataSummaryClass(WarehouseManager warehouse, DataManager dataManager, FinanceManager bank, DateTime currnetTime, MarketingManager marketingManager, PurchaseManager purchaseManager)
         {
             Warehouse = warehouse;
             this.dataManager = dataManager;
+            this.marketingManager = marketingManager;
+            this.purchaseManager = purchaseManager;
             this.bank = bank;
             CurrnetTime = currnetTime;
         }
@@ -41,7 +44,7 @@ namespace FinalProject.Logic.MainLogic
         }
 
         public DataTable GenerateCustomerOrdersDataTable()
-        { return GenerateCustomerOrdersDataTable(dataManager.DataSet.CustomersOrderList); }
+        { return GenerateCustomerOrdersDataTable(marketingManager.GetCustomersOrdersList()); }
 
         public DataTable GenerateCustomerOrdersDataTable(OrdersList customerOrderList)
         {
@@ -74,7 +77,7 @@ namespace FinalProject.Logic.MainLogic
             Total_Order_Price
         }
         public DataTable GenerateSupplierOrdersDataTable()
-        { return GenerateSupplierOrdersDataTable(dataManager.DataSet.SupplieOrderList); }
+        { return GenerateSupplierOrdersDataTable(purchaseManager.GetPurchaseOrders()); }
 
 
         public DataTable GenerateSupplierOrdersDataTable(OrdersList supplierOrderList)
@@ -110,8 +113,8 @@ namespace FinalProject.Logic.MainLogic
 
         public DataTable GenerateBank()
         {
-            OrdersList supplierOrderList = dataManager.DataSet.SupplieOrderList;
-            OrdersList customersOrderList = dataManager.DataSet.CustomersOrderList;
+            OrdersList supplierOrderList = purchaseManager.GetPurchaseOrders();
+            OrdersList customersOrderList = marketingManager.GetCustomersOrdersList();
             double bankCurrentBalance = bank.CurrentBalance;
 
 
@@ -177,8 +180,8 @@ namespace FinalProject.Logic.MainLogic
 
         public DataTable GenerateWarehouse()
         {
-            OrdersList supplierOrderList = dataManager.DataSet.SupplieOrderList;
-            OrdersList customersOrderList = dataManager.DataSet.CustomersOrderList;
+            OrdersList supplierOrderList = purchaseManager.GetPurchaseOrders();
+            OrdersList customersOrderList = marketingManager.GetCustomersOrdersList();
 
             DataTable WarehouseDataTable = new DataTable();
 

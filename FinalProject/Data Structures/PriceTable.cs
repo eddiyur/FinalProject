@@ -15,7 +15,7 @@ namespace OperationalTrainer.Data_Structures
 
         public PriceTable(ProductClass product, int amount, double price)
         {
-            this.Product = product;
+            Product = product;
             Amount = amount;
             Price = price;
         }

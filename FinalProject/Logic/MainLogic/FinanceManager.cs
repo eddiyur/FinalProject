@@ -9,7 +9,8 @@ namespace FinalProject.Logic
 {
     public class FinanceManager
     {
-        // how update data manager- direct or thru main manager
+
+        // event out of many
 
         public double CurrentBalance { get; set; }
 

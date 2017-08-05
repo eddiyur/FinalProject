@@ -96,7 +96,7 @@ namespace FinalProject.Controllers
         { return mainManager.GetProductsMetaData(); }
 
         public static SuppliersList GetSuppliersList()
-        { return mainManager.GetSuppliersList(); }
+        { return mainManager.GetSuppliersMetaData(); }
 
         public static void NewCustomerOrderDecline(Order order)
         { mainManager.NewCustomerOrderDecline(order); }

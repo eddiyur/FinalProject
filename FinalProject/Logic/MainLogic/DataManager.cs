@@ -12,10 +12,10 @@ namespace OperationalTrainer.Logic.MainLogic
     {
 
         public ProductClassList ProductsMetaDataList { get; set; }
-        public SuppliersList SuppliersList { get; set; }
-        public OrdersList CustomersOrderList { get; set; }
-        public OrdersList SupplieOrderList { get; set; }
-        public OrdersList FutureCustomersOrderList { get; set; }
+    //    public SuppliersList SuppliersList { get; set; }
+        //public OrdersList CustomersOrderList { get; set; }
+     //   public OrdersList SupplieOrderList { get; set; }
+        //public OrdersList FutureCustomersOrderList { get; set; }
 
         public ToolTypeClassList ToolTypeMetaDataList { get; set; }
         public ToolsList ToolsMetaDataList { get; set; }
@@ -26,6 +26,13 @@ namespace OperationalTrainer.Logic.MainLogic
     {
         public DateTime startDate { get; set; }
         public double WarehouseMaxCapacity { get; set; }
+
+        public SuppliersList InitSuppliersMetaData { get; set; }
+        public OrdersList InitPurchaseOrders { get; set; }
+
+        public OrdersList CustomersOrderList { get; set; }
+        public OrdersList FutureCustomersOrderList { get; set; }
+
 
         public Dictionary<ProductClass, double> InitWarehouseInventory { get; set; }
         public double InitBankCurrentBalance { get; set; }
@@ -64,12 +71,7 @@ namespace OperationalTrainer.Logic.MainLogic
             return newCustomerOrdersList;
         }
 
-        public OrdersList getSupplierOrderDelivered(DateTime date)
-        {
-            OrdersList newOrdersList = DataSet.SupplieOrderList.GetOrdersByOrderDeliveryDate(date);
-            DataSet.SupplieOrderList.RemoveOrders(newOrdersList);
-            return newOrdersList;
-        }
+        
 
     }
 }

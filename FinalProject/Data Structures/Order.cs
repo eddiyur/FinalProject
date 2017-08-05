@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using static OperationalTrainer.Data_Structures.Order;
 
 namespace OperationalTrainer.Data_Structures
@@ -181,8 +182,17 @@ namespace OperationalTrainer.Data_Structures
         /// <returns></returns>
         public Order GetOrder(string orderID)
         {
-            Order order = new Order(orderID);
-            return OrderList[OrderList.IndexOf(order)];
+            try
+            {
+                Order order = new Order(orderID);
+                return OrderList[OrderList.IndexOf(order)];
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(" Order " + orderID + "  not found", "Error");
+                return null;
+            }
+          
         }
 
         /// <summary>

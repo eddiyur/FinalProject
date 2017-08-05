@@ -19,11 +19,13 @@ namespace OperationalTrainer.Logic.MainLogic
         public DataManager dataManager { get; set; }
         private ProductionManager productionManager { get; set; }
         private Clock clock { get; set; }
-        private WarehouseManager Warehouse { get; set; }
-        private FinanceManager bank { get; set; }
+        private WarehouseManager WarehouseManager { get; set; }
+        private FinanceManager financeManager { get; set; }
         private DateTime CurrnetTime { get; set; }
         private DataSummaryClass DataSummary { get; set; }
         private ProcessesSchedule CurrentProcesses { get; set; }
+        private PurchaseManager purchaseManager { get; set; }
+        private MarketingManager marketingManager { get; set; }
 
 
         public EventHandler<OrderEventArgs> Event_NewCustomerOrderArrived;
@@ -60,24 +62,26 @@ namespace OperationalTrainer.Logic.MainLogic
             clock = new Clock(CurrnetTime);
             clock.Tick += ClockTick;
 
-            Warehouse = new WarehouseManager(initDataSet.InitDataStructure.InitWarehouseInventory, initDataSet.InitDataStructure.WarehouseMaxCapacity);
-            bank = new FinanceManager(initDataSet.InitDataStructure.InitBankCurrentBalance);
-            DataSummary = new DataSummaryClass(Warehouse, dataManager, bank, CurrnetTime);
+            WarehouseManager = new WarehouseManager(initDataSet.InitDataStructure.InitWarehouseInventory, initDataSet.InitDataStructure.WarehouseMaxCapacity);
+            financeManager = new FinanceManager(initDataSet.InitDataStructure.InitBankCurrentBalance);
+            DataSummary = new DataSummaryClass(WarehouseManager, dataManager, financeManager, CurrnetTime,marketingManager,purchaseManager);
             productionManager = new ProductionManager(initDataSet.DataStructure.ToolsMetaDataList, initDataSet.DataStructure.ToolTypeMetaDataList);
+            purchaseManager = new PurchaseManager(initDataSet.InitDataStructure.InitPurchaseOrders, initDataSet.InitDataStructure.InitSuppliersMetaData);
+            marketingManager = new MarketingManager(initDataSet.InitDataStructure.CustomersOrderList);
         }
 
 
         private void CustomerOrderDelivery(string orderID)
         {
-            Order order = dataManager.DataSet.CustomersOrderList.GetOrder(orderID);
-            bool canGetOrder = Warehouse.CanGetProducts(order);
+            Order order = marketingManager.GetCustomerOrder(orderID);
+            bool canGetOrder = WarehouseManager.CanGetProducts(order);
 
             if (!canGetOrder)
                 cantDeliverOrder();
             else
             {
-                Warehouse.GetProducts(order);
-                dataManager.DataSet.CustomersOrderList.RemoveOrder(order);
+                WarehouseManager.GetProducts(order);
+                marketingManager.RemoveCustomerOrder(order);
                 Event_CustomerOrdersListUpdate(this, null);
             }
         }
@@ -161,7 +165,7 @@ namespace OperationalTrainer.Logic.MainLogic
 
         private void SupplierOrderDeliver()
         {
-            OrdersList newOrders = dataManager.getSupplierOrderDelivered(CurrnetTime);
+            OrdersList newOrders = purchaseManager.GetPurchaseOrders(CurrnetTime);
             if (newOrders.OrderList.Count > 0)
             {
                 foreach (Order order in newOrders.OrderList)
@@ -268,11 +272,11 @@ namespace OperationalTrainer.Logic.MainLogic
         { return dataManager.DataSet.ProductsMetaDataList; }
 
         /// <summary>
-        /// Return suppliersList
+        /// Return SuppliersMetaData
         /// </summary>
         /// <returns></returns>
-        public SuppliersList GetSuppliersList()
-        { return dataManager.DataSet.SuppliersList; }
+        public SuppliersList GetSuppliersMetaData()
+        { return purchaseManager.getSuppliersMetaData(); }
 
 
 
@@ -282,16 +286,17 @@ namespace OperationalTrainer.Logic.MainLogic
         { }
         public void NewSupplierOrderApproved(Order order)
         {
-            dataManager.DataSet.SupplieOrderList.AddOrder(order);
+            purchaseManager.AddSupplierOrder(order);
             Event_SupplierOrdersListUpdate(this, null);
         }
+
         /// <summary>
         ///Add new customer order to customer orders list
         /// </summary>
         /// <param name="newOrder"></param>
         public void NewCustomerOrderApproved(Order newOrder)
         {
-            dataManager.DataSet.CustomersOrderList.AddOrder(newOrder);
+            marketingManager.AddCustomerOrder(newOrder);
             Event_CustomerOrdersListUpdate(this, null);
         }
 
@@ -308,8 +313,8 @@ namespace OperationalTrainer.Logic.MainLogic
 
         public void SupplierOrderDeliveredAproved(Order order)
         {
-            Warehouse.AddProducts(order);
-            bank.UpdateBalance(order);
+            WarehouseManager.AddProducts(order);
+            financeManager.UpdateBalance(order);
             Event_SupplierOrdersListUpdate(this, null);
         }
 

@@ -10,9 +10,9 @@ namespace FinalProject.Logic.MainLogic
 {
     public class ProductionManager
     {
-        public Dictionary<ToolTypeClass, ProductionOrderList> ProductionQueue;
+        private Dictionary<ToolTypeClass, ProductionOrderList> ProductionQueue;
 
-        public ToolsList ToolList;
+        private ToolsList ToolList;
 
         public ProductionManager(ToolsList toolList, ToolTypeClassList ToolTypeList)
         {

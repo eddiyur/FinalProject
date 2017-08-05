@@ -30,15 +30,10 @@ namespace FinalProject.FileManagerFolder
             OrderProductsListBranch_Price
         };
 
-        //public static OrdersList Parse(XmlNodeList OrderNodeList, InitDataLoad initDataLoad, Order.OrderTypeEnum orderType)
-        //{
-        //    return Parse(OrderNodeList, initDataLoad, orderType);
-        //}
-
         public static OrdersList Parse(XmlNodeList OrderNodeList, InitDataLoad initDataLoad, Order.OrderTypeEnum orderType)
         {
             ProductClassList productsList = initDataLoad.DataStructure.ProductsMetaDataList;
-            SuppliersList suppliersList = initDataLoad.DataStructure.SuppliersList;
+            SuppliersList SuppliersMetaData = initDataLoad.InitDataStructure.InitSuppliersMetaData;
             OrdersList orderList = new OrdersList();
 
             foreach (XmlNode customerOrderNode in OrderNodeList)//orders level
@@ -80,7 +75,7 @@ namespace FinalProject.FileManagerFolder
                 if (orderType == Order.OrderTypeEnum.CustomerOrder)
                     order.Person = customer;
                 else
-                    order.Person = suppliersList.GetSupplier(customer.ID);
+                    order.Person = SuppliersMetaData.GetSupplier(customer.ID);
 
                 orderList.AddOrder(order);
             }//end orders level

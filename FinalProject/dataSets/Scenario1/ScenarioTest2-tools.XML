@@ -11,8 +11,8 @@
       <ToolTypeName>ToolType1</ToolTypeName>
     </ToolTypeBranch>
     <ToolTypeBranch>
-      <ToolTypeID>ToolTyp21</ToolTypeID>
-      <ToolTypeName>ToolTyp21</ToolTypeName>
+      <ToolTypeID>ToolType2</ToolTypeID>
+      <ToolTypeName>ToolType2</ToolTypeName>
     </ToolTypeBranch>
   </ToolTypeList>
   <ProductsList>

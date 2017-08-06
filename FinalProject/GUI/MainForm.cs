@@ -20,6 +20,7 @@ namespace FinalProject.GUI
         GeneralDataGridForm WarehouseMainForm;
         GeneralDataGridForm CustomerMainForm;
         GeneralDataGridForm SupplierMainForm;
+        GeneralDataGridForm ProductionMainForm;
 
         List<IDataUpdatble> updatebleForms;
 
@@ -147,6 +148,15 @@ namespace FinalProject.GUI
             formVisualElements.WarehousePanel.AutoScroll = true;
             this.Controls.Add(formVisualElements.WarehousePanel);
 
+            //production
+            formVisualElements.ProductionPanel = new Panel();
+            formVisualElements.ProductionPanel.Top = formVisualElements.WarehousePanel.Bottom;
+            formVisualElements.ProductionPanel.Left = formParameters.MiddleBorder + formParameters.FormMargins;
+            formVisualElements.ProductionPanel.Width = formParameters.FormWidth - formVisualElements.WarehousePanel.Left;
+            formVisualElements.ProductionPanel.Height = formParameters.BigPanelsHight;
+            formVisualElements.ProductionPanel.AutoScroll = true;
+            this.Controls.Add(formVisualElements.ProductionPanel);
+
             //CustomerOrderPanel
             formVisualElements.CustomerOrderPanel = new Panel();
             formVisualElements.CustomerOrderPanel.Top = formParameters.FormActiveTop;
@@ -192,6 +202,12 @@ namespace FinalProject.GUI
             updatebleForms.Add(WarehouseMainForm);
             WarehouseMainForm.Show();
 
+            //  production
+            ProductionMainForm = new GeneralDataGridForm(MainController.GetProductionsDataTable, formVisualElements.ProductionPanel.Width, formVisualElements.ProductionPanel.Height, new List<int>(), new List<ClickableDelegate>());
+            formVisualElements.ProductionPanel.Controls.Add(ProductionMainForm);
+            updatebleForms.Add(ProductionMainForm);
+            ProductionMainForm.Show();
+
             //  CustomerMainForm = new OrdersMainForm(MainController.GetCustomerOrdersDataTable(), formVisualElements.CustomerOrderPanel.Width, formVisualElements.CustomerOrderPanel.Height);
             CustomerMainForm = new GeneralDataGridForm(MainController.GetCustomerOrdersDataTable, formVisualElements.CustomerOrderPanel.Width, formVisualElements.CustomerOrderPanel.Height, new List<int>(), new List<ClickableDelegate>());
             formVisualElements.CustomerOrderPanel.Controls.Add(CustomerMainForm);
@@ -203,6 +219,9 @@ namespace FinalProject.GUI
             formVisualElements.SupplierOrderPanel.Controls.Add(SupplierMainForm);
             updatebleForms.Add(SupplierMainForm);
             SupplierMainForm.Show();
+
+
+
         }
 
         private string transferToTimeLabel(DateTime currentTime)

@@ -19,7 +19,7 @@ namespace FinalProject.Logic.MainLogic
         {
             Warehouse = warehouse;
             this.dataManager = dataManager;
-         
+
             CurrnetTime = currnetTime;
         }
 
@@ -71,7 +71,7 @@ namespace FinalProject.Logic.MainLogic
             Delivery_Date,
             Total_Order_Price
         }
-       
+
 
         public DataTable GenerateSupplierOrdersDataTable(OrdersList supplierOrderList)
         {
@@ -106,7 +106,7 @@ namespace FinalProject.Logic.MainLogic
 
         public DataTable GenerateBank(OrdersList purchaseOrders, OrdersList customersOrderList, double bankCurrentBalance)
         {
-           
+
             DataTable BankDataTable = new DataTable();
             foreach (BankColumnNames header in Enum.GetValues(typeof(BankColumnNames)))
                 BankDataTable.Columns.Add(header.ToString());
@@ -268,6 +268,48 @@ namespace FinalProject.Logic.MainLogic
 
             warehouseDataTable.Rows.Add(drow);
             return warehouseDataTable;
+        }
+
+
+
+        enum productionColumnsNames
+        {
+            ToolName,
+            ToolID,
+            ToolType,
+            CurrentStatus,
+            ProductName,
+            OrderID,
+            TimeRemaining
+
+        }
+
+
+        public DataTable toolListToDT(ToolList toolsList)
+        {
+            DataTable toolListTable = new DataTable();
+            foreach (productionColumnsNames header in Enum.GetValues(typeof(productionColumnsNames)))
+                toolListTable.Columns.Add(header.ToString());
+
+            foreach (Tool tool in toolsList.toolList)
+            {
+                DataRow dRow = toolListTable.NewRow();
+
+                dRow[productionColumnsNames.ToolID.ToString()] = tool.ToolID;
+                dRow[productionColumnsNames.ToolName.ToString()] = tool.ToolName;
+                dRow[productionColumnsNames.ToolType.ToString()] = tool.ToolType.ToString();
+                dRow[productionColumnsNames.CurrentStatus.ToString()] = tool.CurrentStatus.ToString();
+                if (tool.CurrentProductionOrder != null)
+                {
+                    dRow[productionColumnsNames.ProductName.ToString()] = tool.CurrentProductionOrder.Product.ProductName;
+                    dRow[productionColumnsNames.OrderID.ToString()] = tool.CurrentProductionOrder.OrderID;
+                }
+                dRow[productionColumnsNames.TimeRemaining.ToString()] = tool.ProcessingTimeRemaining.ToString();
+
+                toolListTable.Rows.Add(dRow);
+            }
+
+            return toolListTable;
         }
     }//end DataSummaryClass
 }

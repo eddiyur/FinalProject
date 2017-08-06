@@ -80,6 +80,9 @@ namespace FinalProject.Controllers
         public static DataTable GetSupplierOrdersDataTable()
         { return mainManager.GetSupplierOrdersDataTable(); }
 
+        public static DataTable GetProductionsDataTable()
+        { return mainManager.GetProductionsDataTable(); }
+
         public static DataTable GetBankDataTable()
         { return mainManager.GetBankDataTable(); }
 

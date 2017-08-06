@@ -45,7 +45,7 @@ namespace OperationalTrainer.Data_Structures
 
     public class ProductionOrderList
     {
-        List<ProductionOrder> productionOrderList { get; set; }
+       List<ProductionOrder> productionOrderList { get; set; }
 
         public ProductionOrderList()
         {
@@ -63,6 +63,14 @@ namespace OperationalTrainer.Data_Structures
             catch { return null; }
         }
 
+        /// <summary>
+        /// Return productionOrderList
+        /// </summary>
+        /// <returns></returns>
+        public List<ProductionOrder> GetProductionOrderList()
+        {
+            return productionOrderList;
+        }
 
         public void AddOrder(ProductionOrder ProductionOrder)
         {

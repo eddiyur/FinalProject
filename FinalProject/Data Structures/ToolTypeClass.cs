@@ -27,8 +27,8 @@ namespace FinalProject.Data_Structures
 
         public override bool Equals(object obj)
         {
-            ToolTypeClass toolClass = (ToolTypeClass)obj;
-            return toolClass.ToolTypeID.Equals(toolClass.ToolTypeID);
+            ToolTypeClass ToolType = (ToolTypeClass)obj;
+            return ToolTypeID.Equals(ToolType.ToolTypeID);
         }
 
         public override int GetHashCode()
@@ -51,7 +51,7 @@ namespace FinalProject.Data_Structures
         public void AddToolType(ToolTypeClass toolType)
         { ToolTypeList.Add(toolType); }
 
-        
+
         /// <summary>
         /// Delete toolType From ToolTypeList
         /// </summary>

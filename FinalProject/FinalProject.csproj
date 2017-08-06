@@ -158,7 +158,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="dataSets\Scenario1\ScenarioTest1.XML" />
     <Content Include="dataSets\Scenario1\ScenarioTest2-tools.XML" />
     <Content Include="dataSets\ToolTypeList.xml" />
   </ItemGroup>

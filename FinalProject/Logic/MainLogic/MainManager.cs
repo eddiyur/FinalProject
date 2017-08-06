@@ -44,6 +44,7 @@ namespace OperationalTrainer.Logic.MainLogic
             BeginningOfTheTimeTick,
             SupplierOrdersDelivered,
             NewCustomerOrdersArrived,
+            Production,
             EndOfProcess
         }
         public MainManager()
@@ -68,8 +69,25 @@ namespace OperationalTrainer.Logic.MainLogic
             productionManager = new ProductionManager(initDataSet.InitLists.InitToolsList, initDataSet.MetaData.ToolTypeMetaData);
             purchaseManager = new PurchaseManager(initDataSet.InitLists.InitPurchaseOrders);
             marketingManager = new MarketingManager(initDataSet.InitLists.InitCustomersOrderList, initDataSet.InitLists.InitFutureCustomersOrderList);
+
+
+            foreach (ProductionOrder productionOrder in initDataSet.InitLists.InitProductionOrderList.GetProductionOrderList())
+                productionManager.AddProductionOrder(productionOrder);
+
+            productionManager.tempStartProduction();
         }
 
+        public DataTable GetProductionsDataTable()
+        {
+            try
+            {
+                return DataSummary.toolListToDT(productionManager.GetToolsList());
+            }
+            catch
+            {
+                return null;
+            }
+        }
 
         private void CustomerOrderDelivery(string orderID)
         {
@@ -151,6 +169,9 @@ namespace OperationalTrainer.Logic.MainLogic
                     SupplierOrderDeliver();
                     //ProcessesScheduleParser();
                     break;
+                case ProcessesSchedule.Production:
+                    productionTick();
+                    break;
                 case ProcessesSchedule.EndOfProcess:
                     TimeTickScheduleEnd();
                     //  clock.nextHour();
@@ -161,7 +182,12 @@ namespace OperationalTrainer.Logic.MainLogic
 
         }//end ProcessesScheduleParser
 
+        private void productionTick()
+        {
+            productionManager.tempNextTick(CurrnetTime);
 
+            ProcessesScheduleParser();
+        }
 
         private void SupplierOrderDeliver()
         {
@@ -247,7 +273,7 @@ namespace OperationalTrainer.Logic.MainLogic
         {
             try
             {
-                return DataSummary.GenerateBank(purchaseManager.GetPurchaseOrders(),marketingManager.GetCustomersOrdersList(),financeManager.CurrentBalance);
+                return DataSummary.GenerateBank(purchaseManager.GetPurchaseOrders(), marketingManager.GetCustomersOrdersList(), financeManager.CurrentBalance);
             }
             catch
             {
@@ -258,7 +284,7 @@ namespace OperationalTrainer.Logic.MainLogic
         {
             try
             {
-                return DataSummary.GenerateWarehouse(purchaseManager.GetPurchaseOrders(),marketingManager.GetCustomersOrdersList());
+                return DataSummary.GenerateWarehouse(purchaseManager.GetPurchaseOrders(), marketingManager.GetCustomersOrdersList());
             }
             catch
             {

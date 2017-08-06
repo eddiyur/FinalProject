@@ -126,7 +126,7 @@ namespace OperationalTrainer.Data_Structures
             }
             catch (Exception)
             {
-
+                MessageBox.Show("Choose toollist file path");
                 filePath = fileManger.openFilePathCSV();
                 toolTable = fileManger.GetCSV(filePath);
             }
@@ -142,7 +142,7 @@ namespace OperationalTrainer.Data_Structures
                 tool.ShiftStartTime = Convert.ToInt16(row[4].ToString());
                 ProductClass product = productslist.GetProduct(row[5].ToString());
                 int productionTime = Convert.ToInt16(row[6].ToString());
-                tool.ProcessingTime.Add(product, productionTime);
+                tool.ProductsProcessingTime.Add(product, productionTime);
                 toollist.AddTool(tool);
             }
 

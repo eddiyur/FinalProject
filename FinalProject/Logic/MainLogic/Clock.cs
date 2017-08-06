@@ -17,7 +17,7 @@ namespace OperationalTrainer.Logic.MainLogic
         public ClockTimeEventArgs ClockTime { get; set; }
 
 
-        private const int TickSize = 8;
+        private const int TickSize = 1;
 
 
         public Clock(DateTime startTime) {

@@ -29,7 +29,7 @@ namespace OperationalTrainer.FileManagerFolder
 
         public static SuppliersList Parse(XmlNodeList suppliersNodeList, InitDataLoad initdataLoad)
         {
-            ProductClassList productsList = initdataLoad.DataStructure.ProductsMetaDataList;
+            ProductClassList productsList = initdataLoad.MetaData.ProductsMetaData;
             SuppliersList suppliersList = new SuppliersList();
 
             foreach (XmlNode supplierNode in suppliersNodeList)

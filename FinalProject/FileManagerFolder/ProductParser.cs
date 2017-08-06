@@ -31,7 +31,7 @@ namespace OperationalTrainer.FileManagerFolder
 
         public static ProductClassList Parse(XmlNodeList productsNodeList, InitDataLoad initDataLoad)
         {
-            ToolTypeClassList toolTypeClassList = initDataLoad.DataStructure.ToolTypeMetaDataList;
+            ToolTypeClassList toolTypeClassList = initDataLoad.MetaData.ToolTypeMetaData;
             ProductClassList productClassList = new ProductClassList();
             foreach (XmlNode productNode in productsNodeList)
             {

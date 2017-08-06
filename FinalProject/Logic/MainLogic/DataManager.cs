@@ -8,53 +8,87 @@ using System.Threading.Tasks;
 
 namespace OperationalTrainer.Logic.MainLogic
 {
-    public class DataStructureClass
+    /// <summary>
+    /// Store MetaData parameters
+    /// </summary>
+    public class MetaDataStructure
     {
+        public ProductClassList ProductsMetaData;
+        public ToolTypeClassList ToolTypeMetaData;
+        public SuppliersList SuppliersMetaData;
+    }
 
-        public ProductClassList ProductsMetaDataList { get; set; }
+    /// <summary>
+    /// Store initial parameters of the system
+    /// </summary>
+    public class InitParametersClass
+    {
+        public InitParametersClass() { }
+        public DateTime startDate;
+        public double WarehouseMaxCapacity;
+        public Dictionary<ProductClass, double> InitWarehouseInventory;
+        public double InitBankStartBalance;
+    }
 
-        public ToolTypeClassList ToolTypeMetaDataList { get; set; }
-        public ToolsList ToolsMetaDataList { get; set; }
+    /// <summary>
+    /// Store initial simulator lists 
+    /// </summary>
+    public class InitListsClass
+    {
+        public InitListsClass() { }
+
+        // Purchese lists
+        public OrdersList InitPurchaseOrders;
+
+        //Marketing Lists
+        public OrdersList InitCustomersOrderList;
+        public OrdersList InitFutureCustomersOrderList;
+
+        //Production Lists
+        public ProductionOrderList InitProductionOrderList;
+        public ToolList InitToolsList;
     }
 
 
-    public class InitDataStructureClass
-    {
-        public DateTime startDate { get; set; }
-        public double WarehouseMaxCapacity { get; set; }
-
-        public SuppliersList InitSuppliersMetaData { get; set; }
-        public OrdersList InitPurchaseOrders { get; set; }
-
-        public OrdersList CustomersOrderList { get; set; }
-        public OrdersList FutureCustomersOrderList { get; set; }
-
-
-        public Dictionary<ProductClass, double> InitWarehouseInventory { get; set; }
-        public double InitBankCurrentBalance { get; set; }
-        public ProductionOrderList InitProductionOrderList { get; set; }
-    }
 
     public class InitDataLoad
     {
-        public InitDataStructureClass InitDataStructure { get; set; }
-        public DataStructureClass DataStructure { get; set; }
+        public MetaDataStructure MetaData { get; set; }
+        public InitParametersClass InitParameters { get; set; }
+        public InitListsClass InitLists { get; set; }
 
         public InitDataLoad()
-        { DataStructure = new DataStructureClass(); }
+        {
+            MetaData = new MetaDataStructure();
+            InitParameters = new InitParametersClass();
+            InitLists = new InitListsClass();
+        }
     }
 
     public class DataManager
     {
-        public DataStructureClass DataSet { get; set; }
+        public MetaDataStructure MetaData { get; set; }
         public DateTime CurrnetTime { get; set; }
 
-        public DataManager(DataStructureClass dataSet)
-        { DataSet = dataSet; }
+        public DataManager(MetaDataStructure metaDataSet)
+        { MetaData = metaDataSet; }
 
         public void UpdateTime(DateTime currnetTime)
         { CurrnetTime = currnetTime; }
 
+        /// <summary>
+        /// Rerutn Suppliers Metadata
+        /// </summary>
+        /// <returns></returns>
+        public SuppliersList getSuppliersMetaData()
+        { return MetaData.SuppliersMetaData; }
 
+
+        /// <summary>
+        /// Return Product MetaData
+        /// </summary>
+        /// <returns></returns>
+        public ProductClassList getProductsMetaData()
+        { return MetaData.ProductsMetaData; }
     }
 }

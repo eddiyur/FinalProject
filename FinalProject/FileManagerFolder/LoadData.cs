@@ -65,20 +65,20 @@ namespace OperationalTrainer.Data_Structures
             XmlNodeList tooltypeyNodeList = getXmlNodeList(xmldoc, XMLMainCategories.ToolTypeList);
 
 
-            initDataLoad.InitDataStructure = InitDataParser.Parse(initNodeList);
-            initDataLoad.DataStructure.ToolTypeMetaDataList = ToolTypeParser.parse(tooltypeyNodeList);
-            initDataLoad.DataStructure.ProductsMetaDataList = ProductParser.Parse(productsNodeList, initDataLoad);
-            initDataLoad.InitDataStructure.InitSuppliersMetaData = SuppliersParser.Parse(suppliersNodeList, initDataLoad);
+            initDataLoad.InitParameters = InitDataParser.Parse(initNodeList);
+            initDataLoad.MetaData.ToolTypeMetaData = ToolTypeParser.parse(tooltypeyNodeList);
+            initDataLoad.MetaData.ProductsMetaData = ProductParser.Parse(productsNodeList, initDataLoad);
+            initDataLoad.MetaData.SuppliersMetaData = SuppliersParser.Parse(suppliersNodeList, initDataLoad);
 
-            initDataLoad.InitDataStructure.CustomersOrderList = OrderParser.Parse(customerOrderNodeList, initDataLoad, Order.OrderTypeEnum.CustomerOrder);
-            initDataLoad.InitDataStructure.FutureCustomersOrderList = OrderParser.Parse(fucureCustomerOrderNodeList, initDataLoad, Order.OrderTypeEnum.CustomerOrder);
-            initDataLoad.InitDataStructure.InitPurchaseOrders = OrderParser.Parse(supploersOrderNodeList, initDataLoad, Order.OrderTypeEnum.SupplierOrder);
-            initDataLoad.InitDataStructure.InitWarehouseInventory = WarehouseInitInventoryParser.Parse(WarehouseInitInventoryNodeList, initDataLoad);
+            initDataLoad.InitLists.InitCustomersOrderList = OrderParser.Parse(customerOrderNodeList, initDataLoad, Order.OrderTypeEnum.CustomerOrder);
+            initDataLoad.InitLists.InitFutureCustomersOrderList = OrderParser.Parse(fucureCustomerOrderNodeList, initDataLoad, Order.OrderTypeEnum.CustomerOrder);
+            initDataLoad.InitLists.InitPurchaseOrders = OrderParser.Parse(supploersOrderNodeList, initDataLoad, Order.OrderTypeEnum.SupplierOrder);
+            initDataLoad.InitParameters.InitWarehouseInventory = WarehouseInitInventoryParser.Parse(WarehouseInitInventoryNodeList, initDataLoad);
 
 
             ///rebuild parser
-            initDataLoad.DataStructure.ToolsMetaDataList = loadTool(initDataLoad);
-            initDataLoad.InitDataStructure.InitProductionOrderList = generateProductionOrderList(initDataLoad);
+            initDataLoad.InitLists.InitToolsList = loadTool(initDataLoad);
+            initDataLoad.InitLists.InitProductionOrderList = generateProductionOrderList(initDataLoad);
             ////
 
 
@@ -104,17 +104,17 @@ namespace OperationalTrainer.Data_Structures
         private ProductionOrder generateProductionOrder(InitDataLoad initDataLoad, string orderid)
         {
             ProductionOrder productionOrder = new ProductionOrder(orderid,
-                initDataLoad.DataStructure.ProductsMetaDataList.GetProduct("Product_01"),
+                initDataLoad.MetaData.ProductsMetaData.GetProduct("Product_01"),
                 new DateTime(2017, 01, 01),
                new DateTime(2017, 01, 01));
 
             return productionOrder;
         }
 
-        public ToolsList loadTool(InitDataLoad initDataLoad)
+        public ToolList loadTool(InitDataLoad initDataLoad)
         {
-            ToolTypeClassList toolTypeClassList = initDataLoad.DataStructure.ToolTypeMetaDataList;
-            ProductClassList productslist = initDataLoad.DataStructure.ProductsMetaDataList;
+            ToolTypeClassList toolTypeClassList = initDataLoad.MetaData.ToolTypeMetaData;
+            ProductClassList productslist = initDataLoad.MetaData.ProductsMetaData;
 
             FileManager fileManger = new FileManager();
             string filePath;
@@ -130,7 +130,7 @@ namespace OperationalTrainer.Data_Structures
                 filePath = fileManger.openFilePathCSV();
                 toolTable = fileManger.GetCSV(filePath);
             }
-            ToolsList toollist = new ToolsList();
+            ToolList toollist = new ToolList();
 
             foreach (DataRow row in toolTable.Rows)
             {

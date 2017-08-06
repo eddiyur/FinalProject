@@ -12,11 +12,11 @@ namespace FinalProject.Logic.MainLogic
     {
         private Dictionary<ToolTypeClass, ProductionOrderList> ProductionQueue;
 
-        private ToolsList ToolList;
+        private ToolList ToolsList;
 
-        public ProductionManager(ToolsList toolList, ToolTypeClassList ToolTypeList)
+        public ProductionManager(ToolList toolList, ToolTypeClassList ToolTypeList)
         {
-            ToolList = toolList;
+            ToolsList = toolList;
             ProductionQueue = new Dictionary<ToolTypeClass, ProductionOrderList>();
 
             foreach (var toolType in ToolTypeList.ToolTypeList)

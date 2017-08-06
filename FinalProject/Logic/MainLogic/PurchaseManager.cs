@@ -10,12 +10,10 @@ namespace FinalProject.Logic.MainLogic
     public class PurchaseManager
     {
         private OrdersList PurchaseOrders { get; set; }
-        private SuppliersList SuppliersMetaData { get; set; }
 
-        public PurchaseManager(OrdersList purchaseOrders, SuppliersList suppliersMetaData)
+        public PurchaseManager(OrdersList purchaseOrders)
         {
             PurchaseOrders = purchaseOrders;
-            SuppliersMetaData = suppliersMetaData;
         }
 
         /// <summary>
@@ -38,12 +36,7 @@ namespace FinalProject.Logic.MainLogic
             return PurchaseOrders.ExtractOrdersByOrderDeliveryDate(date);
         }
 
-        /// <summary>
-        /// Rerutns Suppliers Metadata
-        /// </summary>
-        /// <returns></returns>
-        public SuppliersList getSuppliersMetaData()
-        { return SuppliersMetaData; }
+    
 
         internal OrdersList GetPurchaseOrders()
         {

@@ -13,18 +13,13 @@ namespace FinalProject.Logic.MainLogic
     public class DataSummaryClass
     {
         private WarehouseManager Warehouse;
-        //private MarketingManager marketingManager;
         private DataManager dataManager;
-        //private FinanceManager bank;
         private DateTime CurrnetTime;
-        //private PurchaseManager purchaseManager;
         public DataSummaryClass(WarehouseManager warehouse, DataManager dataManager, FinanceManager bank, DateTime currnetTime, MarketingManager marketingManager, PurchaseManager purchaseManager)
         {
             Warehouse = warehouse;
             this.dataManager = dataManager;
-            //this.marketingManager = marketingManager;
-            //this.purchaseManager = purchaseManager;
-            //this.bank = bank;
+         
             CurrnetTime = currnetTime;
         }
 
@@ -45,8 +40,6 @@ namespace FinalProject.Logic.MainLogic
             Possible_To_Deliver
         }
 
-        //public DataTable GenerateCustomerOrdersDataTable()
-        //{ return GenerateCustomerOrdersDataTable(marketingManager.GetCustomersOrdersList()); }
 
         public DataTable GenerateCustomerOrdersDataTable(OrdersList customerOrderList)
         {
@@ -78,9 +71,7 @@ namespace FinalProject.Logic.MainLogic
             Delivery_Date,
             Total_Order_Price
         }
-        //public DataTable GenerateSupplierOrdersDataTable()
-        //{ return GenerateSupplierOrdersDataTable(purchaseManager.GetPurchaseOrders()); }
-
+       
 
         public DataTable GenerateSupplierOrdersDataTable(OrdersList supplierOrderList)
         {
@@ -115,11 +106,7 @@ namespace FinalProject.Logic.MainLogic
 
         public DataTable GenerateBank(OrdersList purchaseOrders, OrdersList customersOrderList, double bankCurrentBalance)
         {
-            //OrdersList purchaseOrders = purchaseManager.GetPurchaseOrders();
-            //OrdersList customersOrderList = marketingManager.GetCustomersOrdersList();
-            // double bankCurrentBalance = bank.CurrentBalance;
-
-
+           
             DataTable BankDataTable = new DataTable();
             foreach (BankColumnNames header in Enum.GetValues(typeof(BankColumnNames)))
                 BankDataTable.Columns.Add(header.ToString());
@@ -188,7 +175,7 @@ namespace FinalProject.Logic.MainLogic
             WarehouseDataTable.Columns.Add(WarehouseCulumnsNames.Order_Type.ToString());
             WarehouseDataTable.Columns.Add(WarehouseCulumnsNames.Order_ID.ToString());
 
-            foreach (ProductClass Product in dataManager.DataSet.ProductsMetaDataList.ProductList)
+            foreach (ProductClass Product in dataManager.MetaData.ProductsMetaData.ProductList)
             {
                 WarehouseDataTable.Columns.Add(Product.ProductName + " " + WarehouseCulumnsNames.Amount.ToString());
                 WarehouseDataTable.Columns.Add(Product.ProductName + " " + WarehouseCulumnsNames.Total.ToString());
@@ -215,7 +202,7 @@ namespace FinalProject.Logic.MainLogic
             foreach (DataRow drow in warehouseDataTable.Rows)
             {
                 double rowTotalCapacity = 0;
-                foreach (ProductClass product in dataManager.DataSet.ProductsMetaDataList.ProductList)
+                foreach (ProductClass product in dataManager.MetaData.ProductsMetaData.ProductList)
                 {
                     string totalColumnName = product.ProductName + " " + WarehouseCulumnsNames.Total.ToString();
                     int totalAmoun = Convert.ToInt32(drow[totalColumnName].ToString());
@@ -232,7 +219,7 @@ namespace FinalProject.Logic.MainLogic
         private DataTable WarehouseTotalAmount(DataTable warehouseDataTable)
         {
 
-            foreach (ProductClass product in dataManager.DataSet.ProductsMetaDataList.ProductList)
+            foreach (ProductClass product in dataManager.MetaData.ProductsMetaData.ProductList)
             {
                 for (int i = 1; i < warehouseDataTable.Rows.Count; i++)
                 {
@@ -276,7 +263,7 @@ namespace FinalProject.Logic.MainLogic
             DataRow drow = warehouseDataTable.NewRow();
             drow[WarehouseCulumnsNames.Date.ToString()] = CurrnetTime;
 
-            foreach (ProductClass product in dataManager.DataSet.ProductsMetaDataList.ProductList)
+            foreach (ProductClass product in dataManager.MetaData.ProductsMetaData.ProductList)
                 drow[product.ProductName + " " + WarehouseCulumnsNames.Total] = Warehouse.GetAmount(product);
 
             warehouseDataTable.Rows.Add(drow);

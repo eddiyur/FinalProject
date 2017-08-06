@@ -23,7 +23,7 @@ namespace FinalProject.FileManagerFolder
 
         public static Dictionary<ProductClass, double> Parse(XmlNodeList InventoryNodeList, InitDataLoad initDataLoad)
         {
-            ProductClassList productsList = initDataLoad.DataStructure.ProductsMetaDataList;
+            ProductClassList productsList = initDataLoad.MetaData.ProductsMetaData;
             Dictionary<ProductClass, double> Inventory = new Dictionary<ProductClass, double>();
 
             foreach (XmlNode inventoryParameter in InventoryNodeList)

@@ -32,8 +32,8 @@ namespace FinalProject.FileManagerFolder
 
         public static OrdersList Parse(XmlNodeList OrderNodeList, InitDataLoad initDataLoad, Order.OrderTypeEnum orderType)
         {
-            ProductClassList productsList = initDataLoad.DataStructure.ProductsMetaDataList;
-            SuppliersList SuppliersMetaData = initDataLoad.InitDataStructure.InitSuppliersMetaData;
+            ProductClassList productsList = initDataLoad.MetaData.ProductsMetaData;
+            SuppliersList SuppliersMetaData = initDataLoad.MetaData.SuppliersMetaData;
             OrdersList orderList = new OrdersList();
 
             foreach (XmlNode customerOrderNode in OrderNodeList)//orders level

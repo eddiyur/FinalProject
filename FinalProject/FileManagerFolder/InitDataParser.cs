@@ -21,9 +21,9 @@ namespace FinalProject.FileManagerFolder
             StartDate
         }
 
-        public static InitDataStructureClass Parse(XmlNodeList initNodeList)
+        public static InitParametersClass Parse(XmlNodeList initNodeList)
         {
-            InitDataStructureClass OperationalTrainerInitDataSet = new InitDataStructureClass();
+            InitParametersClass initParameters = new InitParametersClass();
 
             foreach (XmlNode initParameter in initNodeList)
             {
@@ -31,20 +31,20 @@ namespace FinalProject.FileManagerFolder
                 switch (XMLProductField)
                 {
                     case XMLiInitFields.Bank:
-                        OperationalTrainerInitDataSet.InitBankCurrentBalance = Convert.ToDouble(initParameter.InnerText);
+                        initParameters.InitBankStartBalance = Convert.ToDouble(initParameter.InnerText);
                         break;
                     case XMLiInitFields.WarehouseMaxCapacity:
-                        OperationalTrainerInitDataSet.WarehouseMaxCapacity = Convert.ToDouble(initParameter.InnerText);
+                        initParameters.WarehouseMaxCapacity = Convert.ToDouble(initParameter.InnerText);
                         break;
                     case XMLiInitFields.StartDate:
                         string a = initParameter.InnerText;
-                        OperationalTrainerInitDataSet.startDate = DateTime.Parse(initParameter.InnerText);
+                        initParameters.startDate = DateTime.Parse(initParameter.InnerText);
                         break;
                     default:
                         break;
                 }
             }
-            return OperationalTrainerInitDataSet;
+            return initParameters;
         }
 
 

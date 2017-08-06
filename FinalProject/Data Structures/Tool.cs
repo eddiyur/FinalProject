@@ -73,10 +73,10 @@ namespace OperationalTrainer.Data_Structures
 
     }//end class Tool
 
-    public class ToolsList
+    public class ToolList
     {
         public List<Tool> toolList { get; set; }
-        public ToolsList()
+        public ToolList()
         {
             toolList = new List<Tool>();
         }

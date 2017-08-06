@@ -54,20 +54,20 @@ namespace OperationalTrainer.Logic.MainLogic
             LoadData ld = new LoadData();
             InitDataLoad initDataSet = ld.LoadInitData(filePath);
 
-            CurrnetTime = initDataSet.InitDataStructure.startDate;
+            CurrnetTime = initDataSet.InitParameters.startDate;
 
-            dataManager = new DataManager(initDataSet.DataStructure);
+            dataManager = new DataManager(initDataSet.MetaData);
             dataManager.UpdateTime(CurrnetTime);
 
             clock = new Clock(CurrnetTime);
             clock.Tick += ClockTick;
 
-            WarehouseManager = new WarehouseManager(initDataSet.InitDataStructure.InitWarehouseInventory, initDataSet.InitDataStructure.WarehouseMaxCapacity);
-            financeManager = new FinanceManager(initDataSet.InitDataStructure.InitBankCurrentBalance);
+            WarehouseManager = new WarehouseManager(initDataSet.InitParameters.InitWarehouseInventory, initDataSet.InitParameters.WarehouseMaxCapacity);
+            financeManager = new FinanceManager(initDataSet.InitParameters.InitBankStartBalance);
             DataSummary = new DataSummaryClass(WarehouseManager, dataManager, financeManager, CurrnetTime, marketingManager, purchaseManager);
-            productionManager = new ProductionManager(initDataSet.DataStructure.ToolsMetaDataList, initDataSet.DataStructure.ToolTypeMetaDataList);
-            purchaseManager = new PurchaseManager(initDataSet.InitDataStructure.InitPurchaseOrders, initDataSet.InitDataStructure.InitSuppliersMetaData);
-            marketingManager = new MarketingManager(initDataSet.InitDataStructure.CustomersOrderList, initDataSet.InitDataStructure.FutureCustomersOrderList);
+            productionManager = new ProductionManager(initDataSet.InitLists.InitToolsList, initDataSet.MetaData.ToolTypeMetaData);
+            purchaseManager = new PurchaseManager(initDataSet.InitLists.InitPurchaseOrders);
+            marketingManager = new MarketingManager(initDataSet.InitLists.InitCustomersOrderList, initDataSet.InitLists.InitFutureCustomersOrderList);
         }
 
 
@@ -270,14 +270,14 @@ namespace OperationalTrainer.Logic.MainLogic
         /// </summary>
         /// <returns></returns>
         public ProductClassList GetProductsMetaData()
-        { return dataManager.DataSet.ProductsMetaDataList; }
+        { return dataManager.getProductsMetaData(); }
 
         /// <summary>
         /// Return SuppliersMetaData
         /// </summary>
         /// <returns></returns>
         public SuppliersList GetSuppliersMetaData()
-        { return purchaseManager.getSuppliersMetaData(); }
+        { return dataManager.getSuppliersMetaData(); }
 
 
 

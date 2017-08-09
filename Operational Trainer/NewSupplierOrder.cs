@@ -19,6 +19,12 @@ namespace FinalProject.GUI
         string fileName;
         Order order;
 
+        private List<string> getProductsNames()
+        {
+            List<string> productsName = new List<string>() { "p1", "p2" };
+            return productsName;
+        }
+
         private Order GenerateOrder()
         {
             double price = 10;
@@ -53,7 +59,7 @@ namespace FinalProject.GUI
         {
             initScreenSetings();
             setStructure();
-            selectedIndex = -1;
+            //   selectedIndex = -1;
             amount = 1;
         }
 
@@ -71,13 +77,7 @@ namespace FinalProject.GUI
 
 
 
-        private List<string> getProductsNames()
-        {
-            List<string> productsName = new List<string>() { "p1", "p2" };
 
-
-            return productsName;
-        }
 
 
 
@@ -92,7 +92,7 @@ namespace FinalProject.GUI
         { return productLable.Substring(productLable.IndexOf("(") + 1, productLable.IndexOf(")") - 1); }
 
 
-        
+
 
         private string GenerateOrderID(DateTime currentTime)
         {
@@ -135,6 +135,11 @@ namespace FinalProject.GUI
         }
 
         private void dataGridView1_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void comboBoxProductsList_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }

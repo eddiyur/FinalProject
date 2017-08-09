@@ -108,6 +108,7 @@
             this.productionOrderToolStripMenuItem.Name = "productionOrderToolStripMenuItem";
             this.productionOrderToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.productionOrderToolStripMenuItem.Text = "Production order";
+            this.productionOrderToolStripMenuItem.Click += new System.EventHandler(this.productionOrderToolStripMenuItem_Click);
             // 
             // continueToolStripMenuItem
             // 
@@ -129,6 +130,7 @@
             this.createScenarioToolStripMenuItem.Name = "createScenarioToolStripMenuItem";
             this.createScenarioToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
             this.createScenarioToolStripMenuItem.Text = "Create Scenario";
+            this.createScenarioToolStripMenuItem.Click += new System.EventHandler(this.createScenarioToolStripMenuItem_Click);
             // 
             // settingsToolStripMenuItem
             // 

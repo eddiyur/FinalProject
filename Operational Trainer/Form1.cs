@@ -49,5 +49,17 @@ namespace Operational_Trainer
             NewSupplierOrder newSupplierOrder = new NewSupplierOrder(folderPath+"Suppliers_List.csv");
             newSupplierOrder.ShowDialog();
         }
+
+        private void productionOrderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ProductionOrder po = new ProductionOrder();
+            po.ShowDialog();
+        }
+
+        private void createScenarioToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CSVScenarioToXMLForm cs = new CSVScenarioToXMLForm();
+            cs.ShowDialog();
+        }
     }
 }

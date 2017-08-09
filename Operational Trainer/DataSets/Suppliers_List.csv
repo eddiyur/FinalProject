@@ -1,0 +1,3 @@
+SupplierID,SupplierName,SupplierReliability,UnitPrice,LeadTime
+su_01,Eddie,0.8,10,3
+su_02,Ron,1,15,4

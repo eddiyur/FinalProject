@@ -1,0 +1,2 @@
+Customer_Name,Customer_ID,Order_ID,Delivery_Date,Total_Order_Price,Possible_To_Deliver
+customer1,cu01,CustomerOrder01,1/1/2017,2000,TRUE

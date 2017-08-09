@@ -161,6 +161,12 @@
     <Content Include="dataSets\Scenario1\ScenarioTest2-tools.XML" />
     <Content Include="dataSets\ToolTypeList.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Operational Trainer\Operational Trainer.csproj">
+      <Project>{57526644-9F91-4CC6-9FFC-3BA51C83DE67}</Project>
+      <Name>Operational Trainer</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -22,10 +22,10 @@ namespace OperationalTrainer
             Application.SetCompatibleTextRenderingDefault(false);
             MainForm mf = new MainForm();
             MainController.Initialize(mf);
-          //  Application.Run(mf);
+            Application.Run(mf);
 
-            Form1 form1 = new Form1();
-            Application.Run(form1);
+            //Form1 form1 = new Form1();
+            //Application.Run(form1);
         }
     }
 
